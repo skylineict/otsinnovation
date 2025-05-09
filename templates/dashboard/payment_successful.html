@@ -1,0 +1,143 @@
+{% extends "dashboard/header.html" %}
+{% load static humanize %}
+
+{% block content %}
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .alert-info {
+        background-color: #f8f9fa;
+        border-left: 4px solid #17a2b8;
+    }
+    
+    .partial-payment {
+        border-left: 4px solid #ffc107;
+        background-color: #fff8e1;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+        <div class="card-body text-center p-5">
+            <!-- Dynamic Icon Based on Payment Status -->
+            <div class="mb-4">
+                {% if payment_completed %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#28a745" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
+                {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#ffc107" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                </svg>
+                {% endif %}
+            </div>
+            
+            <!-- Dynamic Heading Based on Payment Status -->
+            {% if payment_completed %}
+            <h2 class="mb-3" style="color: #28a745;">Payment Successful!</h2>
+            <p class="lead mb-4">Thank you for your payment. Your course registration is now complete.</p>
+            {% else %}
+            <h2 class="mb-3" style="color: #ffc107;">Partial Payment Received</h2>
+            <p class="lead mb-4">Thank you for your first installment. Please complete payment within 30 days.</p>
+            {% endif %}
+            
+            <!-- Order Details -->
+            <div class="border rounded p-4 mb-4 text-start {% if not payment_completed %}partial-payment{% endif %}">
+                <h5 class="mb-3">Payment Details</h5>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Reference ID:</span>
+                    <strong>{{ flutterwave_ref }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Course:</span>
+                    <strong>{{ course.name }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Training Mode:</span>
+                    <strong>{{ training_mode|title }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Amount Paid:</span>
+                    <strong>₦{{ amount_paid|intcomma }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Total Amount:</span>
+                    <strong>₦{{ total_amount|intcomma }}</strong>
+                </div>
+                {% if not payment_completed %}
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Balance Due:</span>
+                    <strong>₦{{ balance|intcomma }}</strong>
+                </div>
+                {% endif %}
+                <div class="d-flex justify-content-between">
+                    <span>Payment Date:</span>
+                    <strong>{{ first_payment_date|date:"M d, Y H:i" }}</strong>
+                </div>
+                {% if second_payment_date %}
+                <div class="d-flex justify-content-between mt-2">
+                    <span>Second Payment Date:</span>
+                    <strong>{{ second_payment_date|date:"M d, Y H:i" }}</strong>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Dynamic Next Steps Based on Payment Status -->
+            <div class="alert alert-info text-start">
+                <h6 class="alert-heading">What's Next?</h6>
+                <ul class="mb-0">
+                    {% if payment_completed %}
+                        <li>You'll receive a confirmation email shortly</li>
+                        <li>Course materials are now available in your dashboard</li>
+                        {% if internship %}
+                        <li>Our internship coordinator will contact you</li>
+                        {% endif %}
+                    {% else %}
+                        <li>Please complete your payment within 30 days</li>
+                        <li>Temporary access to course materials has been granted</li>
+                        <li>Full access will be enabled after final payment</li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                <a href="{% url 'dashboard' %}" class="btn btn-primary px-4">
+                    Go to Dashboard
+                </a>
+                {% if is_approved %}
+                <a href="{% url 'course_materials' course.id %}" class="btn btn-outline-secondary px-4">
+                    Access Course Materials
+                </a>
+                {% endif %}
+                {% if not payment_completed %}
+                <a href="{% url 'complete_payment' flutterwave_ref %}" class="btn btn-warning px-4">
+                    Pay Balance
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// If you need to handle AJAX verification
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const txRef = urlParams.get('tx_ref');
+    
+
+});
+</script>
+
+{% endblock %}

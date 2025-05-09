@@ -1,0 +1,464 @@
+{% comment %} {% extends "dashboard/header.html" %}  {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Registration Form</title>
+    <!-- Add these in the <head> section -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css" />
+    
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet" />
+  </head>
+
+  <body>
+    {% block content %}
+
+    <style>
+      .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.4s ease-in-out;
+      }
+
+      body {
+        background-color: #f8f9fa;
+        padding: 20px;
+      }
+      .form-container {
+        max-width: 100%;
+        margin: 5% auto;
+        margin-left: 20%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+      .form-header h2 {
+        color: #1b2b5e;
+        font-weight: 600;
+      }
+      .course-info {
+        background-color: #f8f9fa;
+        border-left: 4px solid #1b2b5e;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 5px;
+        display: none;
+      }
+      .training-info {
+        background-color: #f8f9fa;
+        border-left: 4px solid #00a86a;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 5px;
+        display: none;
+      }
+      .btn-register {
+        background-color: #00a86a;
+        border: none;
+        padding: 10px 25px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 6px rgba(0, 168, 106, 0.2);
+        transition: all 0.3s ease;
+      }
+      .btn-register:hover {
+        background-color: #009960;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 168, 106, 0.25);
+      }
+      label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #1b2b5e;
+      }
+      .form-check-input:checked {
+        background-color: #00a86a;
+        border-color: #00a86a;
+      }
+      .form-select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        font-size: 20px;
+        color: #495057;
+      }
+
+      .form-select:focus,
+      .form-control:focus,
+      .form-check-input:focus {
+        border-color: #00a86a;
+        box-shadow: 0 0 0 0.2rem rgba(0, 168, 106, 0.25);
+      }
+      .custom-radio-btn {
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .custom-radio-btn:hover {
+        background-color: #f8f9fa;
+      }
+      .custom-radio-btn.selected {
+        border-color: #00a86a;
+        background-color: rgba(0, 168, 106, 0.05);
+      }
+      .custom-radio-btn .form-check-input {
+        margin-right: 10px;
+      }
+    </style>
+
+    <div class="container">
+      <div class="form-container">
+        <div class="form-header">
+          <h2>Course Registration</h2>
+          <p class="text-muted">
+            Please fill out the form to register for your selected course
+          </p>
+        </div>
+
+        <form id="registrationForm">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="fullName"
+              placeholder="Enter your full name" />
+          </div>
+
+          <!-- Course Selection -->
+          <div class="mb-4">
+            <label for="course" class="form-label">Select Course</label>
+            <select id="course" name="course" class="form-select" required>
+              <option value="">-- Select a course --</option>
+              {% for course in courses %}
+              <option value="{{ course.id }}">{{ course.name }}</option>
+              {% endfor %}
+            </select>
+
+            <!-- Course Info Card -->
+            <div
+              class="course-info my-3"
+              id="courseInfo"
+              style="display: none"></div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label d-block">Preferred Training Mode</label>
+            <div
+              class="custom-radio-btn"
+              onclick="selectTrainingMode('virtual', this)">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="trainingMode"
+                  id="virtualTraining"
+                  value="virtual" />
+                <label class="form-check-label fw-normal" for="virtualTraining">
+                  <strong>Virtual Training</strong>
+                </label>
+              </div>
+            </div>
+
+            <div
+              class="custom-radio-btn"
+              onclick="selectTrainingMode('physical', this)">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="trainingMode"
+                  id="physicalTraining"
+                  value="physical" />
+                <label
+                  class="form-check-label fw-normal"
+                  for="physicalTraining">
+                  <strong>Physical Training</strong>
+                </label>
+              </div>
+            </div>
+
+            <div id="trainingInfo" class="training-info mt-3"></div>
+          </div>
+
+          <div class="mb-4">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input
+              type="tel"
+              class="form-control form-control-lg"
+              id="phone"
+              placeholder="Enter your phone number" />
+          </div>
+
+          <div class="mb-4">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="internshipAvailable" />
+              <label class="form-check-label" for="internshipAvailable">
+                I am available for internship opportunities
+              </label>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 mt-4">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg btn-register"
+              id="btn-reg">
+              <span id="btn-text">Complete Registration</span>
+              <span
+                class="spinner-border"
+                style="width: 2rem; height: 2rem; display: none"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    {% comment %} <script src="{% static 'assets/ajax/corseReg.js' %}"></script> {% endcomment %}
+
+    <script>
+        // Course data (this would typically come from your server-side code)
+          const coursesData = {
+        {% for course in courses %}
+          "{{ course.id }}": {
+            name: "{{ course.name|escapejs }}",
+            description: "{{ course.description|linebreaksbr|escapejs }}",
+            amount: {{ course.amount }}
+          }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+        };
+        const trainingDetails = {
+          virtual: {
+            description:
+              'Your classes will be conducted online via Google Meet and Zoom.',
+            icon: '🖥️',
+          },
+          physical: {
+            description:
+              'Classes will be held at Rivers State University - BIO-RSU Innovation Hub.',
+            icon: '🏫',
+          },
+         };
+
+        const courseSelect = document.getElementById('course');
+        const courseInfo = document.getElementById('courseInfo');
+
+        courseSelect.addEventListener('change', function () {
+          const selectedCourseId = this.value;
+          const course = coursesData[selectedCourseId];
+
+          if (course) {
+            courseInfo.innerHTML = `
+              <div class="card border-0 fade-in">
+                <div class="card-body p-0">
+                  <h5 class="card-title" style="color: #1b2b5e;">${course.name}</h5>
+                  <p class="card-text mb-2">${course.description}</p>
+                  <div class="d-flex align-items-center">
+                    <span class="badge text-white" style="background-color: #1b2b5e; padding: 8px 12px; margin-right: 10px;">Price</span>
+                    <span class="fw-bold">₦${course.amount.toLocaleString()}</span>
+                  </div>
+                  <p class="text-muted small mt-2">*This cost covers all course materials and access to our learning platform.</p>
+                </div>
+              </div>
+            `;
+            courseInfo.style.display = 'block';
+
+            // Trigger reflow and re-apply animation
+            void courseInfo.offsetWidth; // Force browser to recognize DOM change
+            courseInfo.querySelector('.fade-in').classList.add('fade-in');
+          } else {
+            courseInfo.style.display = 'none';
+          }
+        });
+
+        function selectTrainingMode(mode, element) {
+          // Update radio button
+          document.getElementById(mode + 'Training').checked = true;
+
+          // Update visual selection
+          document.querySelectorAll('.custom-radio-btn').forEach((el) => {
+            el.classList.remove('selected');
+          });
+          element.classList.add('selected');
+
+          // Show training information
+        updateTrainingInfo(mode);
+        }
+
+        function updateTrainingInfo(mode) {
+          const trainingInfo = document.getElementById('trainingInfo');
+
+          if (mode && trainingDetails[mode]) {
+            const training = trainingDetails[mode];
+
+            trainingInfo.innerHTML = `
+                      <div class="card border-0">
+                          <div class="card-body p-0">
+                              <div class="d-flex align-items-center mb-2">
+                                  <span style="font-size: 1.5rem; margin-right: 10px;">${
+                                    training.icon
+                                  }</span>
+                                  <h5 class="card-title mb-0" style="color: #00a86a;">${
+                                    mode.charAt(0).toUpperCase() + mode.slice(1)
+                                  } Training</h5>
+                              </div>
+                              <p class="card-text">${training.description}</p>
+                          </div>
+                      </div>
+                  `;
+            trainingInfo.style.display = 'block';
+          } else {
+            trainingInfo.style.display = 'none';
+          }
+        }
+
+        // Listen for radio button changes directly
+        document
+          .querySelectorAll('input[name="trainingMode"]')
+          .forEach((radio) => {
+            radio.addEventListener('change', function () {
+              updateTrainingInfo(this.value);
+            });
+          });
+
+        function formatCourseTitle(courseId) {
+          return courseId
+            .split('-')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        }
+
+      document.getElementById('registrationForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.querySelector('.spinner-border');
+        spinner.style.display = 'inline-block';
+        btnText.style.display = 'none';
+
+        const fullName = document.getElementById('fullName').value;
+        const selectedCourse = document.getElementById('course').value;
+        const trainingMode = document.querySelector('input[name="trainingMode"]:checked')?.value;
+        const internshipAvailable = document.getElementById('internshipAvailable').checked;
+        const phone = document.getElementById('phone').value;
+
+        if (fullName && selectedCourse && trainingMode && phone) {
+          fetch('http://127.0.0.1:8000/newdash/register_course', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify({
+              fullName,
+              course: selectedCourse,
+              trainingMode,
+              internshipAvailable,
+              phone,
+            }),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            spinner.style.display = 'none';
+            btnText.style.display = 'inline-block';
+            if (data.status === 'success') {
+              iziToast.success({
+                title: 'Success',
+                message:
+                  'Registered successfully! Redirecting to payment...',
+                position: 'bottomRight',
+              });
+              // Redirect to payment (Step 2)
+            } else {
+              iziToast.warning({
+                title: 'Warning',
+                message: data.message || 'Something went wrong',
+                position: 'bottomRight',
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            spinner.style.display = 'none';
+            btnText.style.display = 'inline-block';
+            iziToast.error({
+              title: 'Error',
+              message: 'An error occurred while submitting the form.',
+              position: 'bottomRight',
+            });
+          });
+        } else {
+          iziToast.error({
+            title: 'Error',
+            message: 'Please fill all required fields.',
+            position: 'bottomRight',
+          });
+        }
+      });
+
+
+        // CSRF token fetcher (needed unless you're using @csrf_exempt)
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+              const [key, value] = cookie.trim().split('=');
+              if (key === name) {
+                cookieValue = decodeURIComponent(value);
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+    </script>
+    {% endblock content %}
+  </body>
+</html>

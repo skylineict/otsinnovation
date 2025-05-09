@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Registration Success</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #1a2b5d;
+        --success-color: #00a769;
+        --dark-color: #1a2b5d;
+        --warning-color: #f6c23e;
+      }
+
+      .main-container {
+        min-height: calc(100vh - 160px);
+      }
+
+      .success-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .success-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .success-icon {
+        font-size: 4rem;
+        color: var(--success-color);
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        background-color: #15244d;
+        box-shadow: 0 6px 15px rgba(26, 43, 93, 0.4);
+      }
+
+      .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        border-radius: 15px 15px 0 0 !important;
+      }
+
+      .form-control {
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #d9e2ef;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(26, 43, 93, 0.25);
+      }
+
+      .payment-methods img {
+        max-height: 40px;
+        margin: 0 10px;
+        opacity: 0.7;
+        transition: all 0.2s;
+      }
+
+      .payment-methods img:hover {
+        opacity: 1;
+      }
+
+      .footer {
+        background-color: var(--dark-color);
+        color: rgba(255, 255, 255, 0.8);
+        padding: 20px 0;
+      }
+
+      /* Custom Checkbox and Radio */
+      .custom-checkbox .custom-control-label::before,
+      .custom-radio .custom-control-label::before {
+        border-radius: 4px;
+      }
+
+      .custom-checkbox
+        .custom-control-input:checked
+        ~ .custom-control-label::before,
+      .custom-radio
+        .custom-control-input:checked
+        ~ .custom-control-label::before {
+        background-color: var(--primary-color);
+      }
+
+      /* Page transition */
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #successPage,
+      #paymentPage {
+        transition: all 0.5s ease;
+      }
+
+      .course-details {
+        background-color: rgba(26, 43, 93, 0.05);
+        border-radius: 8px;
+        padding: 15px;
+        border-left: 4px solid var(--primary-color);
+      }
+
+      .payment-success {
+        display: none;
+      }
+
+      /* Payment options */
+      .payment-option {
+        border: 1px solid #e0e6ed;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .payment-option:hover,
+      .payment-option.active {
+        border-color: var(--primary-color);
+        background-color: rgba(26, 43, 93, 0.05);
+      }
+
+      .payment-option.active {
+        box-shadow: 0 0 0 1px var(--primary-color);
+      }
+
+      /* Modal styles */
+      .modal-content {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-header {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        border-bottom: none;
+      }
+
+      .account-details {
+        background-color: #f8f9fc;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 15px 0;
+        border: 1px dashed #ccd6e6;
+      }
+
+      .timer-container {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .timer {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-color);
+      }
+
+      .timer-warning {
+        color: var(--warning-color);
+      }
+
+      .timer-danger {
+        color: #e74a3b;
+      }
+
+      .copy-btn {
+        cursor: pointer;
+      }
+
+      .amount-input {
+        font-size: 1.25rem;
+        height: 50px;
+        font-weight: 500;
+      }
+
+      .min-payment-note {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="container main-container py-5">
+      <!-- Registration Success Page -->
+      <div id="successPage" class="fade-in">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card success-card mb-5">
+              <div class="card-body text-center py-5">
+                <div class="success-icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="mb-3">Registration Successful!</h2>
+                <p class="text-muted mb-4">
+                  Your course registration has been completed successfully.
+                  Please proceed to payment to finalize your enrollment.
+                </p>
+
+                <div class="course-details text-left mb-4">
+                  <h5>Registration Summary:</h5>
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <p><strong>Course:</strong> Web Development</p>
+                      <p><strong>Training Mode:</strong> Physical</p>
+                      <p><strong>Internship:</strong> Yes</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p><strong>Registration ID:</strong> #REG29845</p>
+                      <p><strong>Total Amount:</strong> ₦200,000.00</p>
+                      <p>
+                        <strong>Status:</strong>
+                        <span class="badge badge-warning">Pending Payment</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button id="proceedToPayment" class="btn btn-primary btn-lg">
+                  <i class="fas fa-credit-card mr-2"></i>Proceed to Payment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Details Page -->
+      <div id="paymentPage" class="fade-in" style="display: none">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card success-card">
+              <div class="card-header py-3">
+                <h4 class="mb-0">Payment Details</h4>
+              </div>
+              <div class="card-body p-4">
+                <div class="mb-4">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h5>Web Development</h5>
+                      <p class="text-muted">Registration ID: #REG29845</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <p><strong>Training Mode:</strong> Physical</p>
+                      <p><strong>Internship:</strong> Yes</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p><strong>Amount:</strong> ₦200,000.00</p>
+                      <p><strong>Amount Paid:</strong> ₦0.00</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <p><strong>Remaining Amount:</strong> ₦200,000.00</p>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+
+                <form id="paymentForm">
+                  <h5 class="mb-3">Payment Option</h5>
+                  <div class="row mb-4">
+                    <div class="col-md-6">
+                      <div class="payment-option active" data-option="full">
+                        <div class="custom-control custom-radio">
+                          <input
+                            type="radio"
+                            id="fullPayment"
+                            name="paymentOption"
+                            class="custom-control-input"
+                            checked
+                          />
+                          <label class="custom-control-label" for="fullPayment">
+                            <strong>Full Payment</strong>
+                            <p class="mb-0 text-muted">
+                              Pay the entire amount at once
+                            </p>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="payment-option" data-option="partial">
+                        <div class="custom-control custom-radio">
+                          <input
+                            type="radio"
+                            id="partialPayment"
+                            name="paymentOption"
+                            class="custom-control-input"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="partialPayment"
+                          >
+                            <strong>Partial Payment</strong>
+                            <p class="mb-0 text-muted">Pay in installments</p>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="amountSection" class="mb-4">
+                    <label for="amountToPay">Amount to Pay</label>
+                    <input
+                      type="text"
+                      class="form-control amount-input"
+                      id="amountToPay"
+                      value="₦200,000.00"
+                      readonly
+                    />
+                    <p class="min-payment-note mt-2">
+                      Minimum payment: ₦200,000.00
+                    </p>
+                  </div>
+
+                  <h5 class="mb-3">Payment Method</h5>
+                  <div class="row mb-4">
+                    <div class="col-md-6">
+                      <div class="payment-option active" data-method="bank">
+                        <div class="custom-control custom-radio">
+                          <input
+                            type="radio"
+                            id="bankTransfer"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                            checked
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="bankTransfer"
+                          >
+                            <strong>Bank Transfer</strong>
+                            <p class="mb-0 text-muted">Pay via bank transfer</p>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="payment-option" data-method="auto">
+                        <div class="custom-control custom-radio">
+                          <input
+                            type="radio"
+                            id="automaticPayment"
+                            name="paymentMethod"
+                            class="custom-control-input"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="automaticPayment"
+                          >
+                            <strong>Automatic Payment</strong>
+                            <p class="mb-0 text-muted">
+                              Pay with card or other methods
+                            </p>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center mt-5">
+                    <button
+                      type="button"
+                      id="proceedToPaymentBtn"
+                      class="btn btn-primary btn-block btn-lg"
+                    >
+                      <i class="fas fa-arrow-right mr-2"></i>Proceed to Payment
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Virtual Account Payment Modal -->
+    <div
+      class="modal fade"
+      id="paymentModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="paymentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="paymentModalLabel">
+              Complete Your Payment
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center mb-4">
+              <i
+                class="fas fa-university fa-3x mb-3"
+                style="color: #00a769"
+              ></i>
+              <h4>Bank Transfer</h4>
+              <p>Transfer the exact amount to the virtual account below</p>
+            </div>
+
+            <div class="account-details">
+              <div class="row">
+                <div class="col-8">
+                  <p class="mb-1"><strong>Bank Name:</strong></p>
+                  <h5>Access Bank</h5>
+                </div>
+                <div class="col-4 text-right">
+                  <img src="/api/placeholder/80/30" alt="Bank Logo" />
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-9">
+                  <p class="mb-1"><strong>Account Number:</strong></p>
+                  <h5 id="accountNumber">9102857634</h5>
+                </div>
+                <div class="col-3 text-right">
+                  <button
+                    class="btn btn-sm copy-btn"
+                    id="copyAccountBtn"
+                    data-toggle="tooltip"
+                    title="Copy Account Number"
+                    style="border-color: #00a769; color: #00a769"
+                  >
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-12">
+                  <p class="mb-1"><strong>Account Name:</strong></p>
+                  <h5>EduPortal Web Development</h5>
+                </div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-12">
+                  <p class="mb-1"><strong>Amount to Pay:</strong></p>
+                  <h5 id="modalAmount">₦200,000.00</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <i class="fas fa-exclamation-triangle mr-2"></i>
+              <strong>Important:</strong> This virtual account will expire after
+              the countdown. Please make your payment before it expires.
+            </div>
+
+            <div class="timer-container">
+              <p>Time remaining:</p>
+              <div class="timer" id="countdownTimer">15:00</div>
+            </div>
+
+            <div class="text-center mt-4">
+              <p>After payment, click the button below</p>
+              <button
+                class="btn btn-success"
+                style="background-color: #00a769; border-color: #00a769"
+              >
+                <i class="fas fa-check-circle mr-2"></i>I've Made the Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Initialize tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Proceed to Payment button functionality
+        $("#proceedToPayment").click(function () {
+          $("#successPage").fadeOut(300, function () {
+            $("#paymentPage").fadeIn(300);
+          });
+        });
+
+        // Payment option selection
+        $(".payment-option").click(function () {
+          const parent = $(this).parent().parent();
+          parent.find(".payment-option").removeClass("active");
+          $(this).addClass("active");
+
+          // Check the radio button
+          $(this).find("input[type='radio']").prop("checked", true);
+
+          // If this is a payment option (not method)
+          if ($(this).data("option")) {
+            const option = $(this).data("option");
+            if (option === "full") {
+              $("#amountToPay").val("₦200,000.00").prop("readonly", true);
+            } else if (option === "partial") {
+              $("#amountToPay").val("₦200,000.00").prop("readonly", false);
+            }
+          }
+        });
+
+        // Proceed to Payment button in form
+        $("#proceedToPaymentBtn").click(function () {
+          // Show modal with virtual account
+          $("#paymentModal").modal("show");
+
+          // Set amount in modal
+          $("#modalAmount").text($("#amountToPay").val());
+
+          // Start countdown
+          startCountdown(15 * 60); // 15 minutes in seconds
+        });
+
+        // Copy account number
+        $("#copyAccountBtn").click(function () {
+          const accountNumber = $("#accountNumber").text();
+          navigator.clipboard.writeText(accountNumber).then(function () {
+            $("#copyAccountBtn")
+              .attr("title", "Copied!")
+              .tooltip("_fixTitle")
+              .tooltip("show");
+            setTimeout(function () {
+              $("#copyAccountBtn")
+                .attr("title", "Copy Account Number")
+                .tooltip("_fixTitle");
+            }, 1500);
+          });
+        });
+
+        // Timer functionality
+        function startCountdown(duration) {
+          let timer = duration;
+          const countdownElement = document.getElementById("countdownTimer");
+
+          const interval = setInterval(function () {
+            const minutes = Math.floor(timer / 60);
+            const seconds = timer % 60;
+
+            countdownElement.textContent =
+              (minutes < 10 ? "0" + minutes : minutes) +
+              ":" +
+              (seconds < 10 ? "0" + seconds : seconds);
+
+            // Add warning classes based on time remaining
+            if (timer <= 300 && timer > 60) {
+              // 5 minutes to 1 minute
+              countdownElement.classList.add("timer-warning");
+            } else if (timer <= 60) {
+              // Less than 1 minute
+              countdownElement.classList.remove("timer-warning");
+              countdownElement.classList.add("timer-danger");
+            }
+
+            if (--timer < 0) {
+              clearInterval(interval);
+              countdownElement.textContent = "EXPIRED";
+              // Here you could add code to handle expiration
+            }
+          }, 1000);
+        }
+      });
+    </script>
+  </body>
+</html>

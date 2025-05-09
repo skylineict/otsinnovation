@@ -1,0 +1,133 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+  
+        <h5 class="text-uppercase mb-0 mt-0 page-title">Pending Admission </h5>
+        
+        
+   
+ 
+        {% include 'dashboard/mymessage.html' %}
+        <div class="content-page">
+
+            
+
+
+            <div class="row">
+            <div class="col-md-12 mb-3">
+            <div class="table-responsive">
+            <table class="table custom-table datatable">
+            <thead class="thead-light">
+             
+            <tr>
+            <th>Full name </th>
+            <th>state</th>
+            <th>Course</th>
+            <th>Status</th>
+            <th>Occupations</th>
+            <th>email</th>
+            <th>Social media</th>
+            <th class="text-right"> link</th>
+            <th class="text-right">Action</th>
+           
+            </tr>
+            </thead>
+            {% for payment_materials in page_obj  %}
+            
+      
+            <tbody>
+            <tr>
+            <td>
+            <h2><a href="" class="avatar text-white"> <img src="{{payment_materials.uplaod.url}}" alt=""></a><a href="exam-detail.html">{{payment_materials.first_name}} {{payment_materials.last_name}}</a></h2>
+            </td>
+            <td>{{payment_materials.state}}</td>
+            <td>{{payment_materials.courses}}</td> 
+            <td>{{payment_materials.status}}</td>
+            <td>{{payment_materials.occupation }}</td>
+            <td>{{payment_materials.user.email}}</td>
+            <td>{{payment_materials.social_media}}</td>
+            <td><i><a href="{{payment_materials.social_medialink}}" target="_blank" class="typcn typcn-eye btn btn-danger btn" style="font-size: 12;">view </a> </i></td>
+            <td class="text-right">
+            <a href="{% url 'admission' payment_materials.pk %}" class="btn btn-primary btn-sm">
+            <i class="far fa-edit">approved</i>
+            </a>
+
+          
+            </td>
+
+
+            
+            </tr>
+
+
+           
+            </tbody>
+
+            {% endfor %}
+            </table>
+
+
+            <nav aria-label="...">
+	
+                <ul class="pagination" style="margin-bottom: 200px;">
+                {% if page_obj.has_previous %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                  </li>
+                
+                  <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                  {% endif %}
+            
+            
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ page_obj.number }}<span class="sr-only">(current)</span></a>
+                  </li>
+                 
+                  <li class="page-item"><a class="page-link" href="?page=1">{{ page_obj.paginator.num_pages }}</a></li>
+                  {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    
+                  </li>
+            
+                  <li class="page-item" >
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                    
+                  </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            
+            </div>
+            </div>
+            </div>
+            </div>
+         
+        </div>
+    </div>
+      
+</div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

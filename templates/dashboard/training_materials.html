@@ -1,0 +1,545 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Recoures</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        
+        <div class="content container-fluid">
+            {% if adimission.status == 'admitted' %}
+        
+       
+        {% if assigment.courses == 'full-stack Engineering' %}
+        
+        <h3 class="blog-title"><a href="">Full Stack Engineering Material</a></h3>
+        {% if total_payment < 22490 %}
+    	<marquee behavior="" direction="slide" scrolldelay="250"> <b style="color: red;">Hi buddy, make the full payment to access all the courses Materials
+       </b></marquee>
+       {% endif %}
+   
+        <div class="row">
+            {% if total_payment < 22490 %}
+            
+          
+            <div class="col-sm-6 col-md-6 col-lg-4">
+                <div class="blog grid-blog">
+                <div class="blog-image">
+                <a href=""><img class="img-fluid" src="{{html5.images.url}}" alt=""></a>
+                </div>
+                <div class="blog-content">
+                   
+                  
+                <h3 class="blog-title"><a href="">{{html5.title}}</a></h3>
+                <p>{{html5.description}}</p>
+           {% if assigment.passcode  %}
+           
+          
+          
+                <a href="{% url 'htmlpdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+              
+                {% else %}
+                <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                {% endif %}
+                </div>
+                </div>
+                </div>
+
+
+
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="blog grid-blog">
+                    <div class="blog-image">
+                    <a href=""><img class="img-fluid" src="{{css5.images.url}}" alt=""></a>
+                    </div>
+                    <div class="blog-content">
+                       
+                      
+                    <h3 class="blog-title"><a href="">{{css5.title}}</a></h3>
+                    <p>{{css5.description}}</p>
+               {% if assigment.passcode  %}
+               
+              
+              
+                    <a href="{% url 'csspdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+                  
+                    {% else %}
+                    <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                    {% endif %}
+                    </div>
+                    </div>
+                    </div>
+
+
+                    <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="blog grid-blog">
+                        <div class="blog-image">
+                        <a href=""><img class="img-fluid" src="{{boostrap.images.url}}" alt=""></a>
+                        </div>
+                        <div class="blog-content">
+                           
+                          
+                        <h3 class="blog-title"><a href="">{{boostrap.title}}</a></h3>
+                        <p>{{boostrap.description}}</p>
+                   {% if assigment.passcode  %}
+                   
+                  
+                  
+                        <a href="" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Unlock Soon</a>
+                      
+                        {% else %}
+                        <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                        {% endif %}
+                        </div>
+                        </div>
+                        </div>
+
+
+
+                        {% else %}
+                       
+
+                        <div class="col-sm-6 col-md-6 col-lg-4">
+                            <div class="blog grid-blog">
+                            <div class="blog-image">
+                            <a href=""><img class="img-fluid" src="{{Javascripts.images.url}}" alt=""></a>
+                            </div>
+                            <div class="blog-content">
+                               
+                              
+                            <h3 class="blog-title"><a href="">{{Javascripts.title}}</a></h3>
+                            <p>{{Javascripts.description}}</p>
+                       {% if assigment.passcode  %}
+                       
+                      
+                      
+                            <a href="#" class=" btn btn-secondary mb-1"  ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"  aria-disabled="true"></i>>Unlock Soon</a>
+                          
+                            {% else %}
+                            <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                            {% endif %}
+                            </div>
+                            </div>
+                            </div>
+        
+                            
+
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <div class="blog grid-blog">
+                                <div class="blog-image">
+                                <a href=""><img class="img-fluid" src="{{python3.images.url}}" alt=""></a>
+                                </div>
+                                <div class="blog-content">
+                                   
+                                  
+                                <h3 class="blog-title"><a href="">{{python3.title}}</a></h3>
+                                <p>{{python3.description}}</p>
+                           {% if assigment.passcode  %}
+                           
+                          
+                          
+                                <a href="#" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true" aria-disabled="true"></i>Unlock Soon</a>
+                              
+                                {% else %}
+                                <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                {% endif %}
+                                </div>
+                                </div>
+                                </div>
+                                
+                                <div class="col-sm-6 col-md-6 col-lg-4">
+                                    <div class="blog grid-blog">
+                                    <div class="blog-image">
+                                    <a href=""><img class="img-fluid" src="{{mysql.images.url}}" alt=""></a>
+                                    </div>
+                                    <div class="blog-content">
+                                       
+                                      
+                                    <h3 class="blog-title"><a href="">{{mysql.title}}</a></h3>
+                                    <p>{{mysql.description}}</p>
+                               {% if assigment.passcode  %}
+                               
+                              
+                              
+                                    <a href="#" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"  aria-disabled="true"></i>Unlock Soon</a>
+                                  
+                                    {% else %}
+                                    <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                    {% endif %}
+                                    </div>
+                                    </div>
+                                    </div>
+
+
+                                    
+
+                                    <div class="col-sm-6 col-md-6 col-lg-4">
+                                        <div class="blog grid-blog">
+                                        <div class="blog-image">
+                                        <a href=""><img class="img-fluid" src="{{github.images.url}}" alt=""></a>
+                                        </div>
+                                        <div class="blog-content">
+                                           
+                                          
+                                        <h3 class="blog-title"><a href="">{{github.title}}</a></h3>
+                                        <p>{{github.description}}</p>
+                                   {% if assigment.passcode  %}
+                                   
+                                  
+                                  
+                                        <a href="" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true" aria-disabled="true"></i>Unlock Soon</a>
+                                      
+                                        
+                                        
+                                        {% else %}
+                                        <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                        {% endif %}
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-4">
+                                            <div class="blog grid-blog">
+                                            <div class="blog-image">
+                                            <a href=""><img class="img-fluid" src="{{reactjs.images.url}}" alt=""></a>
+                                            </div>
+                                            <div class="blog-content">
+                                               
+                                              
+                                            <h3 class="blog-title"><a href="">{{reactjs.title}}</a></h3>
+                                            <p>{{reactjs.description}}</p>
+                                       {% if assigment.passcode  %}
+                                       
+                                      
+                                      
+                                            <a href="" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true" aria-disabled="true"></i>Unlock soon</a>
+                                          
+                                            {% else %}
+                                            <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                            {% endif %}
+                                            </div>
+                                            </div>
+                                            </div>
+
+
+                                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                                <div class="blog grid-blog">
+                                                <div class="blog-image">
+                                                <a href=""><img class="img-fluid" src="{{html5.images.url}}" alt=""></a>
+                                                </div>
+                                                <div class="blog-content">
+                                                   
+                                                  
+                                                <h3 class="blog-title"><a href="">{{html5.title}}</a></h3>
+                                                <p>{{html5.description}}</p>
+                                           {% if assigment.passcode  %}
+                                           
+                                          
+                                          
+                                                <a href="{% url 'htmlpdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+                                              
+                                                {% else %}
+                                                <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                                {% endif %}
+                                                </div>
+                                                </div>
+                                                </div>
+                                
+                                
+                                
+                                                <div class="col-sm-6 col-md-6 col-lg-4">
+                                                    <div class="blog grid-blog">
+                                                    <div class="blog-image">
+                                                    <a href=""><img class="img-fluid" src="{{css5.images.url}}" alt=""></a>
+                                                    </div>
+                                                    <div class="blog-content">
+                                                       
+                                                      
+                                                    <h3 class="blog-title"><a href="">{{css5.title}}</a></h3>
+                                                    <p>{{css5.description}}</p>
+                                               {% if assigment.passcode  %}
+                                               
+                                              
+                                              
+                                                    <a href="{% url 'csspdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+                                                  
+                                                    {% else %}
+                                                    <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                                    {% endif %}
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                
+                                
+                                                    <div class="col-sm-6 col-md-6 col-lg-4">
+                                                        <div class="blog grid-blog">
+                                                        <div class="blog-image">
+                                                        <a href=""><img class="img-fluid" src="{{boostrap.images.url}}" alt=""></a>
+                                                        </div>
+                                                        <div class="blog-content">
+                                                           
+                                                          
+                                                        <h3 class="blog-title"><a href="">{{boostrap.title}}</a></h3>
+                                                        <p>{{boostrap.description}}</p>
+                                                   {% if assigment.passcode  %}
+                                                   
+                                                  
+                                                  
+                                                        <a href="" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true" aria-disabled="true"></i>Unlock soon</a>
+                                                      
+                                                        {% else %}
+                                                        <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                                                        {% endif %}
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                            {% endif %}
+        
+
+        </div>
+        {% endif %}
+
+
+
+        {% if assigment.courses == 'front-end Engineering' %}
+
+        <h3 class="blog-title"><a href="">Front-End Engineering Material</a></h3>
+        
+  
+        <div class="row">
+
+            {% if total_payment < 12490 %}
+            {% if total_payment < 12490 %}
+            <marquee behavior="" direction="slide" scrolldelay="250"> <b style="color: red;">Hi buddy, make the full payment to access all the courses Materials
+           </b></marquee>
+           {% endif %}
+            
+          
+            <div class="col-sm-6 col-md-6 col-lg-4">
+                <div class="blog grid-blog">
+                <div class="blog-image">
+                <a href=""><img class="img-fluid" src="{{html5.images.url}}" alt=""></a>
+                </div>
+                <div class="blog-content">
+                   
+                  
+                <h3 class="blog-title"><a href="">{{html5.title}}</a></h3>
+                <p>{{html5.description}}</p>
+           {% if assigment.passcode  %}
+           
+          
+          
+                <a href="{% url 'htmlpdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+              
+                {% else %}
+                <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                {% endif %}
+                </div>
+                </div>
+                </div>
+       
+
+        
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="blog grid-blog">
+                    <div class="blog-image">
+                    <a href=""><img class="img-fluid" src="{{css5.images.url}}" alt=""></a>
+                    </div>
+                    <div class="blog-content">
+                       
+                      
+                    <h3 class="blog-title"><a href="">{{css5.title}}</a></h3>
+                    <p>{{css5.description}}</p>
+               {% if assigment.passcode  %}
+               
+              
+              
+                    <a href="{% url 'csspdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+                  
+                    {% else %}
+                    <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                    {% endif %}
+                    </div>
+                    </div>
+                    </div>
+
+                    {% else %}
+                 
+
+
+                    <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="blog grid-blog">
+                        <div class="blog-image">
+                        <a href=""><img class="img-fluid" src="{{boostrap.images.url}}" alt=""></a>
+                        </div>
+                        <div class="blog-content">
+                           
+                          
+                        <h3 class="blog-title"><a href="">{{boostrap.title}}</a></h3>
+                        <p>{{boostrap.description}}</p>
+                   {% if assigment.passcode  %}
+                   
+                  
+                  
+                        <a href="#" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"aria-disabled="true"></i>Unlock soon</a>
+                      
+                        {% else %}
+                        <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                        {% endif %}
+                        </div>
+                        </div>
+                        </div>
+
+
+                        <div class="col-sm-6 col-md-6 col-lg-4">
+                            <div class="blog grid-blog">
+                            <div class="blog-image">
+                            <a href=""><img class="img-fluid" src="{{css5.images.url}}" alt=""></a>
+                            </div>
+                            <div class="blog-content">
+                               
+                              
+                            <h3 class="blog-title"><a href="">{{css5.title}}</a></h3>
+                            <p>{{css5.description}}</p>
+                       {% if assigment.passcode  %}
+                       
+                      
+                      
+                            <a href="{% url 'csspdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+                          
+                            {% else %}
+                            <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                            {% endif %}
+                            </div>
+                            </div>
+                            </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-4">
+                            <div class="blog grid-blog">
+                            <div class="blog-image">
+                            <a href=""><img class="img-fluid" src="{{html5.images.url}}" alt=""></a>
+                            </div>
+                            <div class="blog-content">
+                               
+                              
+                            <h3 class="blog-title"><a href="">{{html5.title}}</a></h3>
+                            <p>{{html5.description}}</p>
+                       {% if assigment.passcode  %}
+                       
+                      
+                      
+                            <a href="{% url 'htmlpdf' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"></i>Downlaod now</a>
+                          
+                            {% else %}
+                            <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                            {% endif %}
+                            </div>
+                            </div>
+                            </div>
+                   
+
+                        <div class="col-sm-6 col-md-6 col-lg-4">
+                            <div class="blog grid-blog">
+                            <div class="blog-image">
+                            <a href=""><img class="img-fluid" src="{{Javascripts.images.url}}" alt=""></a>
+                            </div>
+                            <div class="blog-content">
+                               
+                              
+                            <h3 class="blog-title"><a href="">{{Javascripts.title}}</a></h3>
+                            <p>{{Javascripts.description}}</p>
+                       {% if assigment.passcode  %}
+                       
+                      
+                      
+                            <a href="" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"aria-disabled="true"></i>Unlock Soon</a>
+                          
+                            {% else %}
+                            <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+                            {% endif %}
+                            </div>
+                            </div>
+                            </div>
+
+
+                         
+                            
+                            
+
+                            {% endif %}
+
+
+
+
+                            {% else %}
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <h5 class="text-uppercase mb-0 mt-0 page-title text-danger">REGISTER FOR COURSE TO SEE THIS PAGE </h5>
+                                </div>
+                            {% endif %}
+
+                           
+                            {% if assigment.courses == 'Product Design' %}
+                            
+
+        <h3 class="blog-title"><a href="">Product Design</a></h3>
+        <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <div class="blog grid-blog">
+          <div class="blog-image">
+          <a href=""><img class="img-fluid" src="{{product_design.images.url}}" alt=""></a>
+          </div>
+          <div class="blog-content">
+             
+            
+          <h3 class="blog-title"><a href="">{{product_design.title}}</a></h3>
+          <p>{{product_design.description}}</p>
+     {% if assigment.passcode  %}
+     
+    
+    
+          <a href="{% url '   `                   `
+          2' %}" class=" btn btn-secondary mb-1" ><i class="fas fa-long-arrow-alt-right" aria-hidden="true"aria-disabled="true"></i>Downlaod</a>
+        
+          {% else %}
+          <span class=" btn btn-secondary mb-1"  aria-disabled="true">No Passcode</span>
+          {% endif %}
+          </div>
+          </div>
+          </div>
+     </div>
+
+
+
+        {% endif %}
+
+
+                            
+        {% else %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+         <h5 class="text-uppercase mb-0 mt-0 page-title text-danger">Access denied admission  status is pending </h5>
+         </div>
+
+         {% endif %}
+
+        </div>
+
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

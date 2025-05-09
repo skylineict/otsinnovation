@@ -1,0 +1,97 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                <div class="blog-view">
+                <article class="blog blog-single-post">
+                <h3 class="blog-title text-success ">{{projects_datial.project_name}}</h3>
+                <div class="blog-info clearfix">
+                <div class="post-left">
+                <ul>
+                <li><a href="#"><i class="far fa-calendar-alt" aria-hidden="true"></i> <span>{{projects_datial.start_date}}</span></a></li>
+                <li><a href="#"><i class="fas fa-user-o" aria-hidden="true"></i> <span>projects for  || {{persoancohorts.name}}</span></a></li>
+                </ul>
+                </div>
+                <div class="post-right"><a href="#"><i class="fas fa-comment-o" aria-hidden="true"></i></a></div>
+                </div>
+               
+                <div class="blog-content">
+                
+                <p> {{projects_datial.descriptions | safe}}</p>
+                
+                </article>
+             
+               
+
+
+                
+
+
+
+                <div class="widget new-comment clearfix">
+                
+
+                </div>
+                </div>
+                </div>
+                <aside class="col-md-4">
+                
+                <div class="widget post-widget">
+                <h5 class="text-danger">Previous Project for {{persoancohorts}} </h5>
+                <ul class="laTest-posts">
+                    {% for expired_projects in expired_projects  %}
+                    <li>
+               
+                <div class="post-info">
+               
+                
+              
+                <h4>
+                <a href="  {% url 'project_datials' expired_projects.pk %}" class="text-info">{{expired_projects.project_name}}</a>
+                </h4>
+                <p><i aria-hidden="true" class="fas fa-calendar-alt"></i> created on || {{expired_projects.start_date}}</p>
+                </div>
+                </li>
+
+                {% endfor %}
+               
+                </ul>
+                </div>
+           
+
+
+                </aside>
+                </div>
+                
+                
+                
+        
+        </div>
+
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

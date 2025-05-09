@@ -1,0 +1,94 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+  
+        <h5 class="text-uppercase mb-0 mt-0 page-title">Pending Admission </h5>
+        
+        
+   
+ 
+        {% include 'dashboard/mymessage.html' %}
+        <div class="content-page">
+
+            
+
+
+            <div class="row">
+            <div class="col-md-12 mb-3">
+            <div class="table-responsive">
+            <table class="table custom-table datatable">
+            <thead class="thead-light">
+             
+            <tr>
+           
+            <th> Project Name</th>
+            <th>Start Date </th>
+            <th> Ending Date</th>
+            <th>Cohorts</th>
+            <th>Status</th>
+            <th class="text-right">Action</th>
+           
+            </tr>
+            </thead>
+            {% for  project in projects %}
+            
+
+        
+      
+            <tbody>
+               
+            <tr>
+                
+            <td> <a href=" {% url 'project_datials' project.pk %}"> {{project.project_name }}</a></td>
+            <td>{{project.start_date}}</td>
+            <td>{{project.ending_date}}</td> 
+            <td>{{project.cohorts}}</td>
+            <td>{{project.status}}</td>
+            <td class="text-right">
+              
+            <a href="{% url 'aproved_admin' project.pk  %}" class="btn btn-primary btn-sm">
+            <i class="far fa-edit">approved</i>
+            </a>
+          
+            </td>
+            </tr>
+
+
+           
+            </tbody>
+
+            {% endfor %}
+            </table>
+            </div>
+            </div>
+            </div>
+            </div>
+         
+        </div>
+    </div>
+      
+</div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

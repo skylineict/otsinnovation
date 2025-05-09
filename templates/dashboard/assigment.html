@@ -1,0 +1,173 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+   
+   
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            
+        <div class="page-header">
+
+            
+        <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <h5 class="text-uppercase mb-0 mt-0 page-title">Assigment Review Portal</h5>
+        </div>
+      
+        </div>
+        </div>
+ 
+
+        <div class="content-page">
+
+            
+         
+
+            <div class="row">
+            <div class="col-md-12 mb-3">
+            <div class="table-responsive">
+            <table class="table custom-table datatable">
+            <thead class="thead-light">
+             
+            <tr>
+                
+         
+            <th>passcode</th>
+            <th>cohorts</th>
+            <th>Project</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>git hub</th>
+            <th class="text-right">cancel</th>
+            <th class="text-right">approved</th>
+           
+            </tr>
+            </thead>
+    
+              
+           
+
+
+            {% for payment_materials in assigment_review  %}
+            
+      
+            <tbody>
+            <tr>
+            <td>
+            <h2><a href=""  <img src="" alt="" class="text-danger">{{payment_materials.passcode}}</a></h2>
+            </td>
+            <td>{{payment_materials.cohorts}}</td>
+            <td>{{payment_materials.project}}</td> 
+            <td>{{payment_materials.status}}</td>
+            <td>{{payment_materials.date|date:'D-M-Y' }}</td>
+            <td><i><a href="{{payment_materials.git_hub }}" target="_blank" class="typcn typcn-eye btn btn-danger btn" style="font-size: 12;">view </a> </i></td>
+           
+            <td> <a href="{% url 'assigmentrejected' payment_materials.pk %}" class="btn btn-primary btn-sm"><i class="">cancel</i></td>
+            <td class="text-right">
+            <a href="{% url 'assigment_approved' payment_materials.pk %}" class="btn btn-primary btn-sm">
+            <i class="">approved</i>
+            </a>
+            
+            </td>
+            </tr>
+
+
+           
+            </tbody>
+
+            {% endfor %}
+           
+            </table>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+
+
+            <div class="page-header">
+                <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <h5 class="text-uppercase mb-0 mt-0 page-title">approved</h5>
+                </div>
+              
+                </div>
+                </div>
+
+            <div class="content-page">
+
+            
+
+
+                <div class="row">
+                <div class="col-md-12 mb-3">
+                <div class="table-responsive">
+                <table class="table custom-table datatable">
+                <thead class="thead-light">
+                 
+                <tr>
+               
+                <th>username</th>
+                <th>cohorts</th>
+                <th>Project</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>git hub</th>
+                
+               
+                </tr>
+                </thead>
+                {% for payment_materials in complete_assigment  %}
+                
+          
+                <tbody>
+                <tr>
+                <td>
+                <h2><a href=""  <img src="" alt="" class="text-danger">{{payment_materials.user}}</a></h2>
+                </td>
+                <td>{{payment_materials.cohorts}}</td>
+                <td>{{payment_materials.project}}</td> 
+                <td> <Span class=" text-success">{{payment_materials.status}} </Span><span  class="fa-solid fa-square-check" style="color: rgb(55, 129, 255);"></span></td>
+                <td>{{payment_materials.date|date:'D-M-Y' }}</td>
+                <td><i><a href="{{payment_materials.git_hub }}" target="_blank" class="typcn typcn-eye btn btn-danger btn" style="font-size: 12;">view </a> </i></td>
+               
+                </tr>
+    
+    
+               
+                </tbody>
+    
+                {% endfor %}
+                </table>
+                </div>
+                </div>
+                </div>
+                </div>
+    
+            
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+
+
+        
+    
+    {% endblock content %}
+</body>
+</html>

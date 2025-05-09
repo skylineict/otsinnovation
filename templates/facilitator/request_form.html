@@ -1,0 +1,164 @@
+{% extends "dashboard/header.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facilitator Application</title>
+</head>
+<body>
+
+<style>
+    .form-container {
+        max-width: 650px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        padding: 30px;
+    }
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+    .form-header h2 {
+        color: #1b2b5e;
+        font-weight: 600;
+    }
+    .btn-register {
+        background-color: #00a86a;
+        border: none;
+        padding: 10px 25px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 6px rgba(0, 168, 106, 0.2);
+        transition: all 0.3s ease;
+    }
+    .btn-register:hover {
+        background-color: #009960;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 168, 106, 0.25);
+    }
+    label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #1b2b5e;
+    }
+    .form-control:focus {
+        border-color: #00a86a;
+        box-shadow: 0 0 0 0.2rem rgba(0, 168, 106, 0.25);
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="alert alert-info mt-4">
+            <strong>How it works:</strong> Choose a course, fill the form, we will contact you!
+        </div>
+
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Facilitator Application</h2>
+                <p class="text-muted">Please fill out the form to register for your selected course and be admitted into the program.</p>
+            </div>
+
+            <form id="registrationForm" method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label for="course">Select Course</label>
+                    <select class="custom-select custom-select-lg" id="course" name="course" required>
+                        <option value="" selected disabled>-- Choose a Course --</option>
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="linkedin">LinkedIn Profile</label>
+                    <input type="url" class="form-control form-control-lg" id="linkedin" name="linkedin" placeholder="https://www.linkedin.com/in/yourname">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="twitter">Twitter Profile</label>
+                    <input type="url" class="form-control form-control-lg" id="twitter" name="twitter" placeholder="https://twitter.com/yourhandle">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="github">GitHub Profile</label>
+                    <input type="url" class="form-control form-control-lg" id="github" name="github" placeholder="https://github.com/yourusername">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="facebook">Facebook Profile</label>
+                    <input type="url" class="form-control form-control-lg" id="facebook" name="facebook" placeholder="https://www.facebook.com/yourusername">
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="internshipAvailable" name="internshipAvailable">
+                        <label class="custom-control-label" for="internshipAvailable">I am available for internship opportunities</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-lg btn-block btn-register">Complete Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ AJAX Script (UPDATED) -->
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const formData = new FormData(form);
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Submitting...';
+
+    fetch("{% url 'request_facilitator' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-Requested-With': 'XMLHttpRequest'  // ✅ Added this line!
+        },
+        body: formData
+    })
+    .then(response => response.json().then(data => ({status: response.status, body: data})))
+    .then(({status, body}) => {
+        const oldAlert = document.getElementById('formAlert');
+        if (oldAlert) oldAlert.remove();
+
+        let alertBox = document.createElement('div');
+        alertBox.id = 'formAlert';
+        alertBox.className = `alert ${status === 200 ? 'alert-success' : 'alert-danger'} mt-3`;
+        alertBox.innerText = body.message;
+        form.parentNode.insertBefore(alertBox, form);
+
+        if (status === 200) {
+            form.reset();
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Complete Registration';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Complete Registration';
+    });
+});
+</script>
+
+</body>
+</html>
+{% endblock content %}

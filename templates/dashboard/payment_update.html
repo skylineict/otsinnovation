@@ -1,0 +1,114 @@
+{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+          {% if adimission.status == 'admitted' %}
+          
+          
+          
+        
+          
+       
+        
+          
+          <h3 class="blog-title"><a href="#">Student payment for training materials</a></h3>
+        <p> Hello <b>{{user.username}}</b> buddy to proceed to the training you are required   <br> to register your courses to have access to our course materials
+          Kindly make payment to the following account inform 
+          </p>
+          <p style="color: red;">
+            <b>Account name:  Skyline ICT  Consult ltd</b>
+            <br>
+              <b> number: 6865199014</b>
+              <br>
+             <b> Bank:FCMB
+              </b>
+
+             
+          </p>
+ 
+ 
+          <div class="row ">
+          
+            <div class="col-lg-10">
+            
+              
+          
+            
+              {% if payment.amount %}
+              <h2 class="text-success">Your Current payment For course Registration is <span style="color: red;">N {{total_payment}}</span> <br/>complete your payment within 30 days</h2>
+              
+              {% endif %}
+
+              <div class="card">
+            <div class="card-header">
+             {% include 'dashboard/mymessage.html' %}
+            </div>
+            <div class="card-body">
+            <form action="#" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+           
+  
+            
+            <div class="form-group">
+            <label>Amount Paid</label>
+            <input type="number" name="paid" class="form-control" placeholder="Enter paid Amount" required/>
+            </div>
+            <div class="form-group">
+            <label>Payment Date</label>
+            <input type="date" name="date" class="form-control" required/>
+            </div>
+            <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" value="{{user.email}}" readonly="readonly">
+            </div>
+         
+    
+              
+              <div class="form-group">
+                <label>upload payment proof</label>
+                <input class="form-control" type="file" name="myfiles" id="" required/>
+                </div>
+  
+            <div class="text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
+
+         
+  
+  
+            </div>
+            </div>
+            </div>
+            </div>
+  
+     
+
+
+         {% else %}
+         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+          <h5 class="text-uppercase mb-0 mt-0 page-title text-danger">Access denied admission  status is pending </h5>
+          </div>
+
+          {% endif %}
+
+
+        </div>
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,149 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %} projects  {% endblock  %}</title>
+    
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+        <div class="page-header">
+        <div class="row">
+
+{% if myprofile.status == 'admitted' %}
+  
+
+
+        {% if projects %}
+          
+      
+        {% if projects  %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+ 
+     
+     
+       <p> <a href=" {% url 'submitassigment' %}" class=" btn btn-warning text-white">Submit Your Porject here </a> </p>
+      
+        </div>
+        {% else %}
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <h5 class="text-uppercase mb-0 mt-0 page-title">Assignment Portal</h5>
+        </div>
+        {% endif %}
+        </div>
+        </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+{% for projects   in projects  %}
+
+
+        <div class="card">
+            <div class="card-header text-danger">
+            <h3>Current Projects for {{persoancohorts.name}} </h3>
+            </div>
+            <div class="card-body">
+                <div class="card-title text-danger">
+                    <p>  {{projects.project_name}}</p>
+                </div>
+
+              <blockquote class="blockquote mb-0">
+                <p>start: {{projects.start_date}} -- Deadline: {{projects.ending_date}}</p>
+             
+                <footer class="blockquote-footer ">Group Project for  <cite title="Source Title">{{persoancohorts.name}}</cite></footer>
+                 </blockquote>
+                 <div class="btn">
+                    <a href="{% url 'project_datials' projects.pk %}" class="btn-sm btn-danger">Start Now</a>
+                 </div>
+                
+            </div>
+          </div>
+          {% endfor %}
+
+
+      </div>
+
+
+      <div class="col-sm-6">
+{% for expired_projects in expired_projects %}
+
+
+        <div class="card">
+            <div class="card-header text-info">
+            <h3> Previous  Projects for {{persoancohorts.name}}</h3>
+            </div>
+           
+            <div class="card-body">
+                <div class="card-title text-danger">
+                    <p> <a href="{% url 'project_datials' expired_projects.pk %}"> {{expired_projects.project_name}}</a></p>
+                </div>
+
+              <blockquote class="blockquote mb-0">
+               
+             
+                <footer class="blockquote-footer ">Group Project for   <cite title="Source Title">{{persoancohorts.name}}</cite></footer>
+                 </blockquote>
+                
+                
+            </div>
+          </div>
+          {% endfor %}
+
+      </div>
+
+     
+
+
+    </div>
+
+{% else %}
+
+
+  
+   
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <h5 class="text-uppercase mb-0 mt-0 page-title text-danger">Sorry!!  No avaliable Project at the moment </h5>
+    </div>
+   
+
+
+
+    {% endif %}
+
+    {% else %}
+
+
+  
+   
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <h5 class="text-uppercase mb-0 mt-0 page-title text-danger">Access denied admission  status is pending </h5>
+    </div>
+    {% endif %}
+
+
+
+
+        </div>
+
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

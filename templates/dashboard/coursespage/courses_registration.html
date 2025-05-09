@@ -1,0 +1,341 @@
+{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+        Course Registration
+       
+      
+    {% endblock title %}</title>
+
+ 
+</head>
+<body>
+
+    {% block content %}
+
+    <style>
+
+.form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-header h2 {
+            color: #1b2b5e;
+            font-weight: 600;
+        }
+        .course-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1b2b5e;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .training-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #00a86a;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .btn-register {
+            background-color: #00a86a;
+            border: none;
+            padding: 10px 25px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(0, 168, 106, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-register:hover {
+            background-color: #009960;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 168, 106, 0.25);
+        }
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1b2b5e;
+        }
+        .form-check-input:checked {
+            background-color: #00a86a;
+            border-color: #00a86a;
+        }
+        .form-select:focus, .form-control:focus, .form-check-input:focus {
+            border-color: #00a86a;
+            box-shadow: 0 0 0 0.2rem rgba(0, 168, 106, 0.25);
+        }
+        .custom-radio-btn {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .custom-radio-btn:hover {
+            background-color: #f8f9fa;
+        }
+        .custom-radio-btn.selected {
+            border-color: #00a86a;
+            background-color: rgba(0, 168, 106, 0.05);
+        }
+        .custom-radio-btn .form-check-input {
+            margin-right: 10px;}
+
+
+/* courses registration success page here  */
+:root {
+        --primary-color: #1a2b5d;
+        --success-color: #00a769;
+        --dark-color: #1a2b5d;
+        --warning-color: #f6c23e;
+      }
+
+    .success-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+      .success-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .success-icon {
+        font-size: 4rem;
+        color: var(--success-color);
+        margin-bottom: 20px;
+       
+      }
+
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        background-color: #15244d;
+        box-shadow: 0 6px 15px rgba(26, 43, 93, 0.4);
+      }
+
+
+       /* Page transition */
+       .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #successPage,
+      #paymentPage {
+        transition: all 0.5s ease;
+      }
+
+
+      
+      .course-details {
+        background-color: rgba(26, 43, 93, 0.05);
+        border-radius: 8px;
+        padding: 15px;
+        border-left: 4px solid var(--primary-color);
+       
+      }
+
+
+      .card-body {
+    padding: 15px;
+    font-size: 17px
+      }
+        
+
+
+      /* loaders start here  */
+
+
+   
+
+    </style>
+    
+      <!-- Spinner overlay -->
+      <div id="fullpage-loader" class="fullpage-loader ">
+        <div class="loader-spinner"></div>
+    </div>
+  <!-- <div class="loaderss" id="spinnerOverlay" style="display: none;">
+    <div class="custom-spinner"></div>
+  </div> -->
+
+
+    <div class="page-wrapper">
+
+
+
+    
+ 
+  <div id="successPage" class="fade-in" style="display: {% if registration %}block{% else %}none{% endif %};">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card success-card mb-5">
+          <div class="card-body text-center py-5">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="mb-3" style="color: #15244d;">Courses Registration Successful!</h2>
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Well done!</h4>
+              <p>Your course registration has been completed successfully.
+                You have indicated interest in being trained on 
+                <strong><span id="successCourseName">{{ registration.course.name|default:"" }}</span></strong> 
+                course for a period of 
+                <strong><span id="successCourseDuration">{{ registration.course.duration|default:"" }}</span> Months</strong>
+              </p>
+              <p><strong>Please note that installment payments are allowed.</strong></p>
+              <hr>
+              <p class="mb-0">Once your payment is confirmed, the system will automatically grant you admission and generate a <strong>unique passcode.</strong> This passcode will give you access to join the live classes and other training resources.</p>
+            </div>
+
+            <div class="course-details text-center text-md-left mb-4">
+              <h5>Registration Summary:</h5>
+              <div class="row mt-3 justify-content-center">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                  <p><strong>Course:</strong> <span id="displayCourseName">{{ registration.course.name|default:"" }}</span></p>
+                  <p><strong>Training Mode:</strong> <span id="displayTrainingMode">{{ registration.get_training_mode_display|default:"" }}</span></p>
+                  <p><strong>Internship:</strong> <span id="displayInternship">{{ registration.internship|yesno:"Yes,No"|default:"No" }}</span></p>
+                </div>
+                <div class="col-12 col-md-6">
+                  <p><strong>Courses facilitator:</strong> <span id="displayFacilitator">{{ registration.course.facilitators.get_full_name|default:"" }}</span></p>
+                  <p><strong>Courses Materials:</strong> <span id="displayCourseAmount">₦{{ registration.course.amount|default:0 }}</span></p>
+                  <p>
+                    <strong>Status:</strong>
+                    <span class="badge" style="background-color: #ffc107;" id="displayStatus">{{ registration.is_approved|yesno:"Approved,Pending" }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button id="proceedToPayment" class="btn btn-primary btn-lg">
+              <i class="fas fa-credit-card mr-2"></i>Proceed to Payment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+
+ 
+    
+    
+        <div id="registrationPage" style="display: {% if registration %}none{% else %}block{% endif %};">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Course Registration </h2>
+                <p class="text-muted">Please fill out the form to register for your selected course and to be admitted into the program.</p>
+            </div>
+            
+            <form id="registrationForm" method="post">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control form-control-lg" id="fullName" placeholder="Enter your full name" name="fullname" value="{{ request.user.first_name }} {{ request.user.last_name }}" readonly required>
+                </div>
+                
+                
+                <div class="form-group mb-4">
+                    <label for="course">Select Course</label>
+                    <select class="custom-select custom-select-lg" name="course" id="course" >
+                        <option value="" selected disabled>-- Choose a Course --</option>
+                        {% for courses in courses  %}
+                          
+                        
+                        <option value={{courses.id}} >  {{courses.name}}</option>
+
+                        {% endfor %}
+                       
+                    </select>
+                    
+                    <div id="courseInfo" class="course-info mt-3"></div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label class="d-block">Preferred Training Mode</label>
+                    
+                    <div class="custom-radio-btn">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="virtualTraining" name="trainingMode" class="custom-control-input" value="virtual" required>
+                            <label class="custom-control-label" for="virtualTraining">
+                                <strong>Virtual Training</strong>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-radio-btn">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="physicalTraining" name="trainingMode" class="custom-control-input" value="physical">
+                            <label class="custom-control-label" for="physicalTraining">
+                                <strong>Physical Training</strong>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="trainingInfo" class="training-info mt-3"></div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="internshipAvailable" name="internship" >
+                        <label class="custom-control-label" for="internshipAvailable">
+                            I am available Not internship opportunities
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block btn-register">Complete Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+ 
+        </div>
+        
+   
+    
+    {% endblock content %}
+
+</body>
+</html>

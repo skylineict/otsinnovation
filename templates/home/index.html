@@ -1,0 +1,517 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'home/style.css' %}">
+    <link rel="icon" href="{% static 'home/image/skylogo.png' %}">
+    <script src="https://kit.fontawesome.com/66e653fb00.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+
+    <title>Obidients Tech Space</title>
+</head>
+<body>
+
+    <!-- THE BEGINING OF COHORT 6 WORK -->
+   
+    <!-- this is my header -->
+
+    <header>
+
+        <div class="header-flex">
+            
+            <div class="header-item">
+
+               <a href=""><img src="{% static 'home/image/skylogo.png' %}" alt=""></a> 
+            </div>
+
+            <div class="header-item">
+                
+                <div class="bars"><i class="fa-solid fa-bars-staggered" onclick="showmenu()"></i></div>
+               
+                <div class="ul" id="menu">
+                    <div class="xmark"><i class="fa-solid fa-xmark" onclick="hidemenu()"></i></div>
+               <ul>
+               
+                    
+                    <li><a href="#" class="home"><i class="fa-solid fa-house"></i>HOME</a></li>
+                    <li><a href="#aboutus"><i class="fa-solid fa-database"></i>About</a></li>
+                    <li><a href="#courses"><i class="fa-solid fa-book-atlas"></i>Courses</a></li>
+                    <li><a href="#team"><i class="fa-solid fa-database"></i>Team</a></li>
+                    <li><a href=" {% url 'login' %}"><i class="fa-solid fa-database"></i>My Portal</a></li>
+                    <li><a href="#GetStarted"><i class="fa-solid fa-database"></i>Get Started</a></li>
+                   
+                </ul>
+            </div>
+            </div>
+        </div>
+    </header>
+ 
+    <!-- this is container-div -->
+ 
+    <div class="container-div">
+
+        <div class="container-flex">
+
+            <div class="container-tem">
+                <h1>Building Talents in Tech<br > and Creating Solutions</h1>
+                <p>Obidients Tech Space: Using technology as a tool to power your future 
+                    and 
+                    <br> empower talented people to innovate and solve the world’s biggest problems.</p>
+
+                     <button class="explore"> <a href="{% url 'register' %}"> Enrol now</a></button>
+            </div>
+
+            <div class="container-item">
+                <img src=" {% static 'home/image/6.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+   
+
+    <!-- the end of container-div -->
+
+    <!-- this is dev -->
+
+    <div class="dev">
+
+        <div class="dev-flex">
+
+            <div class="dev-item item">
+                <h2>Becoming a Developer:</h2>
+                <p><i class="fa-solid fa-briefcase"></i> 
+                    8 Months of Software Engineering Training</p>
+                <button class="button"> <a href="{% url 'register' %}">Enrol for Free</button></a> 
+            </div>
+
+            <div class="dev-item already">
+                <h2>Hire a Developer:</h2>
+                <p><i class="fa-solid fa-lock"></i>Hire the best team of Developers, Software Engineers 
+                    and Consultants, to build and manage your projects.</p>
+                <button class="button"><a href="http://skylineict.com/"> Connect Now</a></button>
+            </div>
+        </div>
+    </div>
+>
+    <section class="course">
+
+        <div class="course-container" id="courses">
+          <div class="course-img">
+           
+          <img class="img" src=" {% static 'home/image/image 1 (1) (1).jpg' %}" alt="">
+          
+          <div class="camp1"><button>REMOTE TRAINING</button></div>
+        
+          <div class="course-text">
+            <h1>Front-End Developer</h1>
+          
+
+
+            <p>Start your Front-End Career with Obidient Tech Space. At the completion of this 4-month course, which will train you in 
+                 <strong>HTML 5, CSS 3, BOOTSTRAP 5 and JAVASCRIPT,</strong>  you will design the following applications:
+                 <span style="color: crimson;"> a Blog Site, an E-Commerce Site, 
+                    an Online Learning Site and a Portfolio Website.</span> <br> </p>
+    
+        <a href=""><i class="fa-solid fa-calendar"></i>4 Months</a>
+        <a href="#"><i class="fa-solid fa-users-between-lines"></i>apply now </a>
+          </div>
+        </div>
+      
+          <div class="course-img">
+            <img class="img" src="  {% static 'home/image/image 3.jpg' %}" alt="">
+             <div class="camp1"><button>REMOTE TRAINING</button></div> 
+        
+          
+            <div class="course-text">
+              
+              <h1>Back-End Developer <br>(Python, django Js)</h1>
+              <p><strong> Python, Django, Node-JS)
+                (Python, PostgreSQL, Postgres, MySQL, Django) </strong><br>
+                In this course, you will be equipped with the right skill-set to
+                 develop software that will solve problems.
+               <br>
+               The following application will be developed throughout this session:<br> 
+                <strong> E-Commerce and Social Media Sites, Costly Apps, Job Recruitment Sites, Customer Management Software, etc. </strong><br></p>
+      
+          <a href="#"><i class="fa-solid fa-calendar"></i>5 Months</a>
+          <a href="{% url 'register' %}"><i class="fa-solid fa-users-between-lines"></i>apply now</a>
+            </div>
+          </div>
+        
+            <div class="course-img">
+              <img class="img" src="    {% static 'home/image/image 4.jpeg' %}" alt="">
+              <div class="camp1"><button>REMOTE TRAINING</button></div>
+        
+            
+              <div class="course-text">
+                <h1>Full Stack Developer</h1>
+                <p>Full Stack Developer:
+                    In this course, we will focus on Clients and Servers. This course refers to the ability
+                     to integrate the Front-End and Back-End components of a Software.  <br> </p>
+                    <strong>
+                        HTML5, CSS3, Bootstrap 5, and JavaScript</strong>
+                    <p><strong> Python, DJANGO, MySQL, PostgreSQ,  </strong><br>
+                       
+                        The following applications will be developed throughout this course:<br> 
+                        <strong> Customer Management Software, Expensive Apps, Job Recruitment Site, E-Commerce and Social Media Site, 
+                            Blog Sites, Online Learning Sites and Portfolio Websites. </strong><br></p>
+                       
+            <a href=""><i class="fa-solid fa-calendar"></i>8 Months</a>
+            <a href="{% url 'register' %}"><i class="fa-solid fa-users-between-lines"></i>apply now </a>
+              </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- fee section begins -->
+
+      <div class="container_1" id="GetStarted"">
+
+        <div class="icon_1">
+            <i class="fa-solid fa-hourglass-start"></i>
+            <p>Duration</p>
+            FRONT-END  DEVELOPMENT
+            <h3>4 Months</h3>
+
+            <br> <br>
+           BACK-END  DEVELOPMENT
+            <h3>5 Months<br></h3>
+            <br> <br>
+           FULL STACK DEVELOPMENT
+            <h3>8 Months<br></h3>
+        </div>
+        <div class="icon_2">
+            <i class="fa-solid fa-calendar-day"></i>
+            <p>Start Date</p>
+            <h3> April<br>26th,2023</h3>
+        </div>
+
+
+    
+
+      
+        <div class="icon_3">
+            <i class="fa-solid fa-layer-group"></i>
+            <p>Level</p>
+            <h3> Beginner</h3>
+        </div>
+        <div class="icon_4">
+            <i class="fa-solid fa-list"></i>
+            <p>Prerequisite</p>
+            <h3>A Laptop</h3>
+            <h3>A Good Internet</h3>
+        </div>
+        <div class="icon_5">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <p> Projects  </p>
+            <h3> 15 Projects</h3>
+        </div>
+        <div class="icon_6">
+            <i class="fa-solid fa-credit-card"></i>
+            <p>Training Cost</p>
+            <h3>Free(Charges)</h3>
+            <br> <br>
+        </div>
+
+
+      
+      </div>
+
+      <!-- managing partner section -->
+
+      <div class="container-fles">
+      
+        <div class="flex-items">
+            <img src=" {% static 'home/image/main.jpg' %}">
+        </div>
+
+        
+
+        <div class="flex-items1" id="aboutus">
+
+          
+            <h1>ABOUT US</h1>
+          
+            <p>The <strong> Obidient Tech Space program</strong> is powered by <br> <strong style="color: orange;"> <a href="https://skylineict.com">SKYLINE ICT CONSULT LTD.</a> </strong>  
+            </p>
+            <p>This is an exciting and comprehensive technology empowerment training designed to equip 
+                young people with the skills, knowledge, and mindset to
+                 excel in the ever-changing field of information technology (IT) ). <br>
+                 In today's digital age, technology plays a crucial role in shaping our world,.<br> 
+                 
+               <br>
+               We believe that every young individual has unique talents and abilities, and our mission is to 
+               train young Nigerians to become IT professionals, innovators, problem solvers and job creators.
+                <br>  <br>
+
+                Our company <strong style="color: orange;"> <a href="https://skylineict.com">SKYLINE ICT CONSULT LTD.</a> </strong>   is comprised of an in-depth team of 
+                IT professionals who are dedicated to providing state-of-the-art, 
+                state-of-the-art IT services with innovative training and skills development..<br>
+
+
+                <br> <br>
+
+                Our goal in the <strong>Obidient Tech Space program</strong>  is to equip participants with the
+                 tools and resources to use technology effectively,
+                 improve their digital literacy, and empower them to thrive in 
+                 an increasingly digital world.<br>
+
+                </p>
+            
+
+        </div>
+
+        <div class="link">
+
+            
+                 <a href=" {% url 'register' %} "><i class="fa-solid fa-graduation-cap"></i>Apply</a>
+                 <a href="{% url 'login' %}"><i class="fa-solid fa-plane-departure"></i>Visit campus</a>
+                 <a href="{% url 'login' %}"><i class="fa-solid fa-user"></i>Student</a>
+                 <a href="{% url 'login' %}"><i class="fa-solid fa-synagogue"></i>Library</a>
+                 <a href="{% url 'login' %} "><i class="fa-solid fa-user-graduate"></i>Scholarship</a>
+                 <a href=" {% url 'login' %} "><i class="fa-solid fa-calendar-days"></i>Event</a>
+                 <a href="{% url 'login' %}"><i class="fa-solid fa-circle-question"></i>FAQ</a>
+
+        </div>
+
+        
+    </div>
+       
+    
+    <!-- staff and student section begin -->
+    
+    
+    <section id="team">
+       
+       <div class="ceo">
+        <h3> OUR TEAM MEMBERS</h3>
+        <br> <br>
+        <p>Our team has achieved remarkable milestones.
+            and stand by to make sure you become the next software Engineer  <br>
+             
+
+        </p>
+        <img src="{% static 'home/image/skyline.png' %}" alt="" width="250px">
+               <h4> Olisa Macaulay Skyline</h4>
+                <p>Start-Up coach | Entrepreneur  <br> | Software Engineer |</p>
+                <p>CEO Skyline ICT Consult <br> | founder Obidients  tech space|</p>
+    
+       </div> 
+         
+
+       
+        <div class="flex">
+            <div class="column">
+                <img src=" {% static 'home/image/emmanuel.png' %}" alt="" width="150px">
+               <h3>Emmanuel Chiadikobi</h3>
+                <p>| Software Engineer | </p>
+                
+            </div>
+            <div class="column">
+                <img src=" {% static 'home/image/uzo.png' %}" alt="" width="150px">
+                <h3>Uzoamaka .C. Mbakogu </h3>
+                <p>| Software Engineer | </p>
+    
+            </div>
+            <div class="column">
+                <img src="{% static 'home/image/law.png' %}" alt="" width="150px">
+               <h3> Lawrence Akpan</h3> 
+                <p>| Software Engineer |</p>
+    
+            </div>
+            <div class="column">
+                <img src="{% static 'home/image/umaru.png' %}" alt="" width="150px">
+                <h3>Adama Umaru</h3>
+                <p>| Software Engineer |</p>
+    
+            </div>
+            <div class="column">
+                <img src="{% static 'home/image/ndifreke.png' %}" alt="" width="150px">
+                <h3>Ndifreke Callistus</h3>
+                <p>| Software Engineer |</p>
+    
+            </div>
+            </div>
+
+
+
+            <div class="flex">
+                <div class="column">
+                    <img src="{% static 'home/image/nico.png' %}" alt="" width="150px">
+                   <h3> Nicholas</h3>
+                    <p>| Software Engineer |</p>
+        
+                </div>
+                <div class="column">
+                    <img src="{% static 'home/image/micheal.png' %}" alt="" width="150px">
+                    <h3>Eichie Michael </h3>
+                    <p>| Software Engineer |</p>
+        
+                </div>
+                <div class="column">
+                    <img src="{% static 'home/image/david.png' %}" alt="" width="150px">
+                    <h3>David Ugwu</h3>
+                    <p>| Software Engineer |</p>
+        
+                </div>
+                <div class="column">
+                    <img src="{% static 'home/image/thankgod.png' %}" alt="" width="150px">
+                   <h3> Eze .T. Ubochi</h3> 
+                    <p>| Software Engineer | </p>
+        
+                </div>
+                <div class="column">
+                    <img src="{% static 'home/image/ogu.png' %}" alt="" width="150px">
+                    <h3>Okechukwu Ogo</h3>
+                    <p>| Software Engineer |</p>
+        
+                </div>
+               
+    
+    
+        </div>
+
+    
+     </section>
+
+     <!-- staff and student section END -->
+
+      <!-- transform your Workforce starts -->
+
+      <div class="transform-container">
+
+        <h5>Transform your Workforce</h5>
+
+        <div class="transform-flex">
+            <div class="transfor-row">
+                
+              <i class="fa-solid fa-star"></i>
+
+                <h6>We focus on teaching in-demand skills</h6>
+                <p>We provide you with in-depth knowledge of the latest technology and programming languages.
+                    Hit the ground running as you get your first tech job.
+                </p>
+            </div>
+
+            <div class="transfor-row">
+                <i class="fa-solid fa-star"></i>
+
+                <h6>Well tailored pedagogy for your teams</h6>
+                <p>Need to upskill or reskill your team? Univelcity's curriculum is tailored to uniquely fit your
+                    employees needs and provide them with the skills and knowledge for increased productivity and 
+                    team efficiency.
+                </p>
+            </div>
+
+            <div class="transfor-row">
+                <i class="fa-solid fa-star"></i>
+
+                <h6>Led and taught by industry professionals</h6>
+                <p>The best instructors will be by your side every step of the way and guide you on your journey, skills
+                    assessments and career transition.
+                </p>
+            </div>
+
+            <div class="transfor-row">
+                <i class="fa-solid fa-star"></i>
+
+                <h6>Certificates to boost your CV</h6>
+                <p>At Obidient Tech Space we are dedicated to helping you make the most of your skills. We understand the importance of 
+                    upskill and job readiness and we are here to help you every step of the way.
+                </p>
+            </div>
+
+           
+        </div>
+    </div>
+
+      <!-- skyline ict begins here -->
+      
+      <!-- <section class="cohot8">
+        <h2>Why Choose Skyline Ict Consult?</h2>
+      <div class="nedu">
+    <div class="cohot">
+        <img src="./image/pix1.PNG" alt="">
+
+        <h4>Comprehensive Education</h4>
+
+        <p>Tech programmes at skyline ict consult <br>
+            are all encompassing. The institution has <br>
+            developed custon built courses to specially <br> 
+            package the student and deliver him to his <br>
+            worldupon graduation as an agent of change. 
+        </p>
+
+    </div>
+
+    <div class="cohot">
+        <img src="./image/pix2.PNG"  alt="">
+
+        <h4>Resources</h4>
+
+        <p>The library is the heart and lifeline of any <br>
+            citadel of learning. The library complex is an <br>
+            edifice with three floors, reputed to be one of <br> 
+            largest in Africa. The total floor areas of the <br>
+            complex is 11,300m
+        </p>
+
+    </div>
+
+    <div class="cohot">
+        <img src="./image/pix3 (1).png" alt="">
+
+        <h4>Financial Aid</h4>
+
+        <p>Skyline Ict consults offers international  
+            scholarships, <br> fellowship, or grant to both
+        local and international <br> students. Apart the program 
+         based scholarship,<br> many other organizations,including
+        foundations, trusts <br> and coperate bodies give scholarships.</p>
+    </div>
+
+  </div>
+    </section> -->
+
+
+        <!-- footer section begins -->
+        <div class="footer">
+              <div class="footer-container"> 
+            
+                              <hr>
+                              
+                              <div class="social-links">
+                               <a href="https://www.facebook.com/skylineictconsult"> <i class="fa-brands fa-facebook"> </i>  </a>                             
+                               <a href="https://twitter.com/skylineict"><i class="fa-brands fa-twitter"></i> </a> 
+                                <a href="https://www.youtube.com/@skylinetv2718"></a><i class="fa-brands fa-youtube"></i> </a> 
+                                <a href="https://wa.link/unw8bh"><i class="fa-brands fa-whatsapp"></i> </a> 
+                                
+                             
+				<p class="Copyright">@ 2023-- Skyline Ict Consult Ltd</p>
+
+                              </div>
+
+              </div>
+        </div>
+    
+    <!-- this is the javascript for menu-bar  -->
+
+    <script>
+
+        const menubar = document.getElementById('menu');
+        function showmenu(){
+            menubar.style.display= 'block'
+        }
+        
+        function hidemenu(){
+            menubar.style.display= 'none'
+        }
+        
+        </script>
+
+</body>
+</html>

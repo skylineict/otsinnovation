@@ -1,0 +1,17 @@
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+*.log
+secrets.json
+*.db
+*.sqlite3
+*.egg-info
+*.egg   
+
+*.DS_Store
+*.swp
+*.swo
+*.swn
+*.swo

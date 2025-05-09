@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous" />
+
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/fbfe7ccd16.js"
+      crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'style/form.css' %}" />
+
+    <title>Registration</title>
+    <script>
+      body {
+          background-color: #f5f5f5;
+          font-family: Arial, sans-serif;
+      }
+
+      .container-form {
+          background: white;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .card {
+          border: none;
+      }
+
+      .card-title {
+          color: #004d40;
+          font-weight: bold;
+      }
+
+      .card-text {
+          color: #333;
+      }
+
+      .inerst h4 {
+          color: #00796b;
+          font-weight: bold;
+      }
+
+      .inerst strong {
+          color: #004d40;
+      }
+
+      .ul {
+          list-style: none;
+          padding-left: 0;
+      }
+
+      .ul li {
+          color: #00796b;
+      }
+
+      .form-lable {
+          color: #004d40;
+          font-weight: bold;
+      }
+
+      .form-control,
+      .form-select {
+          border: 2px solid #00796b;
+          border-radius: 5px;
+      }
+
+      .btn-success {
+          background-color: #00796b;
+          border-color: #004d40;
+      }
+
+      .btn-success:hover {
+          background-color: #004d40;
+          border-color: #00796b;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="container container-form">
+        <div class="card">
+          <div class="row d-flex bd-highlight">
+            <!-- Left Section -->
+            <div class="col-sm-6 mycol">
+              <div class="card-body text-center">
+                <h1 class="card-title">Front-End Developer (3 months)</h1>
+                <p class="card-text">
+                  <b>(HTML, CSS, JavaScript, and Bootstrap)</b> <br />
+                  Expected Projects During the Course:
+                  <b
+                    >Blog site, E-commerce website, E-learning website,
+                    Portfolio website</b
+                  >
+                </p>
+              </div>
+
+              <div class="card-body text-center">
+                <h1 class="card-title">Full Stack Developer (3 months)</h1>
+                <p class="card-text">
+                  <b>Frontend: HTML, CSS, JavaScript, Bootstrap</b> <br />
+                  <b>Backend: Python, Django, PostgreSQL, SQL</b> <br /><br />
+                  Expected Projects:
+                  <b
+                    >Customer management software, Expense tracking app, Job
+                    recruitment site, Online e-commerce, Social media
+                    platform</b
+                  >
+                </p>
+              </div>
+
+              <div class="card-body">
+                <h1 class="card-title">Training Materials</h1>
+                <p class="card-text">
+                  Materials are required to participate in this training.
+                </p>
+
+                <div class="inerst">
+                  <h4>Front-End Developers</h4>
+                  <strong>Materials cost: N15,500</strong> <br />
+                  <small>Applicants will receive:</small>
+                  <ul class="ul">
+                    <li>Bootstrap 5.0</li>
+                    <li>HTML 5</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                  </ul>
+                </div>
+
+                <div class="inerst">
+                  <h4>Full-Stack Developers</h4>
+                  <strong>Materials cost: N15,500</strong> <br />
+                  <small>Applicants will receive:</small>
+                  <ul class="ul">
+                    <li>Bootstrap 5.0</li>
+                    <li>HTML 5</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>Django</li>
+                    <li>Ajax</li>
+                    <li>jQuery</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Section (Form) -->
+            <div class="col-sm-6 form-col">
+              <div class="card-body">
+                <form action="{% url 'login' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="row mt-5">
+                    <div class="col-md-6">
+                      <label class="form-label">First Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="first"
+                        placeholder="Enter First Name"
+                        required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Last Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="last"
+                        placeholder="Enter Last Name"
+                        required />
+                    </div>
+
+                    <div class="col-md-4 mt-3">
+                      <label class="form-label">State</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="state"
+                        placeholder="State" />
+                    </div>
+                    <div class="col-md-4 mt-3">
+                      <label class="form-label">City</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="City" />
+                    </div>
+                    <div class="col-md-4 mt-3">
+                      <label class="form-label">Local Govt</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="L.G.A" />
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                      <label class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        placeholder="Enter Email"
+                        required />
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                      <label class="form-label">WhatsApp No:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="whatsapp"
+                        placeholder="Enter No" />
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                      <label class="form-label">Phone No:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="phone"
+                        placeholder="Enter Phone" />
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                      <label class="form-label">Contact Address:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="address"
+                        placeholder="Enter Contact" />
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                      <label class="form-label">Preferred Course:</label>
+                      <select name="course" class="form-select">
+                        <option selected>Choose Training Course</option>
+                        <option value="Front-end">Front-End Development</option>
+                        <option value="Full-stack">
+                          Full Stack Development
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                      <label class="form-label">Do You Have a Laptop?</label>
+                      <select name="laptop" class="form-select">
+                        <option selected>Choose</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                      <label class="form-label"
+                        >Social Media Profile Link</label
+                      >
+                      <input
+                        type="url"
+                        class="form-control"
+                        name="social_link"
+                        placeholder="Copy and paste Profile Link" />
+                    </div>
+
+                    <div class="d-grid col-md-8 mx-auto mt-2">
+                      <button class="btn btn-success" type="submit">
+                        Submit Data
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
+  </body>
+</html>

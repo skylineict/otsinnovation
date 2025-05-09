@@ -1,0 +1,182 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+        <div class="page-header">
+        <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <h5 class="text-uppercase mb-0 mt-0 page-title">Blog</h5>
+    
+        </div>
+      
+        </div>
+        </div>
+        
+    
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                {% for fullstack in fullstack  %}
+                  
+               
+                <h3 class="blog-title"><a href="">{{fullstack.courses}}</a></h3>CLASS: <b style="background-color: red;font-size:20px; color:white"> {{fullstack.online}} </b>
+              
+                <div class="card-footer text-muted">
+                    <b>Date:</b> {{fullstack.date}}
+                  </div>
+              <div class="card">
+                <img src="{{fullstack.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h1 class="card-title"> <b style="color: green;">{{fullstack.title}}</b> </h1>
+                  <p class="card-text">{{fullstack.subject}}</p>
+                  {% if user.is_staff   %}
+                  <a href="{% url 'edit_live' fullstack.pk %}" class="btn btn-danger">Add Class Link</a>
+                  {% endif %}
+{% if admissionnow.status == 'admitted' %}
+                  {% if payments.courses == 'full-stack Engineering' %}
+                    
+                
+                  <a href="{{fullstack.link}}" class="btn btn-danger">Join class</a>
+
+                  
+               {% else %}
+               
+              
+               <button class="btn btn-dark" disabled>restricted</button>
+                  {% endif %}
+                  
+                  {% else %}
+              
+                  <button class="btn btn-danger" disabled>not yet admitted</button>
+                  {% endif %}
+                  
+           
+
+                  
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+           
+  
+            <div class="col">
+
+                {% for front_end in front_end  %}
+                  
+               
+                <h3 class="blog-title"><a href="">{{front_end.courses}}</a></h3> <b style="background-color: red;font-size:20px; color:white">{{front_end.online}} </b>
+                <div class="card-footer text-muted">
+                   <b>Date:</b> {{front_end.date}}
+                  </div>
+              <div class="card">
+                <img src="{{front_end.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h1 class="card-title"> <b style="color: green;">{{front_end.title}}</b> </h1>
+                  <p class="card-text">{{front_end.subject}}</p>
+                  {% if user.is_staff   %}
+
+                
+                  <a href="{% url 'edit_live' front_end.pk %}" class="btn btn-danger">Add Class Link</a>
+                  {% endif %}
+       {% if admissionnow.status == 'admitted' %}
+
+                  {% if payments.courses == 'front-end Engineering' %}
+                  <a href="{{front_end.link}}" class="btn btn-danger">Join class</a>
+
+                  
+                  {% else %}
+                  <button class="btn btn-dark" disabled>restricted</button>
+                  {{payment.courses}}
+                 {% endif %}
+
+
+                 {% else %}
+              
+                 <button class="btn btn-danger" disabled>not yet admitted</button>
+                 {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+
+
+            <div class="col">
+
+              {% for product_design in product_design  %}
+                
+             
+              <h3 class="blog-title"><a href="">{{product_design.courses}}</a></h3> <b style="background-color: red;font-size:20px; color:white">{{product_design.online}} </b>
+              <div class="card-footer text-muted">
+                 <b>Date:</b> {{product_design.date}}
+                </div>
+            <div class="card">
+              <img src="{{product_design.image.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                  <h1 class="card-title"> <b style="color: green;">{{product_design.title}}</b> </h1>
+                <p class="card-text">{{product_design.subject}}</p>
+                {% if user.is_staff   %}
+
+              
+                <a href="{% url 'edit_live' product_design.pk %}" class="btn btn-danger">Add Class Link</a>
+                {% endif %}
+     {% if admissionnow.status == 'admitted' %}
+
+                {% if payments.courses == 'Product Design' %}
+                <a href="{{product_design.link}}" class="btn btn-danger">Join class</a>
+
+                
+                {% else %}
+                <button class="btn btn-dark" disabled>restricted</button>
+                {{payment.courses}}
+               {% endif %}
+
+
+               {% else %}
+            
+               <button class="btn btn-danger" disabled>not yet admitted</button>
+               {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+           
+            
+          </div>
+
+
+
+       
+        
+       
+
+        
+
+
+        </div>
+
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

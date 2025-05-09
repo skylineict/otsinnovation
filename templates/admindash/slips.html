@@ -1,0 +1,329 @@
+{% extends "dashboard/header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body
+
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    <div class="page-header">
+    <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <h5 class="text-uppercase mb-0 mt-0 page-title">Invoice</h5>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <ul class="breadcrumb float-right p-0 mb-0">
+    <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+    <li class="breadcrumb-item"><a href="index.html">Accounts</a></li>
+    <li class="breadcrumb-item"><span>Invoice</span></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-5 col-4">
+    </div>
+    <div class="col-sm-7 col-8 text-right add-btn-col">
+    <div class="btn-group btn-group-sm">
+    <button class="btn btn-white">CSV</button>
+    <button class="btn btn-white">PDF</button>
+    <button class="btn btn-white"><i class="fas fa-print fa-lg"></i> Print</button>
+    </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+    <div class="card-body">
+   
+    <div class="row">
+    <div class="col-sm-6 col-lg-9 m-b-20">
+    <img src="https://www.skylineict.com/wp-content/uploads/2019/03/LOGO.png" class="inv-logo" alt="">
+    <ul class="list-unstyled">
+    <li>
+      
+
+
+  
+    <li><span>Skyline Ict Consult ltd</span></li>
+    <li>No 9 Aguma Street,ogbunabali</li>
+    <li> Port Harcourt</li>
+    <li>+2348101524926</li>
+    <li><a href="#"><span class="__cf_email__" data-cfemail="6">[info@skylineict.com]</span></a></li>
+    </ul>
+    </div>
+
+    {% if payment.courses == 'full-stack Engineering' %}
+    <div class="col-sm-6 col-lg-3 m-b-20"style="color: green;  " >
+    <span class="text-muted">Payment Details:</span>
+    <ul class="list-unstyled invoice-payment-details">
+    <li>
+    <h5>Username: <span class="text-right">{{user.username}}</span></h5></li>
+    <li>Payment Status: <span>{{payment.payment_status}}</span></li>
+    <li>Amount Paid: <span>N{{payment.amount}}</span></li>
+    <li>Course: <span>{{payment.courses}}</span></li>
+    <li>Training Duration: <span> 8 months</span></li>
+    <li>Payment Type: <span>{{payment.payment_type}}</span></li>
+    <li>Payment Date: <span>{{payment.date}}</span></li>
+   
+    </ul>
+    </div>
+    </div>
+
+
+
+   
+
+    <div class="table-responsive">
+    <table class="table custom-table">
+    <thead class="thead-light">
+    <tr>
+    <th>{{payment.courses}}</th>
+    <th>Full Stack Engeering Materials  </th>
+    <th class="d-none d-sm-block">DESCRIPTION</th>
+    <th>AMOUNT </th>
+   
+    <th>TOTAL</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>1</td>
+            <td>Python 3</td>
+            <td class="d-none d-sm-block"> basic to advance of JavaScript </td>
+            <td>N5,000</td>
+           
+            <td>NN5,000</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Django 4</td>
+                <td class="d-none d-sm-block"> basic to advance of JavaScript </td>
+                <td>N5,000</td>
+               
+                <td>NN5,000</td>
+                </tr>
+    <tr>
+    <td>3</td>
+    <td>HTML5 AND CSS3</td>
+    <td class="d-none d-sm-block">html 5 and css3 from basic to professional.</td>
+    <td>N4,150</td>
+   
+    <td>N4,150</td>
+    </tr>
+    <tr>
+    <td>4</td>
+    <td>BOOSTRAP 5</td>
+    <td class="d-none d-sm-block">course we will build the following application email sending</td>
+    <td>N4,150</td>
+
+    <td>N4,150</td>
+    </tr>
+    <tr>
+    <td>5</td>
+    <td>Javascript</td>
+    <td class="d-none d-sm-block"> basic to advance of JavaScript </td>
+    <td>N4,150</td>
+   
+    <td>N4,150</td>
+    </tr>
+    <tr>
+   
+  
+   
+    </tr>
+    <tr>
+   
+
+    
+    </tr>
+    </tbody>
+    </table>
+    </div>
+
+
+
+    <div>
+    <div class="row invoice-payment">
+    <div class="col-sm-7">
+    </div>
+    <div class="col-sm-5">
+    <div class="m-b-20 mt-2">
+    <h6>Total due</h6>
+    <div class="table-responsive no-border">
+    <table class="table m-b-0">
+    <tbody>
+    <tr>
+    <th>Subtotal:</th>
+    <td class="text-right">N22,450</td>
+    </tr>
+    <tr>
+    <th>Vat: <span class="text-regular"></span></th>
+    <td class="text-right">N100</td>
+    </tr>
+    <tr>
+    <th>Total:</th>
+    <td class="text-right text-primary">
+    <h5>N22,500</h5>
+    </td>
+    </tr>
+
+    <tr>
+        <th>Balance:</th>
+        <td class="text-right text-primary">
+        <h5></h5>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    {% else %}
+
+
+    <div class="col-sm-6 col-lg-3 m-b-20"style="color: green;  " >
+        <span class="text-muted">Payment Details:</span>
+        <ul class="list-unstyled invoice-payment-details">
+        <li>
+        <h5>Username: <span class="text-right">{{user.username}}</span></h5></li>
+        <li>Payment Status: <span>{{payment.payment_status}}</span></li>
+        <li>Amount Paid: <span>N{{payment.amount}}</span></li>
+        <li>Course: <span>{{payment.courses}}</span></li>
+        <li>Training Duration: <span>5 months</span></li>
+        <li>Payment Type: <span>{{payment.payment_type}}</span></li>
+        <li>Payment Date: <span>{{payment.date}}</span></li>
+       
+        </ul>
+        </div>
+        </div>
+    
+    
+    
+       
+    
+        <div class="table-responsive">
+        <table class="table custom-table">
+        <thead class="thead-light">
+        <tr>
+        <th>{{payment.courses}}</th>
+        <th>Front-End Engering Materials  </th>
+        <th class="d-none d-sm-block">DESCRIPTION</th>
+        <th>AMOUNT </th>
+       
+        <th>TOTAL</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>HTML5 AND CSS3</td>
+        <td class="d-none d-sm-block">html 5 and css3 from basic to professional.</td>
+        <td>N4,150</td>
+       
+        <td>N4,150</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>BOOSTRAP 5</td>
+        <td class="d-none d-sm-block">course we will build the following application email sending</td>
+        <td>N4,150</td>
+    
+        <td>N4,150</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Javascript</td>
+        <td class="d-none d-sm-block"> basic to advance of JavaScript </td>
+        <td>N4,150</td>
+       
+        <td>N4,150</td>
+        </tr>
+        <tr>
+       
+      
+       
+        </tr>
+        <tr>
+       
+    
+        
+        </tr>
+        </tbody>
+        </table>
+        </div>
+    
+    
+    
+        <div>
+        <div class="row invoice-payment">
+        <div class="col-sm-7">
+        </div>
+        <div class="col-sm-5">
+        <div class="m-b-20 mt-2">
+        <h6>Total due</h6>
+        <div class="table-responsive no-border">
+        <table class="table m-b-0">
+        <tbody>
+        <tr>
+        <th>Subtotal:</th>
+        <td class="text-right">N12,450</td>
+        </tr>
+        <tr>
+        <th>Vat: <span class="text-regular"></span></th>
+        <td class="text-right">N50</td>
+        </tr>
+        <tr>
+        <th>Total:</th>
+        <td class="text-right text-primary">
+        <h5>N12,500</h5>
+        </td>
+        </tr>
+    
+      
+        </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+    {% endif %}
+
+
+    
+    
+    
+       
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+   
+
+
+    </div>
+    
+  
+{% endblock content %}>
+    
+</body>
+</html>

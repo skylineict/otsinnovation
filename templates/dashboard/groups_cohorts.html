@@ -1,0 +1,81 @@
+{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+           
+            {% if mycohorts.name %}
+              
+            
+           
+              <h1>Welcome to cohort community 
+               
+                </h1>
+
+                <p> Here you meet other student and share idea with one another </p>
+        
+          
+   
+          
+
+
+
+                <div class="row staff-grid-row">
+                {% for mycohort  in allcohorts  %}
+  
+                <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+                <div class="profile-widget">
+                <div class="profile-img">
+                <a href="parent-profile.html"><img class="avatar" src="assets/img/user.jpg" alt=""></a>
+                </div>
+                           
+
+                <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href=" {% url 'cohorts' mycohort.pk %}">{{mycohort}}</a></h4>
+
+            
+
+                <div class="small text-muted"></div>
+                </div>
+                </div>
+                {% endfor %}
+
+
+              
+                </div>
+              
+               
+                {% else %}
+
+
+  
+   
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+    <h5 class="text-uppercase mb-0 mt-0 page-title text-danger">you have not assigned to  any cohorts</h5>
+    </div>
+                
+                
+                {% endif %}
+          
+
+           
+
+
+
+
+        </div>
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

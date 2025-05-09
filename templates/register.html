@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registration</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- FontAwesome -->
+    <script
+      src="https://kit.fontawesome.com/fbfe7ccd16.js"
+      crossorigin="anonymous"
+    ></script>
+
+  
+
+    <!-- iziToast CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css">
+
+    <!-- iziToast JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
+    <style>
+      body {
+        background: 
+        linear-gradient(to right, rgba(0, 77, 64, 0.8), rgba(0, 121, 107, 0.8)),
+        url("{% static 'assets/img/bg.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .input-group-text {
+        background: #009688;
+        color: white;
+        border-radius: 10px 0 0 10px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, #00796b, #004d40);
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: 0.3s;
+        border-radius: 10px;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(to right, #004d40, #002d27);
+      }
+
+      .form-header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #00796b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="logo-container" style="text-align: center;margin-bottom: -139px;margin-top: -43px;">
+        <img src="{% static 'assets/img/log.jpeg' %}" alt="Logo" style="border-radius: 50%; width: 300px;">
+      </div>
+      <form id="registration-form" method="post" autocomplete="off" class="w-100">
+        {% csrf_token %}
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+          <input type="email" name="email" class="form-control" placeholder="Email Address" />
+        </div>
+
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="fa-brands fa-whatsapp"></i></span>
+          <input type="tel" name="phone" class="form-control" placeholder="WhatsApp Number"  />
+        </div>
+
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+          <input type="text" name="username" class="form-control" placeholder="Username"  />
+        </div>
+
+        <div class="mb-3 input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" name="password" class="form-control" placeholder="Password" />
+        </div>
+
+        <div class="mb-1 input-group">
+          <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" name="password2" class="form-control" placeholder="Confirm Password"  />
+        </div>
+
+        <p class="justify-content-end m-0 p-0 text-end mb-3" style="color: #00796b; font-size: 12px;">
+          Already have an account? <span><a href="{% url 'login' %}" class="text-danger-emphasis ms-1 fw-bold">Login</a></span>
+        </p>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" id="btn-login">
+            <span id="btn-text">Proceed</span>
+            <span class="spinner-border" style="width: 2rem; height: 2rem; display: none;"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <script src="{% static 'assets/ajax/register.js' %}" defer></script>
+  </body>
+</html>

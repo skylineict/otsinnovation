@@ -1,0 +1,1242 @@
+/* THE BEGINING OF COHORT 6 WORK */
+
+/* this is the global selector */
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
+    width: 100;    
+}
+
+.container-tem a{
+
+  text-decoration: none;
+  color: #000000;
+}
+
+
+.dev-flex a{
+
+text-decoration: none;
+color: #000000;
+
+}
+
+/* this is the header */
+
+/* header{
+    height: 100px;
+    position: fixed;
+    top: 0px;
+} */
+
+.header-flex{
+    display: flex;
+}
+
+.header-item img{
+    width: 20%;
+    margin: 15px 0px 0px 90px;
+}
+
+ul{
+    display: flex;
+    list-style-type: none;
+    margin-top: 30px;
+}
+
+ul li a{
+    text-decoration: none;
+    padding: 20px 20px 10px 20px;
+    color: rgba(0, 0, 0, 0.738);
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+ul li a:hover{
+    border-bottom: 2px solid rgba(0, 0, 0, 0.738);
+    border-radius: 5px;
+    transition: 1s;
+}
+
+.home{
+    color: rgb(0,150,136);
+}
+
+.home:hover{
+    color: rgb(0,150,136);
+    border-radius: 5px;
+    transition: 1s;
+}
+
+.fa-house, .fa-database, .fa-book-atlas, .fa-mendeley, .fa-speakap{
+    margin-right: 4px;
+}
+
+.fa-speakap{
+    font-size: 16px;
+}
+
+.fa-rocket{
+    font-size: 14px;
+    padding-right: 4px;
+}
+
+.bars, .xmark{
+    display: none;
+}
+
+/* this is the end of header */
+
+/* this is container-div */
+
+.container-div{
+   height: 85vh;
+   width: 100%;
+   background-image: linear-gradient(rgba(255, 255, 255, 0.749), rgba(255, 255, 255, 0.811)),
+   url(./image/ha21.png);
+   /* background-position: center; */
+   background-size: 1300px;
+   background-repeat: no-repeat;
+   margin-top: 80px;
+}
+
+.container-flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-tem{
+    margin-left: 100px;  
+}
+
+.container-tem h1{
+    font-size: 60px;
+    font-weight: bolder;
+    padding-top: 30px;
+}
+
+.container-tem p{
+    font-family: 'Noto Sans', sans-serif;
+    padding-top: 50px;
+    font-size: 21px;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.846);
+}
+
+.explore{
+    padding: 20px 55px;
+    margin-top: 35px;
+    color: rgba(0, 0, 0, 0.846);
+    background-color: rgb(0,150,136);
+    border: none;
+    font-size: 18px;
+    font-weight: bolder;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.explore:hover{
+    background-color: white;
+    transition: 1s;
+    border: 2px solid rgb(0,150,136);
+}
+
+.container-item img{
+    width: 100%;
+    height: 500px;
+}
+
+/* this is the end of  container-div */
+
+/* this is dev  */
+
+.dev{
+    height: 40vh;
+}
+
+.dev-flex{
+    display: flex;
+    justify-content: center;
+    margin-top: 7vh;
+}
+
+.item{
+    margin-right: 4vh;
+    background-color: white;
+    width: 43%;
+    height: 33vh;
+    text-align: center;
+    box-shadow: 0px 0px 14px 14px #adaaaa88;
+}
+
+.item:hover{
+    box-shadow: 8px 10px 10px 8px #adaaaa88;
+}
+
+.already{
+    background-color: white;
+    width: 43%;
+    height: 33vh;
+    margin-left: 4vh;
+    text-align: center;
+    box-shadow: 0px 0px 13px 13px #adaaaa8f;
+}
+
+.already:hover{
+    box-shadow: 8px 10px 10px 8px #adaaaa8f;
+}
+
+.dev-item h2{
+    padding-top: 6vh;
+    font-size: 35px;
+}
+
+.dev-item p{
+    padding-top: 4vh;
+    font-size: 20px; 
+}
+
+.fa-lock, .fa-briefcase{
+    padding-right: 7px;
+}
+
+.button{
+    margin-top: 3vh;
+    padding: 15px 36px;
+    font-size: 18px;
+    background-color:rgb(0,150,136);
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.846);
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: white;
+    transition: 1s;
+    border: 2px solid rgb(0,150,136); 
+
+}
+
+/* course section starts */
+
+.courses{
+  width: 100%;
+}
+
+.course-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10vh;
+  }
+  
+  .course-img{
+    
+    border: 0.1px solid #d9ecea;
+    border-radius: 5px;
+    padding: 30px;
+  
+  }
+  
+  .camp1 button{
+    border: 1px solid rgb(0,150,136);
+    border-radius: 4px;
+    background-color: #009688;
+    padding: 10px 15px;
+    color: #fff;
+    top: -32vh;
+    margin-right: 51.9%;
+    position: relative;
+    margin-left:20px;
+    z-index: 1;
+    cursor: pointer;
+    text-decoration: none;
+  
+  }
+  
+  .camp1 button:hover{
+    color: #fff;
+    background-color: aqua;
+    transition: 1s;
+  }
+  
+  
+  
+  .img img{
+    width: 375px;
+    height: 250px;
+  }
+  
+  
+  .course-text{
+    margin-left: 15px;
+   
+  }
+  
+  .course-text h1{
+    color:#009688;
+    padding-bottom: 13px;
+    font-weight: bold;
+    font-size: 20px;
+  
+  }
+  
+  .course-text p{
+    color:#009688;
+    padding-bottom: 23px;
+  }
+  
+  .course-text a{
+    color:#009688;
+    padding: 0 0 0 15px;
+    
+  }
+  
+  .fa-calendar,.fa-users-between-lines{
+    padding-right: 10px;
+  }
+
+  /* course section end */
+  
+  
+.flex-items1 a{
+
+  text-decoration: none;
+  color: orange;
+
+}
+  
+  
+  
+  .container_1 { 
+    height: 500px;
+    display:flex;
+    background-color: #009688;
+    justify-content:space-evenly;
+    padding-top: 98px; 
+    padding-bottom: 20px;
+    margin: 45px;
+  }
+  .icon_1 { 
+     padding-left: 50px;
+  }
+  
+  .icon_1 h3 span {
+    color: black; 
+    font-size: 20px; 
+  }
+  
+  
+  .icon_1 p { 
+    padding-top: 20px; 
+    font-size: 20px; 
+  }
+ 
+  .fa-hourglass-start { 
+    color: black; 
+    font-size: 35px;
+    margin-left: 20px;
+  }
+ 
+  
+  .icon_2 p { 
+    font-size: 20px; 
+    padding-top: 20px;
+  }
+  
+  .fa-calendar-day { 
+    margin-left: 22px;
+    color: black; 
+    font-size: 35px; 
+  }
+  
+    .fa-layer-group { 
+    color: black; 
+    font-size: 35px; 
+    margin-left: 20%;
+  }
+  
+    .icon_3 p { 
+    font-size: 20px;
+     padding-top: 20%;
+    }
+  
+    .fa-list {
+     color: black; 
+    font-size: 35px;
+     margin-left: 25%;
+    }
+  
+     .icon_4 p { 
+    font-size: 20px; 
+    padding-top: 20%; 
+    text-align: center;
+  }
+  
+    .fa-screwdriver-wrench {
+    color: black; 
+    font-size: 35px; 
+    margin-left: 25%; 
+  }
+  
+    .icon_5 p { 
+    font-size: 20px; 
+    padding-top: 20%;
+  }
+  
+    .fa-credit-card { 
+    color: black; 
+    font-size: 35px; 
+    margin-left: 20%; 
+  }
+  
+  .icon_6 p { 
+    color: black;
+    font-size: 20px;
+     padding-top: 15%; 
+    } 
+
+    /* fee section end here */
+  
+     
+    /* Managing partner section begins */
+  
+     .container-fles{
+      display: flex;
+     }
+  
+  .flex-items img{
+      width: 500px;
+      height: 400px;
+      margin-left: 50px;
+      border-radius: 30%;
+  }
+  
+  .flex-items1{
+    margin-left: 35px;
+    
+   }
+  
+  .flex-items1 h1{
+    font-size: 35px;
+  }
+
+  .flex-items1 p{
+    font-size: 18px;
+    padding-top: 3vh;
+    line-height: 30px;
+  }
+
+  .link{
+    margin-left: 25px;
+    width: 25%;
+    margin-top: 25px;
+  }
+  
+  .link a{
+    text-decoration: none;
+      text-align: left;
+      display: block;
+      padding: 13px 75px;
+      border-radius: 5px;
+      margin: 6px;
+      color: rgb(128, 73, 128);
+      background-color: rgba(194, 175, 175, 0.486);  
+  }
+  
+  .fa-solid{
+    padding: 4px;
+  }
+
+  /* Managing partner section end */
+  
+  
+  /* staff and student section begins */
+  
+  .text{
+    text-align: center;
+    
+  }
+  .text h1{
+    font-size: 40px;
+   padding-top: 7vh;
+    font-weight: bold;
+    
+  }
+  .ceo h3{ text-align: center;
+    margin-top: 40px;
+    font-size: 30px;
+
+  }
+  .ceo p{
+    text-align: center;
+  }
+  .ceo h4{text-align: center;
+    font-size: 25px;
+  
+    
+  }
+  .ceo img{
+    justify-items: center;
+    margin-left: 550px;
+  }
+  
+  .flex{
+    display: flex;
+    padding: 0px 120px;
+  }
+  
+  .text p{
+    margin-top: 20px;
+  }
+  .column{
+    margin: 0px 40px 40px 40px;
+    text-align: center;
+  }
+
+/* staff and student section end   */
+  
+  /* transform your workforce begins */
+  
+  .transform-container h5{
+    text-align: center;
+    padding-top: 60px;
+    font-size: 37px;
+    margin-bottom: 40px;
+  }
+  
+  .transform-flex{
+    display: flex;
+    margin-left: 6%;
+  }
+
+  .transfor-row img{
+    width: 40px;
+    height: 40px;
+    
+  } 
+  
+  .img{
+    text-align: center;
+    padding-top: 20px;
+    color: #009687;
+  }
+  
+  .fa-star{
+    font-size: 40px;
+    margin-left: 40%;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    color: rgb(0,150,136)
+  }
+  
+  .transfor-row h6{
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  
+  .transfor-row{
+    margin-left: 4.5%;
+    width: 263px;
+    align-content: center;
+  }
+  
+  .transfor-row p{
+    text-align: center;
+    font-size: 19px;
+  }
+  
+   /* transform your workforce end */
+  
+  
+  /* skyline section starts */
+  
+  .cohot8{
+    margin-bottom: 25px;
+  }
+  
+  .nedu{
+    display: flex;
+    justify-content: center;
+  
+  }
+  
+  .cohot8 h2{
+    text-align: center;
+    margin-top: 10vh;
+    margin-bottom: 3%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 35px;
+    color: rgb(0,150,136);
+  }
+  
+  .cohot{
+    padding: 15px;
+    
+  }
+  
+  .cohot h4{
+    padding-top: 3vh;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 15px;
+    color: rgb(0,150,136);
+  }
+  
+   .cohot p{
+    line-height: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.714);
+  }
+  
+  .cohot img{
+    width: 400px;
+  }
+  
+  /* skyline section end */
+
+  /* footer section begin here */
+
+  .logo img{
+    width: 100px;
+    margin-top: 5vh;
+  }
+  
+  .footer-container{
+    
+    background: #10d3bfef;
+    padding: 0px 60px;
+  }
+ 
+
+  .footer-row{
+    display: flex;
+    padding-top: 50px;
+    justify-content: space-evenly;
+  }
+  .footer-col2 li{
+    list-style-type: none;
+    text-decoration: none;
+    line-height: 30px;
+    padding-top: 20px;
+  }
+
+  .footer-col2 li a{
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+  }
+  
+  .footer-col1 p{
+    font-size: 16px;
+    color: #fff;
+    color: black;
+    line-height: 25px;
+    padding-top: 20px;
+  }
+
+  .footer-col3 p{
+    padding-top: 20px;
+  }
+  
+  
+  .social-links{
+    text-align: center;
+    color: #fff;
+    
+  }
+  
+  .fa-facebook, .fa-twitter, .fa-whatsapp, .fa-youtube{
+    padding: 10px 15px;
+    font-size: 20px;
+    border: 1px solid #009688;
+    margin: 20px 5px;
+    cursor: pointer;
+    color: #ffffff;
+  }
+
+  
+  .footer-row a{
+    font-size: 15px;
+  }
+
+  .footer hr{ 
+    background: #ede9e9;
+    height: 0.005px;
+    margin: 100px 0px 0px 140px;
+    width: 80%;
+  }
+  
+  .Copyright{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+  }
+
+/* this is the end of footer */
+
+
+
+/* here is my media query */
+
+@media screen and (max-width: 750px){
+
+    /* COHORT 6 BEGINS */
+
+/* this is the header */
+
+.header-item img{
+    width: 20%;
+    margin: 15px 0px 0px 40px;
+}
+
+.bars{
+    font-size: 25px;
+    padding: 6px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.846);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+}
+
+.ul{
+    background-color: rgb(0,150,136);
+    height: 70vh;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 50%;
+    z-index: 2px;
+    margin-top: 0px;
+    display: none;
+}
+
+ul{
+    flex-direction: column;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+ul li{
+    padding-top: 5vh;
+}
+
+ul li a{
+    color: white;
+}
+
+ul li a:hover{
+    border: none;
+}
+
+.bars, .xmark{
+    display: block;
+}
+
+/* .xmark{
+    margin-bottom: 5vh;
+} */
+
+.xmark{
+    position: absolute;
+    left: 3%;
+    top: 0vh;
+    font-size: 30px;
+    cursor: pointer; 
+}
+
+.home{
+    color: white;
+}
+
+
+.home:hover{
+    color: white;
+    border: none;
+}
+
+/* this is the end of header */
+
+/* this the begining of container-div */
+ 
+ .container-flex{
+     flex-direction: column;
+ }
+ 
+ .container-tem{
+     margin-left: 0;
+     text-align: center;
+     padding: 0px 10px;
+   
+    
+ }
+
+
+ .container-item img{
+
+padding-bottom: 100px;
+
+ }
+ 
+ .container-tem h1{
+     font-size: 40px;
+     padding-top: 5vh;
+     color: #009687;
+     font-weight: bold;
+ }
+ 
+ .container-tem p{
+     padding-top: 40px;
+     font-size: 20px;
+     color: rgb(0, 0, 0);
+     font-weight: bold;
+ }
+
+
+ .course-text{
+
+  text-align: center;
+  padding: 0px 30px;
+  line-height: 1.4;
+}
+
+
+.course-text p{
+
+  color: #000000;
+  font-size: 20px;
+  text-align: left;
+}
+
+
+ .course-text h1{
+
+  font-weight: bold;
+  font-size: 30px;
+
+ }
+ 
+ .explore{
+     padding: 15px 35px;
+     font-size: 16px;
+ }
+ 
+ .container-item img{
+     width: 70%;
+     height: 350px;
+     margin-top: 8vh;
+     margin-left: 10vh;
+ }
+
+ /* this the end of container-div */
+
+ /* this the begining of dev */
+
+ .dev{
+    height: 70vh;
+ }
+
+.dev-flex{
+    flex-direction: column;
+    margin-top: 30vh;
+    align-items: center;
+}
+
+.item{
+    margin-right: 0vh;
+    width: 80%;
+    height: 28vh;
+}
+
+.already{
+    width: 80%;
+    height: 28vh;
+    margin-left: 0vh;
+    margin-top: 7vh;
+}
+
+.dev-item h2{
+    font-size: 20px;
+}
+
+.dev-item p{
+    font-size: 16px; 
+}
+
+.button{
+    padding: 15px 28px;
+    font-size: 16px;
+
+}
+
+/* the end of dev */
+
+
+/* courses section start here  */
+
+.course-container{
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5vh;
+  }
+
+  /* courses section end here  */
+  
+
+  /* Managing partner section begins */
+
+  .container_1 { 
+    width: 100%;
+    height: 190vh;
+    flex-direction: column;
+    background-color: #009688; 
+    padding-bottom: 0px;
+    text-align: center;
+    margin: 0px;
+    font-size: 25px;
+    color: rgb(48, 9, 9);
+  }
+  .icon_1 { 
+     padding-left: 0px;
+  }
+  
+  .icon_1 h3 span { 
+    font-size: 10px; 
+  }
+  
+  
+  .icon_1 p {  
+    font-size: 18px;
+    padding-top: 16px; 
+  }
+ 
+  .fa-hourglass-start { 
+    font-size: 25px;
+    margin-left: 0px;
+  }
+ 
+  
+  .icon_2 p { 
+    font-size: 18px; 
+    padding-top: 16px;
+  }
+  
+  .fa-calendar-day { 
+    margin-left: 0px; 
+    font-size: 25px; 
+  }
+  
+    .fa-layer-group {  
+    font-size: 25px; 
+    margin-left: 0%;
+  }
+  
+    .icon_3 p { 
+    font-size: 18px;
+     padding-top: 16px;
+    }
+  
+    .fa-list { 
+    font-size: 25px;
+     margin-left: 0%;
+    }
+  
+     .icon_4 p { 
+    font-size: 18px; 
+    padding-top: 16px; 
+  }
+  
+    .fa-screwdriver-wrench {
+    font-size: 25px; 
+    margin-left: 0%; 
+  }
+  
+    .icon_5 p { 
+    font-size: 18px; 
+    padding-top: 16px;
+  }
+  
+    .fa-credit-card {  
+    font-size: 25px; 
+    margin-left: 0%; 
+  }
+  
+  .icon_6 p { 
+    font-size: 18px;
+     padding-top: 16px; 
+    }
+    
+    /* Managing partner section end */
+
+     /* Managing partner section begins */
+  
+     .container-fles{
+      flex-direction: column;
+     }
+
+     .flex-items{
+      justify-content: center;
+      text-align: center;
+     }
+  
+  .flex-items img{
+      width: 400px;
+      height: 300px;
+      margin-left: 0px;
+      margin-top: 3vh;
+  }
+  
+  .flex-items1{
+    margin-left: 0px;
+    
+   }
+  
+  .flex-items1 h1{
+    font-size: 25px;
+    padding-top: 15px;
+    text-align: center;
+  }
+
+  .flex-items1 p{
+    font-size: 20px;
+    padding-top: 1vh;
+    line-height: 20px;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .link{
+    margin-left: 0px;
+    width: 100%;
+    font-size: 20px;
+  }
+  
+  .link a{
+      text-align: center;  
+  }
+
+  /* Managing partner section end */
+
+  .text{
+    text-align: center;
+    
+  }
+  .text h1{
+    font-size: 40px;
+   padding-top: 7vh;
+    font-weight: bold;
+    
+  }
+  
+  .flex{
+    display: flex;
+    padding: 0px 120px;
+  }
+  
+  .text p{
+    margin-top: 20px;
+  }
+  .column{
+    margin: 0px 40px 40px 40px;
+    text-align: center;
+  }
+
+  /* staff and student section begins */
+  
+  .text h1{
+    font-size: 25px;
+    padding-top: 4vh;
+  }
+  .ceo img{
+    margin-left: 40px;
+    width: 80%;
+  }
+
+  .ceo p{
+
+    font-size: 25px;
+  }
+  
+  .flex{
+    flex-direction: column;
+    padding: 0px 0px;
+  }
+  
+  .text p{
+    margin-top: 10px;
+  }
+  .column{
+    margin: -45px 0px 0px 0px;
+  }
+
+/* staff and student section end   */
+
+
+/* transform your workforce begins */
+  
+.transform-container{
+  text-align: center;
+ 
+}
+
+.transform-container h5{
+  text-align: center;
+  padding-top: 40px;
+  font-size: 30px;
+  margin-bottom: 30px;
+  color: rgb(1, 1, 26);
+}
+
+
+
+.transform-container{
+
+  font-size: 30px;
+}
+.transform-flex{
+  flex-direction: column;
+  margin-left: 0%;
+  justify-content: center;
+}
+
+.fa-star{
+  font-size: 25px;
+  margin-left: 0%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.transfor-row h6{
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.transfor-row{
+  margin-left: 0%;
+  width: 100%;
+}
+
+.transfor-row p{
+  font-size: 16px;
+  padding-bottom: 3vh;
+  line-height: 20px;
+}
+
+ /* transform your workforce end */
+
+ /* skyline section starts */
+  
+ .cohot8{
+  margin-bottom: 25px;
+}
+
+.nedu{
+  align-items: center;
+  flex-direction: column;
+}
+
+.cohot8 h2{
+  margin-top: 2vh;
+  margin-bottom: 3%;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.cohot{
+  padding: 0px;
+  
+}
+
+.cohot h4{
+  padding-top: 2vh;
+  font-size: 20px;
+}
+
+ .cohot p{
+  line-height: 25px;
+  font-size: 16px;
+  padding-bottom: 3vh;
+}
+
+.cohot img{
+  width: 380px;
+}
+
+/* skyline section end */
+
+  /* footer section begin here */
+
+  .logo img{
+    width: 100px;
+    margin-top: 0vh;
+  }
+  
+  .footer-container{
+    text-align: center;
+    
+  }
+ 
+
+  .footer-row{
+    flex-direction: column;
+    padding-top: 50px;
+  }
+  .footer-col2 li{
+    line-height: 20px;
+    padding-top: 15px;
+  }
+
+  .footer-col2 li a{
+    font-size: 15px;
+  }
+
+  .footer-col1 h2, .footer-col2, .footer-col3{
+     padding-top: 3vh;
+  }
+  
+  .footer-col1 p{
+    font-size: 15px;
+    padding-top: 10px;
+  }
+
+  .footer-col3 p{
+    padding-top: 10px;
+  }
+
+  .footer hr{ 
+    margin: 0px;
+    width: 100%;
+  }
+  
+  .Copyright{
+    font-size: 14px;
+  }
+
+/* this is the end of footer */
+
+
+
+
+
+    
+}
+
+
+
+
+

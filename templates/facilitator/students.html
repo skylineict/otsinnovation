@@ -1,0 +1,82 @@
+{% extends 'dashboard/header.html' %}
+
+{% block title %}Your Students{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="mb-4">Students for {{ course.name }}</h1>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4>Enrolled Students</h4>
+                        <a href="{% url 'facilitator_dashboard' %}" class="btn btn-sm btn-primary">Back to Dashboard</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if students %}
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="students-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Training Mode</th>
+                                        <th>Internship</th>
+                                        <th>Registration Date</th>
+                                        <th>User Account</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <td>{{ student.full_name }}</td>
+                                        <td>{{ student.phone|default:"Not provided" }}</td>
+                                        <td>{{ student.training_mode }}</td>
+                                        <td>{% if student.internship %}Yes{% else %}No{% endif %}</td>
+                                        <td>{{ student.created_at|date:"M d, Y" }}</td>
+                                        <td>
+                                            {% if student.user %}
+                                                {{ student.user.email }}
+                                            {% else %}
+                                                No user account linked
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <p>You don't have any students enrolled in your course yet.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('students-table')) {
+            // Optional: Add DataTables for better table functionality
+            // This requires adding DataTables library to your project
+            // $('#students-table').DataTable();
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}

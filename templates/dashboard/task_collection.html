@@ -1,0 +1,1039 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Tasks</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary: #1a2b5d;
+      --success: #00a769;
+      --secondary: #4361ee;
+      --warning: #f7b731;
+      --danger: #e63946;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --white: #ffffff;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: var(--dark);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Cards */
+    .card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #2a3c6e);
+      border: none;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(26, 43, 93, 0.2);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2a3c6e, var(--primary));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(26, 43, 93, 0.3);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--success), #07875a);
+      border: none;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 167, 105, 0.2);
+      color: var(--white);
+    }
+    
+    .btn-success:hover {
+      background: linear-gradient(135deg, #07875a, var(--success));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 167, 105, 0.3);
+    }
+
+    .btn-outline-primary {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-primary:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-outline-warning {
+      border: 2px solid var(--warning);
+      color: #d4980b;
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-warning:hover {
+      background-color: var(--warning);
+      color: var(--white);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--primary), #2a3c6e);
+      color: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(26, 43, 93, 0.2);
+    }
+
+    /* Profile Styles */
+    .profile-card {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--white);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Stats Card */
+    .stats-card {
+      background-color: var(--white);
+      border-radius: 16px;
+      margin-top: 1.5rem;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      background-color: rgba(26, 43, 93, 0.1);
+      padding: 1rem;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .stat-badge {
+      background-color: rgba(0, 167, 105, 0.1);
+      color: var(--success);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+    }
+
+    /* Task List */
+    .task-list {
+      max-height: 350px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--light);
+    }
+
+    .task-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .task-list::-webkit-scrollbar-track {
+      background: var(--light);
+      border-radius: 10px;
+    }
+
+    .task-list::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 10px;
+    }
+
+    .task-card {
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-left: 4px solid var(--primary);
+    }
+
+    .task-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid var(--light-gray);
+      transition: transform 0.3s;
+    }
+
+    .task-card:hover .task-img {
+      transform: scale(1.1);
+    }
+
+    /* Badge styles */
+    .badge-primary {
+      background-color: rgba(26, 43, 93, 0.1);
+      color: var(--primary);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+
+    .badge-success {
+      background-color: rgba(0, 167, 105, 0.1);
+      color: var(--success);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+
+    .badge-warning {
+      background-color: rgba(247, 183, 49, 0.1);
+      color: #d4980b;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+
+    /* Tabs */
+    .nav-tabs {
+      border: none;
+      margin-bottom: 1rem;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: var(--gray);
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      margin-right: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), #2a3c6e);
+      box-shadow: 0 4px 8px rgba(26, 43, 93, 0.2);
+    }
+
+    .nav-tabs .nav-link:hover:not(.active) {
+      background-color: rgba(26, 43, 93, 0.05);
+    }
+
+    /* Table */
+    .table {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table thead {
+      background: linear-gradient(135deg, var(--primary), #2a3c6e);
+      color: var(--white);
+    }
+
+    .table th {
+      font-weight: 500;
+      border: none;
+      padding: 1rem;
+    }
+
+    .table td {
+      padding: 1rem;
+      vertical-align: middle;
+    }
+
+    .table tbody tr {
+      transition: background-color 0.3s;
+    }
+
+    .table tbody tr:hover {
+      background-color: rgba(26, 43, 93, 0.05);
+    }
+
+    /* File Upload */
+    .upload-area {
+      border: 2px dashed var(--primary);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+      background-color: rgba(26, 43, 93, 0.02);
+    }
+
+    .upload-area:hover {
+      background-color: rgba(26, 43, 93, 0.05);
+      border-color: #2a3c6e;
+    }
+
+    .drag-drop-area {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .drag-drop-area.active {
+      background-color: rgba(26, 43, 93, 0.1);
+      transform: scale(0.98);
+    }
+
+    .drag-drop-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .preview-image {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+      margin-top: 1rem;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background-color: rgba(26, 43, 93, 0.1);
+      border-radius: 50px;
+      margin-top: 1.5rem;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 50px;
+    }
+
+    /* Animations */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .bounce {
+      animation: bounce 1s ease infinite;
+    }
+
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+      z-index: 9999;
+      animation: confetti 5s ease-in-out;
+    }
+
+    /* Progress Indicator */
+    .progress-indicator {
+      background-color: rgba(26, 43, 93, 0.1);
+      border-radius: 50px;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s;
+    }
+
+    /* Badge Counter */
+    .badge-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #2a3c6e);
+      color: var(--white);
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    /* Animation for new elements */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* User Profile Button */
+    .user-profile-btn {
+      background: linear-gradient(135deg, var(--primary), #2a3c6e);
+      border: none;
+      border-radius: 50px;
+      padding: 0.5rem 1rem;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(26, 43, 93, 0.2);
+    }
+    
+    .user-profile-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(26, 43, 93, 0.3);
+    }
+
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-4">
+  <!-- Header Section -->
+  <div class="header d-flex justify-content-between align-items-center">
+    <div>
+      <h4 class="mb-2">Task Dashboard</h4>
+      <p class="mb-0">
+        Congratulations, <strong>{{ user.username }}</strong>! You're a few steps away from joining our next software engineering team.
+        <span class="d-block mt-2 text-warning">Note: Complete all <strong>(7)</strong> tasks to be considered for selection.</span>
+      </p>
+    </div>
+    <div class="d-flex align-items-center">
+      <button class="user-profile-btn" type="button">
+        {% with user.profiles_set.all|first as profile %}
+          {% if profile.uplaod_picture %}
+            <img class="user-avatar" src="{{ profile.uplaod_picture.url }}" alt="Profile">
+          {% else %}
+            <div class="user-avatar d-flex align-items-center justify-content-center bg-light text-primary">
+              <i class="bi bi-person"></i>
+            </div>
+          {% endif %}
+        {% endwith %}
+        <span>{{ user.username }}</span>
+        <i class="bi bi-chevron-down ms-1"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Left Column - Profile & Stats -->
+    <div class="col-lg-3">
+      <!-- Profile Card -->
+      <div class="card profile-card text-center">
+        <div class="card-body">
+          {% with user.profiles_set.all|first as profile %}
+            {% if profile.uplaod_picture %}
+              <img src="{{ profile.uplaod_picture.url }}" alt="Profile" class="profile-img mb-3">
+            {% else %}
+              <div class="profile-img d-flex align-items-center justify-content-center bg-primary mb-3 mx-auto">
+                <i class="bi bi-person text-white" style="font-size: 2rem;"></i>
+              </div>
+            {% endif %}
+          {% endwith %}
+          
+          <h5 class="mb-1">{{ user.username }}</h5>
+          {% with user.profiles_set.all|first as profile %}
+            {% if profile %}
+              <div class="text-muted mb-3">@{{profile.first_name}}.{{profile.last_name}}</div>
+            {% else %}
+              <div class="text-muted mb-3">@{{ user.username }}</div>
+            {% endif %}
+          {% endwith %}
+          
+          <div class="d-flex align-items-center justify-content-center mb-2">
+            <i class="bi bi-envelope-fill me-2 text-primary"></i>
+            <span>{{user.email}}</span>
+          </div>
+          
+          {% with user.profiles_set.all|first as profile %}
+            {% if profile.phone_num %}
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="bi bi-telephone-fill me-2 text-primary"></i>
+                <span>{{profile.phone_num}}</span>
+              </div>
+            {% endif %}
+            
+            {% if profile.courses %}
+              <div class="d-flex align-items-center justify-content-center">
+                <i class="bi bi-book-fill me-2 text-primary"></i>
+                <span>{{ profile.courses }}</span>
+              </div>
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <!-- Stats Card -->
+      <div class="card stats-card">
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <i class="bi bi-clipboard-check stat-icon"></i>
+            <h6 class="mb-3">Task Progress</h6>
+            
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span>Available Tasks:</span>
+              <span class="stat-badge">{{ total_task }}</span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Completed Tasks:</span>
+              {% if approved_task_count %}
+                <span class="stat-badge">{{ approved_task_count }}</span>
+              {% else %}
+                <span class="stat-badge">0</span>
+              {% endif %}
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress mt-3" style="height: 10px; border-radius: 50px; background-color: rgba(26, 43, 93, 0.1);">
+              {% if approved_task_count %}
+                <div class="progress-bar" role="progressbar" 
+                     style="width: {{ approved_task_count|mul:14.28 }}%; background: linear-gradient(to right, var(--primary), var(--success));" 
+                     aria-valuenow="{{ approved_task_count }}" aria-valuemin="0" aria-valuemax="7">
+                </div>
+              {% else %}
+                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="7"></div>
+              {% endif %}
+            </div>
+            <small class="text-muted mt-2 d-block">
+              {% if approved_task_count %}
+                {{ approved_task_count }} of 7 tasks completed
+              {% else %}
+                0 of 7 tasks completed
+              {% endif %}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Tasks -->
+    <div class="col-lg-9">
+      <!-- Task Progress Tabs -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="tab" type="button">
+                <div class="d-flex align-items-center">
+                  <span class="badge-counter">
+                    {% if task_collection %}
+                      {{ task_collection.count }}
+                    {% else %}
+                      0
+                    {% endif %}
+                  </span>
+                  <span>Tasks Submitted</span>
+                </div>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" type="button">
+                <div class="d-flex align-items-center">
+                  <span class="badge-counter bg-warning">
+                    {% if task_collection %}
+                      {{ 7|sub:task_collection.count }}
+                    {% else %}
+                      7
+                    {% endif %}
+                  </span>
+                  <span>Tasks Remaining</span>
+                </div>
+              </button>
+            </li>
+          </ul>
+
+          <!-- Section Title -->
+          <h5 class="text-primary mb-3">Available Tasks</h5>
+          
+          <!-- Available Tasks -->
+          <div class="task-list mb-4">
+            {% for task in allcohorts %}
+              <div class="card task-card mb-3 fade-in" style="animation-delay: {{ forloop.counter|mul:0.1 }}s">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-3">
+                      <img src="{{ task.task_img.url }}" class="task-img" alt="{{ task.task }}">
+                      <div>
+                        <span class="badge-warning mb-2">{{ task.task }}</span>
+                        <p class="mb-1 text-wrap">{{ task.task_description|truncatechars:100 }}</p>
+                        <small class="text-muted">
+                          <i class="bi bi-calendar-event me-1"></i> Deadline: May 10, 2025
+                        </small>
+                      </div>
+                    </div>
+                    <div>
+                      <a href="{{ task.links }}" target="_blank" class="btn btn-outline-warning">
+                        <i class="bi bi-arrow-right-circle me-1"></i> Take Task
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+          <!-- Submitted Tasks -->
+          <h5 class="text-primary mb-3">Your Submissions</h5>
+          <div style="overflow-y: auto; max-height: 400px;">
+            {% if task_collection.count <= 0 %}
+              <div class="card mb-4">
+                <div class="card-body text-center py-5">
+                  <i class="bi bi-folder-x text-muted" style="font-size: 3rem;"></i>
+                  <h5 class="mt-3">No Tasks Submitted Yet</h5>
+                  <p class="text-muted mb-0">Complete tasks from the available list above to see your submissions here.</p>
+                </div>
+              </div>
+            {% else %}
+              <div class="card mb-4">
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table mb-0">
+                      <thead>
+                        <tr>
+                          <th>Student</th>
+                          <th>Task</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for admitted_student in task_collection %}
+                          <tr class="fade-in" style="animation-delay: {{ forloop.counter|mul:0.1 }}s">
+                            <td>
+                              <div class="d-flex align-items-center">
+                                {% with admitted_student.student.profiles_set.all|first as profile %}
+                                  {% if profile.uplaod_picture %}
+                                    <img src="{{ profile.uplaod_picture.url }}" alt="Profile" class="rounded-circle me-2" width="40" height="40">
+                                  {% else %}
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px;">
+                                      <i class="bi bi-person"></i>
+                                    </div>
+                                  {% endif %}
+                                {% endwith %}
+                                <div>
+                                  <strong>{{ admitted_student.student.first_name }} {{ admitted_student.student.last_name }}</strong>
+                                </div>
+                              </div>
+                            </td>
+                            <td>{{ admitted_student.task }}</td>
+                            <td>
+                              <span class="badge-success">
+                                <i class="bi bi-check-circle me-1"></i>
+                                {{ admitted_student.status }}
+                              </span>
+                            </td>
+                            <td>
+                              <a href="{{ admitted_student.links }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-eye me-1"></i> View
+                              </a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="card-footer bg-white text-center py-3">
+                  {% if completed_task_count == 7 %}
+                    <a href="{% url 'dash' %}" class="btn btn-primary">
+                      <i class="bi bi-grid me-1"></i> Back to Dashboard
+                    </a>
+                  {% else %}
+                    <a href="{% url 'task_collwction' %}" class="btn btn-primary">
+                      <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Task Submission Form -->
+          {% if task_collection.count < 7 %}
+            <div class="card">
+              <div class="card-header bg-white">
+                <h5 class="text-primary mb-0"><i class="bi bi-send me-2"></i> Submit New Task</h5>
+              </div>
+              <div class="card-body">
+                <form id="taskForm" method="POST" enctype="multipart/form-data">
+                  <!-- Task Selection -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Select Task</label>
+                    <select name="project" class="form-select p-3 rounded-pill" required>
+                      <option value="" disabled selected>Choose your task</option>
+                      {% for myassigment in task %}
+                        <option value="{{myassigment.task}}">{{myassigment.task}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <!-- Social Media Link -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Social Media Link</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-link-45deg text-primary"></i>
+                      </span>
+                      <input type="url" name="url" class="form-control border-start-0 p-3" placeholder="Paste your social media profile link here" required>
+                    </div>
+                  </div>
+                  
+                  <!-- Upload Area -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Upload Screenshot</label>
+                    <div class="upload-area">
+                      <div class="drag-drop-area" id="dropArea">
+                        <div class="drag-drop-icon bounce">
+                          <i class="bi bi-cloud-arrow-up"></i>
+                        </div>
+                        <h5>Drag & Drop your file here</h5>
+                        <p class="text-muted">or click to browse files</p>
+                        <input type="file" name="myfiles" class="file-input" id="fileInput" required>
+                        <img id="previewImage" class="preview-image" alt="Preview">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Progress Bar -->
+                  <div class="progress-container" id="uploadProgress">
+                    <div class="progress-bar" id="progressBar"></div>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="text-end">
+                    <button type="submit" class="btn btn-primary">
+                      <span class="submit-text">Submit Task</span>
+                      <span class="spinner-border spinner-border-sm d-none ms-2" id="spinner"></span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const dropArea = document.getElementById('dropArea');
+    const fileInput = document.getElementById('fileInput');
+    const previewImage = document.getElementById('previewImage');
+    const progressContainer = document.getElementById('uploadProgress');
+    const progressBar = document.getElementById('progressBar');
+    const form = document.getElementById('taskForm');
+    const spinner = document.getElementById('spinner');
+    const submitText = document.querySelector('.submit-text');
+
+    // Initialize tooltips if available
+    if (typeof bootstrap !== 'undefined') {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+
+    // Drag and drop functionality
+    if (dropArea) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop area
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        dropArea.addEventListener('drop', handleDrop, false);
+        dropArea.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+    }
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    function highlight() {
+        dropArea.classList.add('active');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('active');
+    }
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+    }
+
+    function handleFiles(files) {
+        if (files.length > 0) {
+            const file = files[0];
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
+                progressContainer.style.display = 'block';
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    progressBar.style.width = progress + '%';
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                        }, 500);
+                    }
+                }, 100);
+            } else {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Please upload a valid image file.',
+                    position: 'topRight'
+                });
+            }
+        }
+    }
+
+    function createConfetti() {
+        const colors = ['#00bfa5', '#00796b', '#4db6ac', '#26a69a', '#b2dfdb', '#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            confetti.style.width = `${Math.random() * 8 + 4}px`;
+            confetti.style.height = confetti.style.width;
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            confetti.style.opacity = Math.random() * 0.5 + 0.5;
+            confetti.style.position = 'absolute';
+            confetti.style.top = `${Math.random() * 100}vh`;
+            confetti.style.zIndex = 9999;
+            confetti.style.pointerEvents = 'none';
+            confetti.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+            confetti.style.transform += ` translateY(${Math.random() * 100 + 50}vh)`;
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000); // Confetti lifetime
+        }
+    }
+
+    // Form submission
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            spinner.classList.remove('d-none');
+            submitText.textContent = 'Submitting...';
+
+            e.preventDefault(); // Prevent default form submission
+
+            $.ajax({
+                url: form.action || window.location.href,
+                method: form.method,
+                data: new FormData(form),
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value
+                },
+                success: function(response) {
+                    spinner.classList.add('d-none');
+                    submitText.textContent = 'Submit Task';
+                    
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Task submitted successfully!',
+                        position: 'topRight'
+                    });
+
+                    // Find badge counters for submitted and remaining tasks
+                    const badgeCounters = document.querySelectorAll('.badge-counter');
+                    let submittedElem, remainingElem;
+                    
+                    if (badgeCounters.length >= 2) {
+                        submittedElem = badgeCounters[0];
+                        remainingElem = badgeCounters[1];
+                        
+                        let submitted = parseInt(submittedElem.textContent);
+                        let remaining = parseInt(remainingElem.textContent);
+
+                        if (!isNaN(submitted) && !isNaN(remaining) && submitted < 7) {
+                            submitted += 1;
+                            remaining = Math.max(0, 7 - submitted);
+
+                            submittedElem.textContent = submitted;
+                            remainingElem.textContent = remaining;
+                            
+                            // Update progress bar
+                            const progressBar = document.querySelector('.progress-bar');
+                            if (progressBar) {
+                                progressBar.style.width = `${submitted * 14.28}%`;
+                                const progressText = document.querySelector('.progress + small');
+                                if (progressText) {
+                                    progressText.textContent = `${submitted} of 7 tasks completed`;
+                                }
+                            }
+                        }
+
+                        // Trigger confetti if all tasks are completed
+                        if (submitted === 7) {
+                            createConfetti();
+                            // Optional: Refresh page after all tasks done
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    }
+
+                    // Reset form and preview
+                    form.reset();
+                    previewImage.style.display = 'none';
+                    
+                    // Refresh the page to show new submission in table
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                },
+                error: function(xhr, status, error) {
+                    let errorMsg = "There was an error submitting the form. Please try again.";
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            errorMsg = response.error;
+                        }
+                    } catch (e) {
+                        // keep default message
+                    }
+                    
+                    iziToast.error({
+                        title: 'Error',
+                        message: errorMsg,
+                        position: 'topRight'
+                    });
+                    
+                    spinner.classList.add('d-none');
+                    submitText.textContent = 'Submit Task';
+                }
+            });
+        });
+    }
+
+    // User profile dropdown functionality
+    const userProfileBtn = document.querySelector('.user-profile-btn');
+    if (userProfileBtn) {
+        userProfileBtn.addEventListener('click', function() {
+            // Here you would typically toggle a dropdown menu
+            // This is a placeholder for that functionality
+            iziToast.info({
+                title: 'Profile',
+                message: 'Profile dropdown functionality would go here',
+                position: 'topRight'
+            });
+        });
+    }
+
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.nav-tabs .nav-link');
+    if (tabButtons.length) {
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all tabs
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+            });
+        });
+    }
+});

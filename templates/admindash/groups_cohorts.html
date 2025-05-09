@@ -1,0 +1,348 @@
+{% extends "dashadmin/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>payment</title>
+</head>
+<body>
+    {% block content %}
+
+    <style>
+
+
+       
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-header h2 {
+            color: #1b2b5e;
+            font-weight: 600;
+        }
+        .course-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1b2b5e;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .training-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #00a86a;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .btn-register {
+            background-color: #00a86a;
+            border: none;
+            padding: 10px 25px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(0, 168, 106, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-register:hover {
+            background-color: #009960;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 168, 106, 0.25);
+        }
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1b2b5e;
+        }
+        .form-check-input:checked {
+            background-color: #00a86a;
+            border-color: #00a86a;
+        }
+        .form-select:focus, .form-control:focus, .form-check-input:focus {
+            border-color: #00a86a;
+            box-shadow: 0 0 0 0.2rem rgba(0, 168, 106, 0.25);
+        }
+        .custom-radio-btn {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .custom-radio-btn:hover {
+            background-color: #f8f9fa;
+        }
+        .custom-radio-btn.selected {
+            border-color: #00a86a;
+            background-color: rgba(0, 168, 106, 0.05);
+        }
+        .custom-radio-btn .form-check-input {
+            margin-right: 10px;
+        }
+
+
+
+   
+
+    </style>
+
+    <div class="page-wrapper">
+  
+    
+      <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Course Registration</h2>
+                <p class="text-muted">Please fill out the form to register for your selected course and to be admitted into the program.</p>
+            </div>
+            
+            <form id="registrationForm">
+                <div class="form-group mb-4">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control form-control-lg" id="fullName" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control form-control-lg" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="course">Select Course</label>
+                    <select class="custom-select custom-select-lg" id="course" required>
+                        <option value="" selected disabled>-- Choose a Course --</option>
+                        <option value="front-end">Front-End Development</option>
+                        <option value="back-end">Back-End Development</option>
+                        <option value="fullstack">Full Stack Development</option>
+                        <option value="ux-design">UX Design</option>
+                        <option value="data-science">Data Science</option>
+                    </select>
+                    
+                    <div id="courseInfo" class="course-info mt-3"></div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label class="d-block">Preferred Training Mode</label>
+                    
+                    <div class="custom-radio-btn" onclick="selectTrainingMode('virtual', this)">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="virtualTraining" name="trainingMode" class="custom-control-input" value="virtual" required>
+                            <label class="custom-control-label" for="virtualTraining">
+                                <strong>Virtual Training</strong>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="custom-radio-btn" onclick="selectTrainingMode('physical', this)">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="physicalTraining" name="trainingMode" class="custom-control-input" value="physical">
+                            <label class="custom-control-label" for="physicalTraining">
+                                <strong>Physical Training</strong>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="trainingInfo" class="training-info mt-3"></div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control form-control-lg" id="phone" placeholder="Enter your phone number" required>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="internshipAvailable">
+                        <label class="custom-control-label" for="internshipAvailable">
+                            I am available for internship opportunities
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block btn-register">Complete Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+        </div>
+        
+
+        <script>
+
+
+        const courseDetails = {
+            "front-end": {
+                price: 18000,
+                description: "This course covers HTML, CSS, JavaScript, and modern frontend frameworks like React."
+            },
+            "back-end": {
+                price: 23000,
+                description: "This course will teach you server-side programming, databases, and API development."
+            },
+            "fullstack": {
+                price: 35000,
+                description: "A comprehensive program covering both front-end and back-end development technologies."
+            },
+            "ux-design": {
+                price: 20000,
+                description: "Learn user experience design principles, wireframing, and prototyping tools."
+            },
+            "data-science": {
+                price: 28000,
+                description: "Master data analysis, visualization techniques, and machine learning fundamentals."
+            }
+        };
+
+        const trainingDetails = {
+            "virtual": {
+                description: "Your classes will be conducted online via Google Meet and Zoom.",
+                icon: "🖥️"
+            },
+            "physical": {
+                description: "Classes will be held at Rivers State University - BIO-RSU Innovation Hub.",
+                icon: "🏫"
+            }
+        };
+
+        const courseSelect = document.getElementById('course');
+        const courseInfo = document.getElementById('courseInfo');
+        
+        courseSelect.addEventListener('change', function() {
+            const selectedCourse = this.value;
+            
+            if (selectedCourse && courseDetails[selectedCourse]) {
+                const course = courseDetails[selectedCourse];
+                
+                // Create course info with Bootstrap styling
+                courseInfo.innerHTML = `
+                    <div class="card border-0">
+                        <div class="card-body p-0">
+                            <h5 class="card-title" style="color: #1b2b5e;">${formatCourseTitle(selectedCourse)}</h5>
+                            <p class="card-text mb-2">${course.description}</p>
+                            <div class="d-flex align-items-center">
+                                <span class="badge text-white" style="background-color: #1b2b5e;  padding: 8px 12px; margin-right: 10px;">Price</span>
+                                <span class="fw-bold ">₦${course.price.toLocaleString()}</span>
+                            </div>
+                            <p class="text-muted small mt-2">*This cost covers all course materials and access to our learning platform.</p>
+                        </div>
+                    </div>
+                `;
+                courseInfo.style.display = 'block';
+            } else {
+                courseInfo.style.display = 'none';
+            }
+        });
+
+        function selectTrainingMode(mode, element) {
+            // Update radio button
+            document.getElementById(mode + 'Training').checked = true;
+            
+            // Update visual selection
+            document.querySelectorAll('.custom-radio-btn').forEach(el => {
+                el.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Show training information
+            updateTrainingInfo(mode);
+        }
+        
+        function updateTrainingInfo(mode) {
+            const trainingInfo = document.getElementById('trainingInfo');
+            
+            if (mode && trainingDetails[mode]) {
+                const training = trainingDetails[mode];
+                
+                trainingInfo.innerHTML = `
+                    <div class="card border-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex align-items-center mb-2">
+                                <span style="font-size: 1.5rem; margin-right: 10px;">${training.icon}</span>
+                                <h5 class="card-title mb-0" style="color: #00a86a;">${mode.charAt(0).toUpperCase() + mode.slice(1)} Training</h5>
+                            </div>
+                            <p class="card-text">${training.description}</p>
+                        </div>
+                    </div>
+                `;
+                trainingInfo.style.display = 'block';
+            } else {
+                trainingInfo.style.display = 'none';
+            }
+        }
+        
+        // Listen for radio button changes directly
+        document.querySelectorAll('input[name="trainingMode"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                updateTrainingInfo(this.value);
+            });
+        });
+
+        function formatCourseTitle(courseId) {
+            return courseId.split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const selectedCourse = document.getElementById('course').value;
+            const trainingMode = document.querySelector('input[name="trainingMode"]:checked')?.value;
+            const internshipAvailable = document.getElementById('internshipAvailable').checked;
+            
+            if (fullName && selectedCourse && trainingMode) {
+                // Show success message using Bootstrap alert
+                const formContainer = document.querySelector('.form-container');
+                const successAlert = document.createElement('div');
+                successAlert.className = 'alert mt-4 mb-0';
+                successAlert.style.backgroundColor = '#00a86a';
+                successAlert.style.color = '#fff';
+                
+                let internshipMessage = '';
+                if (internshipAvailable) {
+                    internshipMessage = `<p>You have indicated that you are available for internship opportunities. Our team will consider this during your training.</p>`;
+                }
+                
+                let trainingMessage = '';
+                if (trainingMode === 'virtual') {
+                    trainingMessage = 'Your classes will be conducted online via Google Meet and Zoom. Access details will be sent to your email.';
+                } else {
+                    trainingMessage = 'Your classes will be held at Rivers State University - BIO-RSU Innovation Hub.';
+                }
+                
+                successAlert.innerHTML = `
+                    <h4 class="alert-heading">Registration Successful!</h4>
+                    <p>Thank you, <strong>${fullName}</strong>! You have successfully registered for the ${formatCourseTitle(selectedCourse)} course with ${trainingMode} training.</p>
+                    <p>${trainingMessage}</p>
+                    ${internshipMessage}
+                    <hr style="border-top-color: rgba(255,255,255,0.3);">
+                    <p class="mb-0">We will contact you shortly with more details about your selected course.</p>
+                `;
+                
+                // Replace form with success message
+                formContainer.innerHTML = '';
+                formContainer.appendChild(successAlert);
+            }
+        });
+    </script>
+        </script>
+    
+    {% endblock content %}
+</body>
+</html>

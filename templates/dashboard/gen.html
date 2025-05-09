@@ -1,0 +1,46 @@
+{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+          
+       
+        
+        
+           <h3 class="blog-title" style="color: green;"> successfully made payment</a></h3>
+           <p>dear <b>{{user.username}}</b> <b style="color: red;"> payment  has been acknowledge  pending verification from our team, click on the button below to generate your payment receipt</b>  </p>
+    
+          <div class="py-2">
+           <a class="btn btn-sm btn-primary" href="{% url 'slips'  %}">Generate Payment Slip</a>
+           <a class="btn btn-sm btn-danger" href="{% url 'slips'  %}">Complete Full Payment</a>
+        </div>
+          
+
+        
+
+
+
+  
+     
+       
+
+
+
+
+        </div>
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Complete Your Profile - Obidient Tech Space</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/fbfe7ccd16.js" crossorigin="anonymous"></script>
+    <!-- iziToast -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a2b5d;;
+            -success: #00a769;
+            --primary-dark: #2563eb;
+            --secondary: #6366f1;
+            --accent: #8b5cf6;
+            --light: #f9fafb;
+            --dark: #1a2b5d;
+            --success: #00a769;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --gray-light: #f3f4f6;
+            --gray: #9ca3af;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--success);
+            min-height: 100vh;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-container {
+            background-color: var(--light);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            overflow: hidden;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .header-section {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .header-section h3 {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .form-section {
+            padding: 2rem;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 0 auto;
+            width: 80%;
+        }
+        
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gray-light);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: width 0.4s ease;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light);
+            border: 2px solid var(--gray);
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(58, 123, 213, 0.2);
+        }
+        
+        .step.completed {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+        }
+        
+        .input-group-text {
+            background-color: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px 0 0 8px;
+            color: var(--primary);
+            padding: 0.75rem 1rem;
+        }
+        
+        .form-label {
+            color: var(--dark);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-nav {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+        }
+        
+        .btn-nav:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        
+        .btn-nav:active {
+            transform: translateY(0);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .profile-picture-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+        }
+        
+        .profile-picture {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        
+        .picture-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 3rem;
+        }
+        
+        .upload-btn-wrapper {
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .upload-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+        
+        .upload-btn input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .input-field {
+            margin-bottom: 1.5rem;
+        }
+        
+        .fullpage-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .fullpage-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-section {
+                padding: 1.5rem;
+            }
+            
+            .progress-steps {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="fullpage-loader" class="fullpage-loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-container">
+                    <div class="header-section">
+                        <h3>Welcome aboard! Your tech journey starts now</h3>
+                        <p class="mb-0">Let's finish setting up your profile</p>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="profile-picture-container">
+                            <div id="picture-placeholder" class="picture-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <img id="imagePreview" src="#" alt="Profile Picture" class="profile-picture" style="display: none;">
+                            <div class="upload-btn-wrapper">
+                                <div class="upload-btn">
+                                    <i class="fas fa-camera"></i>
+                                    <input type="file" id="profile-picture-upload" name="file" onchange="readURL(this)">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-container">
+                            <div class="progress-steps">
+                                <div class="progress-bar" id="progress-bar"></div>
+                                <div class="step active" id="step-indicator-1">1</div>
+                                <div class="step" id="step-indicator-2">2</div>
+                                <div class="step" id="step-indicator-3">3</div>
+                            </div>
+                        </div>
+                        
+                        <form id="applicationForm" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <!-- Step 1: Personal Information -->
+                            <div class="form-step active" id="step1">
+                                <h4 class="mb-4">Personal Information</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="first_name" class="form-label">First Name</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="last-name" class="form-label">Last Name</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <input type="text" class="form-control" id="last-name" name="last_name" placeholder="Enter your last name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="input-field">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" disabled readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="state" class="form-label">State</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                                <input type="text" class="form-control" id="state" name="state" placeholder="Your state" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="city" class="form-label">City</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                                <input type="text" class="form-control" id="city" name="city" placeholder="Your city" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="local-govt" class="form-label">Local Government</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                                <input type="text" class="form-control" id="local-govt" name="local_govt" placeholder="Your L.G.A" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="sponsors" class="form-label">Sponsor Code (Optional)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                                                <input type="text" class="form-control" id="sponsors" name="sponsors" placeholder="Enter if you have a sponsor code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-end mt-4">
+                                    <button type="button" class="btn btn-nav" onclick="nextStep(1)">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Contact Details -->
+                            <div class="form-step" id="step2">
+                                <h4 class="mb-4">Contact Details</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="username" class="form-label">Username</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" disabled readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="whatsapp" class="form-label">WhatsApp Number</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fab fa-whatsapp"></i></span>
+                                                <input type="tel" class="form-control" value="{{user.phone}}" disabled readonly id="whatsapp" name="whatsapp">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="phone-number" class="form-label">Alternative Phone Number</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                <input type="tel" class="form-control" id="phone-number" name="phone_number" placeholder="Enter alternative phone number" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="laptop" class="form-label">Do You Have a Laptop?</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-laptop"></i></span>
+                                                <select class="form-select" id="laptop" name="laptop" required>
+                                                    <option value="" selected disabled>Please select</option>
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div class="input-field">
+                                            <label for="contact" class="form-label">Contact Address</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter your full address" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline btn-nav" onclick="prevStep(1)"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                                    <button type="button" class="btn btn-nav" onclick="nextStep(2)">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Professional Information -->
+                            <div class="form-step" id="step3">
+                                <h4 class="mb-4">Professional Information</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="occupation" class="form-label">Current Occupation</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                                                <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Enter your occupation" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="input-field">
+                                            <label for="certificate" class="form-label">Program Type</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-certificate"></i></span>
+                                                <select class="form-select" id="certificate" name="certificate" required>
+                                                    <option value="" selected disabled>Select program type</option>
+                                                    <option value="Diploma(Front-End)">Diploma (Front-End Development)</option>
+                                                    <option value="Advanced(Full Stack)">Advanced (Full Stack + Internship)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <input type="file" id="file" name="file" style="display: none;" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline btn-nav" onclick="prevStep(2)"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                                    <button type="submit" class="btn btn-nav">Complete Registration <i class="fas fa-check ms-2"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    
+    <script>
+        // Initialize progress bar
+        updateProgressBar(1);
+        
+        // Function to handle step navigation
+        function nextStep(currentStep) {
+            // Validate current step
+            if (!validateStep(currentStep)) {
+                return false;
+            }
+            
+            // Hide current step
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Show next step
+            document.getElementById(`step${currentStep + 1}`).classList.add('active');
+            
+            // Update step indicators
+            document.getElementById(`step-indicator-${currentStep}`).classList.add('completed');
+            document.getElementById(`step-indicator-${currentStep + 1}`).classList.add('active');
+            
+            // Update progress bar
+            updateProgressBar(currentStep + 1);
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function prevStep(nextStep) {
+            // Hide current step
+            document.getElementById(`step${nextStep}`).classList.remove('active');
+            
+            // Show previous step
+            document.getElementById(`step${nextStep - 1}`).classList.add('active');
+            
+            // Update step indicators
+            document.getElementById(`step-indicator-${nextStep}`).classList.remove('active');
+            document.getElementById(`step-indicator-${nextStep - 1}`).classList.remove('completed');
+            document.getElementById(`step-indicator-${nextStep - 1}`).classList.add('active');
+            
+            // Update progress bar
+            updateProgressBar(nextStep - 1);
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function updateProgressBar(step) {
+            const progressWidth = ((step - 1) / 2) * 100;
+            document.getElementById('progress-bar').style.width = `${progressWidth}%`;
+        }
+        
+        function validateStep(step) {
+            const currentStepElement = document.getElementById(`step${step}`);
+            const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+            
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                    
+                    // Add animation to invalid inputs
+                    input.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        input.style.animation = '';
+                    }, 500);
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Please fill all required fields',
+                    position: 'topRight'
+                });
+            }
+            
+            return isValid;
+        }
+        
+        // Function to display uploaded image preview
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Check if file is an image
+                if (!file.type.match('image.*')) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Please select an image file',
+                        position: 'topRight'
+                    });
+                    return;
+                }
+                
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Image size should be less than 5MB',
+                        position: 'topRight'
+                    });
+                    return;
+                }
+                
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Set the file input that will be submitted with the form
+                    document.getElementById('file').files = input.files;
+                    
+                    // Hide placeholder and show image
+                    document.getElementById('picture-placeholder').style.display = 'none';
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Form submission
+        $(document).ready(function() {
+            $('#applicationForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Check if profile picture was uploaded
+                if (!document.getElementById('file').files[0]) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Please upload your profile picture',
+                        position: 'topRight'
+                    });
+                    return false;
+                }
+                
+                // Show loader
+                document.getElementById('fullpage-loader').classList.add('active');
+                
+                var formData = new FormData(this);
+                
+                $.ajax({
+                    url: "{% url 'profile' %}",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function() {
+                        // Hide loader
+                        document.getElementById('fullpage-loader').classList.remove('active');
+                        
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Your profile has been updated successfully!',
+                            position: 'topRight'
+                        });
+                        
+                        // Redirect after success
+                        setTimeout(function() {
+                            window.location.href = "/cohorts/task_collection";
+                        }, 2000);
+                    },
+                    error: function(xhr, status, error) {
+                        // Hide loader
+                        document.getElementById('fullpage-loader').classList.remove('active');
+                        
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Something went wrong. Please try again.',
+                            position: 'topRight'
+                        });
+                    }
+                });
+            });
+            
+        
+        });
+    </script>
+</body>
+</html>

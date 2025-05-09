@@ -1,0 +1,112 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+ 
+
+        <div class="card-box m-b-0">
+            <div class="row">
+            <div class="col-md-12">
+            <div class="profile-view">
+            <div class="profile-img-wrap">
+            <div class="profile-img">
+            <a href=""><img class="avatar" src="{{myprofile.uplaod_picture.url}}" alt=""></a>
+            </div>
+            </div>
+            <div class="profile-basic">
+            <div class="row">
+            <div class="col-md-5" >
+            <div class="profile-info-left">
+            <h3 class="user-name m-t-0">{{myprofile.first_name | upper }} {{myprofile.last_name | upper }}</h3>
+      
+            <span class="company-role m-t-0 m-b-0"><strong>Course:</strong>   <span>{{myprofile.courses}} </span> </span> 
+            <br>
+            <span class="company-role m-t-0 m-b-0"><strong>Locaton:</strong>  <span>{{myprofile.state}}</span> </span> 
+        <br>
+          
+            <span class="company-role m-t-0 m-b-0"><strong>occupation:</strong>  <span>{{myprofile.occupation}}</span> </span> 
+           <br>
+            <span class="company-role m-t-0 m-b-0"><strong>Admission Status:</strong> <span>{{myprofile.status}}</span> </span>
+            
+         
+        
+            <br>
+       
+
+
+    <a href="{{myprofile.twitter}}" class="btn btn-secondary btn-sm">Twitter</a>
+    <a href="{{myprofile.facebook}}" class="btn btn-primary btn-sm">facebook</a>
+    <a href="{{myprofile.git_hub }}" class="btn btn-dark btn-sm">git_hub </a>
+    <a href="{{myprofile.youtube}}" class="btn btn-danger btn-sm">youtube</a>
+   
+          
+            </div>
+            </div>
+            {% if myprofile.user.id == user.id  %}
+               
+            <div class="col-md-7">
+            <ul class="personal-info">
+            <li>
+            <span class="title">Phone:</span>
+            <span class="text"><a href="">{{myprofile.phone_num}}</a></span>
+            </li>
+            <li>
+            <span class="title">Email:</span>
+            <span class="text"><a href=""><span>{{myprofile.user.email}}</a></span>
+            </li>
+            <li> 
+            <span class="title">Local Govt:</span>
+            <span class="text">{{myprofile.user.email}}</span>
+            </li>
+            <li>
+            <span class="title">Address:</span>
+            <span class="text">{{myprofile.local_govt}}</span>
+            </li>
+            
+
+
+            </ul>
+
+            
+           
+          
+
+            <a href="{% url 'update_profile'  myprofile.pk %}" class="btn btn-primary">Edit Profile</a>
+            {% endif %}
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            
+
+
+      
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

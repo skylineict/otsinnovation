@@ -1,0 +1,113 @@
+﻿{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+        <div class="page-header">
+        <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <h5 class="text-uppercase mb-0 mt-0 page-title">Blog</h5>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <ul class="breadcrumb float-right p-0 mb-0">
+        <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item"><a href="index.html">Blog</a></li>
+        <li class="breadcrumb-item"><span> Blog</span></li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        {% if payments.courses == 'full-stack Engineering' %}
+        <h3 class="blog-title"><a href="">Full Stack Engineering</a></h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            
+            {% for fullstack in fullstack  %}
+              
+    
+            <div class="col">
+                
+                <div class="card-footer text-muted">
+                    <b>Date:</b>{{fullstack.date}}
+                  </div>
+              <div class="card">
+                <img src="{{fullstack.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title" style="color: rgb(63, 6, 207);">{{fullstack.title}}</h5>
+                 <div class="btn  py-3" >
+                    <a href="{{fullstack.link}}" target="_blank" class="btn btn-danger ">Watch Video</a>
+                 </div>
+                 
+                </div>
+              </div>
+              
+            </div>
+
+            {% endfor %}
+            
+            
+             
+          </div>
+
+{% else %}
+<h3 class="blog-title"><a href=""> <b style="color: red;"> you have not registered any course yet for full stack</b> </a></h3>
+          {% endif %}
+
+          {% if payments.courses == 'front-end Engineering' %}
+          <h3 class="blog-title"><a href="">Front-end Engineering</a></h3>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+           
+            {% for front_end in front_end  %}
+              
+           
+            <div class="col">
+            
+         
+          <div class="card-footer text-muted">
+            <b>Date:</b> {{front_end.date}}
+          </div>
+              <div class="card">
+                <img src="{{front_end.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"  style="color: rgb(63, 6, 207);">{{front_end.title}}</h5>
+                  
+                  <div class="btn  py-3" >
+                    <a href="{{front_end.link}}" target="_blank" class="btn btn-danger ">Watch Video</a>
+                 </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+              
+          </div>
+          
+          {% endif %}
+
+
+        </div>
+
+
+        </div>
+       
+
+
+
+
+
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>
