@@ -16,7 +16,7 @@ from django.views import View
 from .models import PaymentDetail, CourseRegistration, Transaction
 
   # Valid bank codes for Flutterwave's /v3/charges?type=bank_transfer in test mode
-VALID_BANK_CODES = ['035', '232', '101', '057', '070', '090360']
+# VALID_BANK_CODES = ['035', '232', '101', '057', '070', '090360']
 
 class PaymentDetailView(LoginRequiredMixin, View):
     login_url = 'login'
@@ -29,9 +29,9 @@ class PaymentDetailView(LoginRequiredMixin, View):
         registration = get_object_or_404(CourseRegistration, id=registration_id, user=request.user)
         payment_detail, created = PaymentDetail.objects.get_or_create(registration=registration)
 
-        if payment_detail.payment_completed:
-            messages.info(request, 'This course is already fully paid.')
-            return redirect('my_courses')
+        # if payment_detail.payment_completed:
+        #     messages.info(request, 'This course is already fully paid.')
+        #     return redirect('my_courses')
 
         remaining_amount = payment_detail.remaining_amount
         total_amount = registration.course.amount  
@@ -43,14 +43,16 @@ class PaymentDetailView(LoginRequiredMixin, View):
         try:
             response = requests.get(
                 'https://api.flutterwave.com/v3/banks/NG',
-                headers={'Authorization': f'Bearer {settings.FLUTTERWAVE_SECRET_KEY}'}
+                headers={'Authorization': f'Bearer {settings.FLUTTERWAVE_SECRET_KEY}'
+                         }
             )
             if response.status_code == 200:
                   # Filter banks to include only those with valid codes
-                banks = [
-                    bank for bank in response.json().get('data', [])
-                    if bank.get('code') in VALID_BANK_CODES
-                ]
+                # banks = [
+                #     bank for bank in response.json().get('data', [])
+                #     if bank.get('code') in VALID_BANK_CODES
+                # ]
+                banks = response.json().get('data', [])
 
                 if not banks:
                     messages.error(request, 'No supported banks available. Please try another payment method.')
@@ -81,16 +83,19 @@ class PaymentDetailView(LoginRequiredMixin, View):
         payment_method = request.POST.get('paymentMethod')
         bank_code = request.POST.get('bankCode')  # For bank transfer
         amount_to_pay_str = request.POST.get('amountToPay', '').replace('₦', '').replace(',', '').strip()
+        print(f"Payment option: {payment_option}, Payment method: {payment_method}, Amount to pay: {amount_to_pay_str}")
 
         if not payment_option or not payment_method or not amount_to_pay_str:
             return JsonResponse({'error': "All fields are required."}, status=400)
+      
+        # Validate payment method
 
         if payment_method == 'bank' and not bank_code:
             return JsonResponse({'error': "Bank selection is required for bank transfer."}, status=400)
         
-        # Validate bank_code for bank transfer
-        if payment_method == 'bank' and bank_code not in VALID_BANK_CODES:
-            return JsonResponse({'error': f"Invalid bank code. Please select a supported bank."}, status=400)
+        # # Validate bank_code for bank transfer
+        # if payment_method == 'bank' and bank_code not in VALID_BANK_CODES:
+        #     return JsonResponse({'error': f"Invalid bank code. Please select a supported bank."}, status=400)
 
         try:
             payment_option_raw = float(payment_option)
@@ -154,9 +159,11 @@ class PaymentDetailView(LoginRequiredMixin, View):
                     'data': {
                         'payment_id': payment_detail.id,
                         'amount': float(amount_to_pay),
-                        'virtual_account_number': payment_detail.virtual_account_number,
-                        'virtual_account_bank': payment_detail.virtual_account_bank,
-                        'virtual_account_name': payment_detail.virtual_account_name,
+                        'account_number': payment_detail.virtual_account_number,
+                        'account_bank': payment_detail.virtual_account_bank,
+                        'account_name': payment_detail.virtual_account_name,
+                        'account_expiration': virtual_account_result.get('account_expiration'),
+                        'mode': virtual_account_result.get('mode', 'banktransfer')
                     }
                 })
             else:  # flutterwave
@@ -173,6 +180,9 @@ class PaymentDetailView(LoginRequiredMixin, View):
                         'virtual_account_number': payment_detail.virtual_account_number,
                         'virtual_account_bank': payment_detail.virtual_account_bank,
                         'virtual_account_name': payment_detail.virtual_account_name,
+                        'account_expiration': virtual_account_result.get('account_expiration'),
+                        'mode': virtual_account_result.get('mode', 'virtualaccount')
+
                     }
                 })
 

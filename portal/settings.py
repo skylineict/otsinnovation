@@ -191,6 +191,13 @@ CSRF_COOKIE_SECURE = False  # Set to True only if you're using HTTPS
 
 
 
+CSRF_TRUSTED_ORIGINS = ['https://0907-105-113-10-208.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0907-105-113-10-208.ngrok-free.app']
+
+
+
+SESSION_COOKIE_DOMAIN = None
+CSRF_COOKIE_DOMAIN = None
 
 FLUTTERWAVE_HASH = config('FLUTTERWAVE_HASH')
 FLUTTERWAVE_SECRET_KEY = config('FLUTTERWAVE_SECRET_KEY')

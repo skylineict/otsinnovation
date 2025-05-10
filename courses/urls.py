@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib import admin
 from . register_courses import CourseRegistrationView,fetch_all_courses
 from .coursesinfo import  PaymentDetailView
+from .webhook import flutterwave_webhook
+from .verify_payment import verify_payment
 
 
 
@@ -10,7 +12,10 @@ urlpatterns = [
     path('', CourseRegistrationView.as_view(), name='register_course'),
     path('fetch_all_courses',fetch_all_courses, name='all_courses'),
     path('courseinfo/<slug:registration_id>/',PaymentDetailView.as_view(), name='courseinfo'),
-    # path('courseinfofetch/<slug:registration_id>/',Courseinfetch.as_view(), name='courseinfofetch'),
+    #payment handler urls
+    
+    path('webhooks/flutterwave/', flutterwave_webhook, name='flutterwave_webhook'),
+    path('verify_payment/<str:payment_id>/',verify_payment, name='verify_payment'),
     
 ]
 

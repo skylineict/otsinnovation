@@ -62,6 +62,8 @@
         }
       } 
 
+      
+
       .btn-primary {
         background-color: var(--primary-color);
         border-color: var(--primary-color);
@@ -69,7 +71,12 @@
         padding: 10px 20px;
         font-weight: 600;
         transition: all 0.2s;
+        cursor: pointer!important;
+        
       }
+
+
+      
 
       .btn-primary:hover {
         transform: translateY(-2px);
@@ -235,6 +242,8 @@
         color: #6c757d;
       }
 
+
+     
    
 
     </style>
@@ -279,15 +288,17 @@
                     </div>
                     <hr />
             
-                    <div class="row">
-                      <div class="col-md-6">
-                        <p><strong>Amount:</strong>₦{{registration.course.amount}}</p>
-                        <p><strong>Amount Paid:</strong> ₦0.00</p>
-                      </div>
-                      <div class="col-md-6 text-right">
-                        <p><strong>Remaining Amount:</strong>{{remaining_amount}}</p>
-                      </div>
-                    </div>
+                 <div class="row">
+                  <div class="col-md-6">
+                    <p><strong>Amount:</strong> ₦{{ registration.course.amount|floatformat:2 }}</p>
+                  
+                    <p><strong>Amount Paid:</strong> ₦{{ payment_detail.amount_paid|floatformat:2 }}</p>
+                  </div>
+                  <div class="col-md-6 text-right">
+                   
+                    <p><strong>Remaining Amount:</strong> ₦{{ payment_detail.remaining_amount|floatformat:2 }}</p>
+                  </div>
+                </div>
                     <hr />
                   </div>
                   <form id="paymentForm" method="post">
@@ -296,33 +307,42 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="payment-option {% if payment_detail.payment_option == 'full' or not payment_detail.payment_option %}active{% endif %}" data-option="full">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="fullPayment" name="paymentOption" class="custom-control-input" value="{{ registration.course.amount|floatformat:2 }}" {% if payment_detail.payment_option == 'full' or not payment_detail.payment_option %}checked{% endif %} {% if payment_detail.amount_paid > 0 %}disabled{% endif %}>
-                                    <label class="custom-control-label" for="fullPayment">
-                                        <strong>Full Payment</strong>
-                                        <p style="color: #00a769;">Pay the entire amount at once (₦{{ registration.course.amount|floatformat:2 }})</p>
-                                    </label>
-                                </div>
+                               <div class="custom-control custom-radio">
+                       
+                        <input type="radio" id="fullPayment" name="paymentOption" class="custom-control-input" value="{{ registration.course.amount|floatformat:2 }}" {% if payment_detail.payment_option == 'full' or not payment_detail.payment_option %}checked{% endif %} {% if payment_detail.amount_paid > 0 %} disabled{% endif %} >
+                        <label class="custom-control-label" for="fullPayment" {% if payment_detail.amount_paid > 0 %}disabled{% endif %}>
+                          <strong>Full Payment</strong>
+                          <p style="color: #00a769;">Pay the entire amount at once (₦{{ registration.course.amount|floatformat:2 }})</p>
+                        </label>
+                      </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="payment-option {% if payment_detail.payment_option == 'installment' %}active{% endif %}" data-option="installment">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="installmentPayment" name="paymentOption" class="custom-control-input" value="{{ first_payment_amount|floatformat:2 }}" {% if payment_detail.payment_option == 'installment' %}checked{% endif %} {% if payment_detail.amount_paid > 0 %}disabled{% endif %}>
-                                    <label class="custom-control-label" for="installmentPayment">
-                                        <strong>Installment Payment</strong>
-                                        <p style="color: #00a769;">Pay in installments (₦{{ first_payment_amount|floatformat:2 }})</p>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="amountSection" class="mb-4" {% if payment_detail.payment_option == 'installment' %}style="display: block;"{% else %}style="display: none;"{% endif %}>
-                        <label for="amountToPay">Amount to Pay</label>
-                        <input type="text" class="form-control amount-input" id="amountToPay" name="amountToPay" value="₦{% if payment_detail.payment_option == 'installment' %}{{ first_payment_amount|floatformat:2 }}{% else %}{{ registration.course.amount|floatformat:2 }}{% endif %}" readonly>
-                        <p class="min-payment-note mt-2">Minimum payment: ₦{% if payment_detail.payment_option == 'installment' %}{{ first_payment_amount|floatformat:2 }}{% else %}{{ registration.course.amount|floatformat:2 }}{% endif %}</p>
+                        <div class="col-md-6">
+                    <div class="payment-option {% if payment_detail.payment_option == 'installment' %}active{% endif %}" data-option="installment">
+                      <div class="custom-control custom-radio">
+                        <!-- Use remaining_amount for returning users -->
+                        <input type="radio" id="installmentPayment" name="paymentOption" class="custom-control-input" value="{% if payment_detail.amount_paid > 0 %}{{ payment_detail.remaining_amount|floatformat:2 }}{% else %}{{ first_payment_amount|floatformat:2 }}{% endif %}" {% if payment_detail.payment_option == 'installment' or payment_detail.amount_paid > 0 %}checked{% endif %} {%if payment_detail.amount_paid == approved %} disabled {% endif %}>
+                        <label class="custom-control-label" for="installmentPayment">
+                          <strong>Installment Payment</strong>
+                          <p style="color: #00a769;">
+                            {% if payment_detail.amount_paid > 0 %}
+                              Pay remaining amount (₦{{ payment_detail.remaining_amount|floatformat:2 }})
+                            {% else %}
+                              Pay in installments (₦{{ first_payment_amount|floatformat:2 }})
+                            {% endif %}
+                          </p>
+                        </label>
+                      </div>
                     </div>
+                  </div>
+                    </div>
+ <div id="amountSection" class="mb-4" style="display: block;">
+                  <label for="amountToPay">Amount to Pay</label>
+                  <!-- Changed name to amount_to_pay for backend consistency -->
+                  <input type="text" class="form-control amount-input" id="amountToPay" name="amountToPay" value="₦{% if payment_detail.amount_paid > 0 %}{{ payment_detail.remaining_amount|floatformat:2 }}{% else %}{% if payment_detail.payment_option == 'installment' %}{{ first_payment_amount|floatformat:2 }}{% else %}{{ registration.course.amount|floatformat:2 }}{% endif %}{% endif %}" readonly>
+                  <p class="min-payment-note mt-2" style="color: #00a769;">Minimum payment: ₦{% if payment_detail.amount_paid > 0 %}{{ payment_detail.remaining_amount|floatformat:2 }}{% else %}{% if payment_detail.payment_option == 'installment' %}{{ first_payment_amount|floatformat:2 }}{% else %}{{ registration.course.amount|floatformat:2 }}{% endif %}{% endif %}</p>
+                </div>
 
                     <h5 class="mb-3">Payment Method</h5>
                     <div class="row mb-4">
@@ -376,83 +396,54 @@
 
 
 
-
-      <!-- Virtual Account Payment Modal -->
-    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="paymentModalLabel">Complete Your Payment</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                  </button>
-              </div>
-              <div class="modal-body">
-                  <div class="text-center mb-4">
-                      <i class="fas fa-university fa-3x mb-3" style="color: #00a769"></i>
-                      <h4>Bank Transfer</h4>
-                      <p>Transfer the exact amount to the virtual account below</p>
-                  </div>
-
-                  <div class="account-details">
-                      <div class="row">
-                          <div class="col-8">
-                              <p class="mb-1"><strong>Bank Name:</strong></p>
-                              <h5 id="modalBankName">{{ payment_detail.virtual_account_bank }}</h5>
-                          </div>
-                          <div class="col-4 text-right">
-                              <img src="{% static 'img/bank-logo.png' %}" alt="Bank Logo" />
-                          </div>
-                      </div>
-                      <hr />
-                      <div class="row">
-                          <div class="col-9">
-                              <p class="mb-1"><strong>Account Number:</strong></p>
-                              <h5 id="accountNumber">{{ payment_detail.virtual_account_number }}</h5>
-                          </div>
-                          <div class="col-3 text-right">
-                              <button class="btn btn-sm copy-btn" id="copyAccountBtn" data-toggle="tooltip" title="Copy Account Number" style="border-color: #00a769; color: #00a769">
-                                  <i class="fas fa-copy"></i>
-                              </button>
-                          </div>
-                      </div>
-                      <hr />
-                      <div class="row">
-                          <div class="col-12">
-                              <p class="mb-1"><strong>Account Name:</strong></p>
-                              <h5>{{ payment_detail.virtual_account_name}}</h5>
-                          </div>
-                      </div>
-                      <hr />
-                      <div class="row">
-                          <div class="col-12">
-                              <p class="mb-1"><strong>Amount to Pay:</strong></p>
-                              <h5 id="modalAmount">₦{{ remaining_amount|floatformat:2 }}</h5>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="alert alert-warning">
-                      <i class="fas fa-exclamation-triangle mr-2"></i>
-                      <strong>Important:</strong> This virtual account will expire after the countdown. Please make your payment before it expires.
-                  </div>
-
-                  <div class="timer-container">
-                      <p>Time remaining:</p>
-                      <div class="timer" id="countdownTimer">15:00</div>
-                  </div>
-
-                  <div class="text-center mt-4">
-                      <p>After payment, click the button below</p>
-                      <a href="" class="btn btn-success" style="background-color: #00a769; border-color: #00a769">
-                          <i class="fas fa-check-circle mr-2"></i>I've Made the Payment
-                      </a>
-                  </div>
-              </div>
+  <!-- Virtual Account Payment Modal -->
+  <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalLabel">Complete Your Payment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <i class="fas fa-university fa-3x mb-3" style="color: #00a769"></i>
+            <h4>Bank Transfer</h4>
+            <p>Transfer the exact amount to the virtual account below</p>
           </div>
+          <div class="account-details">
+            <div class="row">
+              <div class="col-8">
+                <p class="mb-1"><strong>Bank Name:</strong></p>
+                <!-- Modified: Use placeholder, updated by JS from POST response -->
+                <h5 id="modalBankName"></h5>
+              </div>
+              <div class="col-4 text-right">
+                <img src="https://pbs.twimg.com/profile_images/1910653205001682944/aRor1QQq_400x400.jpg" alt="Bank Logo" style="width: 100px;" />
+              </div>
+            </div>
+            <p class="mb-1"><strong>Account Number:</strong></p>
+           
+            <h5 id="accountNumber"></h5>
+            <p class="mb-1"><strong>Account Name:</strong></p>
+     
+            <h5 id="accountName"></h5>
+            <p class="mb-1"><strong>Amount:</strong></p>
+            <h5 id="modalAmount"></h5>
+            <p class="mb-1"><strong>Payment Mode:</strong></p>
+            <h5 id="modalPaymentMode"></h5>
+            <p class="mb-1"><strong>Time Remaining:</strong></p>
+            <h5 id="countdownTimer"></h5>
+            <button id="copyAccountBtn" class="btn btn-secondary mt-3">Copy Account Number</button>
+            <a href="{% url 'verify_payment' payment_detail.id %}" class="btn btn-success mt-3" style="background-color: #00a769; border-color: #00a769">
+              <i class="fas fa-check-circle mr-2"></i>I've Made the Payment
+            </a>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-  
  
 
 

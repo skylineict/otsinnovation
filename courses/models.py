@@ -1,4 +1,5 @@
-from django.db import models
+from venv import logger
+from django.db import IntegrityError, models
 from registration.models import MyUser
 from django.utils import timezone
 from shortuuid.django_fields import ShortUUIDField
@@ -17,10 +18,10 @@ PAYMENT_STATUS_CHOICES = [
     ('approved', 'Approved'),
     ('failed', 'Failed'),
 ]
-PAYMENT_OPTION_CHOICES = [
-    ('installment', 'Installment (50%)'),
-    ('full', 'Full Payment (100%)'),
-]
+# PAYMENT_OPTION_CHOICES = [
+#     ('installment', 'Installment (50%)'),
+#     ('full', 'Full Payment (100%)'),
+# ]
 TRAINING_MODE_CHOICES = (
     ('online', 'Online'),
     ('physical', 'Physical'),
@@ -73,8 +74,12 @@ class CourseRegistration(models.Model):
         return self.admission_passcode
 
 class PaymentDetail(models.Model):
-    id = ShortUUIDField(primary_key=True, unique=True, editable=False, alphabet='abcdefghijklmnqszxcvopl1234567890*&^%$#@')
-    registration = models.OneToOneField(CourseRegistration, on_delete=models.CASCADE, related_name='payment_detail')
+    PAYMENT_OPTION_CHOICES = [
+    ('installment', 'Installment (50%)'),
+    ('full', 'Full Payment (100%)'),
+]
+    id = ShortUUIDField(primary_key=True, unique=True, editable=False, alphabet='abcdefghijklmnqszxcvopl1234567890')
+    registration = models.OneToOneField('CourseRegistration', on_delete=models.CASCADE, related_name='payment_detail')
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     first_payment_date = models.DateTimeField(null=True, blank=True)
     second_payment_date = models.DateTimeField(null=True, blank=True)
@@ -84,10 +89,20 @@ class PaymentDetail(models.Model):
     virtual_account_bank = models.CharField(max_length=50, null=True, blank=True)
     virtual_account_name = models.CharField(max_length=100, null=True, blank=True)
     reminder_sent = models.BooleanField(default=False)
-    payment_option = models.CharField(max_length=20, choices=PAYMENT_OPTION_CHOICES, null=True, blank=True)
+    payment_option = models.CharField(max_length=20, choices=[
+        ('installment', 'Installment (50%)'),
+        ('full', 'Full Payment (100%)'),
+    ], null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def update_payment(self, payment_amount, transaction_reference=None, method=None, status='pending', notes=None):
+        """
+        Update PaymentDetail and associated Transaction, ensuring idempotency.
+        """
+        if self.payment_completed:
+            logger.warning(f"Payment already completed for tx_ref: {transaction_reference}")
+            return
+
         if self.payment_option == 'installment':
             expected_amount = self.registration.course.amount * Decimal('0.5')
             if payment_amount != expected_amount and status == 'approved':
@@ -97,38 +112,54 @@ class PaymentDetail(models.Model):
             if payment_amount != expected_amount and status == 'approved':
                 raise ValidationError(f"Full payment must be {expected_amount}.")
 
-        Transaction.objects.create(
-            payment=self,
-            transaction_reference=transaction_reference or f"TXN-{timezone.now().strftime('%Y%m%d%H%M%S')}",
-            amount=payment_amount,
-            method=method or 'unknown',
-            status=status,
-            notes=notes or f"Payment for {self.payment_option} option",
-            bank_name=self.virtual_account_bank if method == 'bank_transfer' else None
-        )
-
-        if status == 'approved':
-            self.amount_paid += payment_amount
-            if not self.first_payment_date:
-                self.first_payment_date = timezone.now()
+        try:
+            # Update or create Transaction
+            transaction, created = Transaction.objects.update_or_create(
+                payment=self,
+                transaction_reference=transaction_reference or f"TXN-{timezone.now().strftime('%Y%m%d%H%M%S')}",
+                defaults={
+                    'amount': payment_amount,
+                    'method': method or 'unknown',
+                    'status': status,
+                    'notes': notes or f"Payment for {self.payment_option} option",
+                    'bank_name': self.virtual_account_bank if method == 'bank_transfer' else None
+                }
+            )
+            if created:
+                logger.info(f"Created new Transaction for tx_ref: {transaction_reference}")
             else:
-                self.second_payment_date = timezone.now()
+                logger.info(f"Updated existing Transaction for tx_ref: {transaction_reference}")
 
-            partial_payment_threshold = self.registration.course.amount * Decimal(0.5)
-            if self.amount_paid >= partial_payment_threshold and not self.registration.is_approved:
-                self.registration.is_approved = True
-                self.registration.generate_admission_passcode()
-            if self.amount_paid >= self.registration.course.amount:
-                self.payment_completed = True
+            # Update PaymentDetail if status is approved
+            if status == 'approved':
+                self.amount_paid += payment_amount
+                if not self.first_payment_date:
+                    self.first_payment_date = timezone.now()
+                else:
+                    self.second_payment_date = timezone.now()
 
-            if transaction_reference:
-                self.flutterwave_ref = transaction_reference
+                partial_payment_threshold = self.registration.course.amount * Decimal(0.5)
+                if self.amount_paid >= partial_payment_threshold and not self.registration.is_approved:
+                    self.registration.is_approved = True
+                    self.registration.generate_admission_passcode()
+                if self.amount_paid >= self.registration.course.amount:
+                    self.payment_completed = True
 
-            self.save()
-            self.registration.save()
+                if transaction_reference:
+                    self.flutterwave_ref = transaction_reference
+
+                self.save()
+                self.registration.save()
+
+        except IntegrityError as e:
+            logger.error(f"IntegrityError updating payment for tx_ref: {transaction_reference}: {e}")
+            if 'UNIQUE constraint failed' in str(e):
+                logger.warning(f"Transaction already exists for tx_ref: {transaction_reference}")
+            else:
+                raise
 
     def set_payment_option(self, option):
-        if option not in [choice[0] for choice in PAYMENT_OPTION_CHOICES]:
+        if option not in [choice[0] for choice in self.PAYMENT_OPTION_CHOICES]:
             raise ValidationError(f"Invalid payment option: {option}")
         if self.amount_paid > 0:
             raise ValidationError("Cannot change payment option after payments have been made")
