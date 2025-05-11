@@ -26,3 +26,4 @@ urlpatterns = [
     # API endpoints
     path('api/facilitator-info/<int:course_id>/', views.get_facilitator_info, name='get_facilitator_info'),
 ]
+

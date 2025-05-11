@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from courses.models import Course, CourseRegistration,  PaymentDetail, Transaction
+from .models import FacilitatorRegistration
 from .forms import FacilitatorProfileForm
 
 from django.contrib.auth import get_user_model
@@ -82,7 +83,7 @@ def facilitator_dashboard(request):
         'students': students,
     }
 
-    return render(request, 'facilitator/dashboard.html', context)
+    return render(request, 'admin/dash.html', context)
 
 # -------------------------
 # Admin - Manage Facilitator Requests
@@ -138,11 +139,14 @@ def reject_facilitator_request(request, request_id):
 # -------------------------
 @login_required
 def facilitator_students(request):
+    course = None
     try:
         course = Course.objects.get(facilitators=request.user)
     except Course.DoesNotExist:
         messages.error(request, "You are not assigned to any course.")
-        return redirect('facilitator_dashboard')
+
+    # if not course:
+    #     return redirect('facilitator_dashboard')
 
     students = CourseRegistration.objects.filter(course=course, is_approved=True)
 

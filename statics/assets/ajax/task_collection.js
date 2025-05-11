@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressContainer = document.getElementById('uploadProgress');
     const progressBar = document.getElementById('progressBar');
     const submittext = document.getElementById('submittext');
-     const fullpageLoader = document.getElementById('fullpage-loader');
-     const loadertext = document.getElementById('loadertext');
+    const fullpageLoader = document.getElementById('fullpage-loader');
+    const loadertext = document.getElementById('loadertext');
 
-     fullpageLoader.classList.remove('active');
-  // Prevent default drag behaviors
+    fullpageLoader.classList.remove('active');
+
+    // Prevent default drag behaviors
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, preventDefaults, false);
     });
@@ -21,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
     }
 
-
-    
     // Handle dropped files
     dropArea.addEventListener('drop', (e) => {
         const dt = e.dataTransfer;
@@ -35,13 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFiles(fileInput.files);
     });
 
-    // // Click to trigger file input
+    // Click to trigger file input
     dropArea.addEventListener('click', () => {
         fileInput.click();
     });
 
-
-    
     // Process files (preview image)
     function handleFiles(files) {
         const file = files[0];
@@ -52,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 previewImage.style.display = 'block';
             };
             reader.readAsDataURL(file);
-            fileInput.files = files; // Ensure file is set for form submission
+            // DO NOT attempt to assign to fileInput.files (read-only)
         } else {
             iziToast.error({
                 title: 'Error',
@@ -65,35 +62,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     // Form submission with Axios
-      // Get CSRF token
-    // const csrfToken = formData.get("csrfmiddlewaretoken");
-
-    // axios
-    //   .post("/courses/", formData, {
-    //     headers: {
-    //       "X-CSRFToken": csrfToken,
-    //     },
-    //   })
-
     taskForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(taskForm);
         fullpageLoader.classList.add('active');
-       
+
         // Show progress bar
         progressContainer.style.display = 'block';
         progressBar.style.width = '0%';
         submittext.innerHTML = 'Submitting';
         loadertext.innerHTML = 'Abeg wait small, I dey run your matter';
+
         const csrfToken = formData.get("csrfmiddlewaretoken");
 
-        
         axios.post('/studenttask/task_collection', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                  "X-CSRFToken": csrfToken,
+                'X-CSRFToken': csrfToken,
             },
             onUploadProgress: (progressEvent) => {
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -103,40 +89,36 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             console.log('Success:', response.data);
-            // Handle success response
 
-             
             iziToast.success({
                 title: 'Success',
                 message: response.data.success,
                 position: 'topRight',
                 timeout: 5000
             });
+
             taskForm.reset();
             previewImage.style.display = 'none';
             progressContainer.style.display = 'none';
             progressBar.style.width = '0%';
             submittext.innerHTML = 'Submit';
             fullpageLoader.classList.remove('active');
-            
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         })
         .catch(error => {
-           
-             progressBar.style.width = '0%';
+            progressBar.style.width = '0%';
             submittext.innerHTML = 'Submit';
             fullpageLoader.classList.remove('active');
-            // Handle error response
-            fullpageLoader.style.display = 'none';
+
             iziToast.error({
                 title: 'Error',
-                message: error.response.data.error,
+                message: error.response?.data?.error || 'Something went wrong. Please try again.',
                 position: 'topRight',
                 timeout: 5000
             });
         });
-    });     
-
-
-
-    
-})
+    });
+});
