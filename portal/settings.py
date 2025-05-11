@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'materials',
     'credential',
     'newdash',
+    'studenttask',
 ]
 
 MIDDLEWARE = [

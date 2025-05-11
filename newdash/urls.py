@@ -1,15 +1,12 @@
 from django.urls import path
 from . import views
-from .views import  flutterwave_webhook, payment_success
 
 
 urlpatterns = [
     # Course Registration
    
 
-    # Flutterwave Payment
-    path('webhook/flutterwave/', flutterwave_webhook, name='flutterwave_webhook'),
-    path('payment_success', payment_success, name='payment_success'),
+
 
     # Facilitator URLs
     path('become-facilitator/', views.request_facilitator, name='request_facilitator'),

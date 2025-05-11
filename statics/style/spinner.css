@@ -1,0 +1,79 @@
+/* my loader and spiner start here  */
+:root {
+    --loader-primary: #4361ee;
+    --loader-secondary: #3f37c9;
+    --loader-bg: rgba(15, 23, 42, 0.8);
+    --loader-text: #f8f9fa;
+}
+
+.fullpage-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--loader-bg);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fullpage-loader.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.loader-animation {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--loader-primary);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.circle:nth-child(2) {
+    animation-delay: 0.2s;
+    background-color: var(--loader-secondary);
+}
+
+.circle:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.loader-text {
+    color: var(--loader-text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+}

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import   DashAdmin, approved, approved_admission,Pending_student,approved_myproject,payment_reject,rejectassigment
-from .create_usertask import CreateTaskView
+
 
 
 
@@ -15,7 +15,7 @@ urlpatterns = [
     
     path('assignreject/<int:pk>',rejectassigment, name='assigmentrejected'),
 
-    path('createtask',CreateTaskView.as_view(), name='createtask')
+  
 
    
    

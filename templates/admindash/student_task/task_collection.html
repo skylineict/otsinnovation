@@ -1,0 +1,682 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasks</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1e3a8a; /* Dark blue from ss2 header */
+      --primary-dark: #1a2a3a; /* Dark blue from ss1 background */
+      --accent-color: #4a90e2; /* Light blue from ss1 buttons */
+      --light-bg: #f3f4f6;     /* Light gray from ss2 table header */
+      --success-color: #10b981; /* Green from ss2 "On going" */
+      --warning-color: #f59e0b; /* Yellow from ss2 "Start" */
+      --text-dark: #333333;    /* Dark gray from ss2 text */
+      --text-light: #ffffff;   /* White from ss1 text */
+      --pending-color: #cccccc; /* Gray from ss1 pending status */
+    }
+
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+      border: none;
+      padding: 12px 25px;
+      font-weight: 600;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2);
+      color: var(--text-light);
+    }
+        
+    .btn-primary:hover {
+      background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(30, 58, 138, 0.3);
+      color: var(--text-light);
+    }
+
+    .preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+      @keyframes bounce {
+        from { transform: translateY(0); }
+        to { transform: translateY(-10px); }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background-color: #f00;
+        opacity: 0;
+        z-index: 9999;
+        animation: confetti 5s ease-in-out;
+      }
+
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+  .progresscontainer {
+      width: 100%;
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-top: 20px;
+      overflow: hidden;
+      display: none;
+    }
+        
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+        
+    .task-complete-animation {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      display: none;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+    }
+    .card {
+      border-radius: 12px;
+      background-color: var(--text-light);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .status-badge {
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      background-color: #d4edda;
+      color: #155724;
+      font-weight: 500;
+    }
+
+    .nav-tabs .nav-link.active {
+      border-bottom: 3px solid var(--warning-color);
+      color: var(--warning-color);
+    }
+    .btn-outline-orange {
+      border: 1px solid var(--warning-color);
+      color: var(--warning-color);
+    }
+    .btn-outline-orange:hover {
+      background-color: var(--warning-color);
+      color: white;
+    }
+
+    .bounce {
+            animation: bounce 0.5s ease infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+    }
+
+    .preview-image {
+      max-width: 100%;
+      max-height: 200px;
+      margin-top: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .drag-drop-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .drag-drop-area.active {
+      background-color: rgba(74, 144, 226, 0.2);
+      border-color: var(--accent-color);
+    }
+
+    .drag-drop-area:hover {
+      background-color: rgba(74, 144, 226, 0.1);
+      border-color: var(--primary-dark);
+    }
+
+    .upload-area {
+      border: 2px dashed var(--primary-color);
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: rgba(74, 144, 226, 0.05);
+      margin-bottom: 20px;
+    }
+
+    .table thead {
+      background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+      color: var(--text-light);
+    }
+        
+    .table th {
+      border: none;
+      font-weight: 500;
+    }
+        
+    .table td {
+      vertical-align: middle;
+    }
+
+    /* New status colors */
+    .badge.bg-success {
+      background-color: var(--success-color) !important;
+    }
+    
+    .badge.bg-warning {
+      background-color: var(--warning-color) !important;
+    }
+    
+    .badge.bg-danger {
+      background-color: #dc3545; /* Keeping original red for danger */
+    }
+    
+    .text-muted {
+      color: var(--pending-color) !important;
+    }
+    
+    /* Top navigation bar */
+    .bg-white {
+      background-color: var(--text-light) !important;
+    }
+    
+    .shadow-sm {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+    }
+    
+    /* Profile card */
+    .bg-body-tertiary {
+      background-color: var(--light-bg) !important;
+    }
+    
+    .btn-warning {
+      background-color: var(--warning-color) !important;
+      border-color: var(--warning-color) !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid p-4">
+  <!-- Top Navigation -->
+  <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
+    <div>
+       <p class="">
+                Congratulations, <strong>{{ user.username }}</strong>! You're a few steps away from joining our next software engineering team.<br>
+                <span class="fw-semibold text-danger">Note:</span> You must complete the following <strong class="text-danger"> (7) </strong> tasks to be considered for selection.
+            </p>
+    </div>
+    <div class="bg-body-tertiary" style="min-width: 200px;">
+      <button class="px-2 btn btn-warning text-white rounded-pill d-flex align-content-center w-100 gap-3" type="button">
+        {% with user.profiles_set.all|first as profile %}
+          {% if profile.uplaod_picture %}
+              <img class="rounded-circle" style="width: 30px; height: 30px;" src="{{ profile.uplaod_picture.url }}" alt="Profile Picture">
+               <div class="d-flex flex-column justify-content-center align-items-start">
+          {{ user.username }}
+        </div>
+          {% else %}
+              <p>No profile picture uploaded.</p>
+               <div class="d-flex flex-column justify-content-center align-items-start">
+          {{ user.username }}
+        </div>
+          {% endif %}
+        {% endwith %}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Left Column -->
+    <div class="col-md-3">
+      <div class="card text-center mb-3">
+        <div class="card-body my-2">
+           {% with user.profiles_set.all|first as profile %}
+            {% if profile.uplaod_picture %}
+              <img class="rounded-circle my-2" style="width: 100px; height: 100px;" src="{{ profile.uplaod_picture.url }}" alt="Profile Picture">
+            {% else %}
+              <p>No profile picture uploaded.</p>
+            {% endif %}
+          {% endwith %}
+          <h5 class="mb-0">{{ user.username }}</h5>
+          {% with user.profiles_set.all|first as profile%%}
+          {% if profile %}
+          <small class="text-muted">@{{profile.first_name}}.{{profile.last_name}}</small>
+          {% else %}
+          <small class="text-muted">@{{ user.username }}</small>
+          {% endif %}
+          {% endwith %}
+          <hr>
+          <p class="mb-1"><i class="bi bi-envelope"></i> {{user.email}}</p>
+          {% with user.profiles_set.all|first as profile %}
+          {% if profile.courses %}
+          <p class="mb-1"><i class="bi bi-person"></i> {{profile.phone_num}}</p>
+            <p><i class="bi bi-building"></i>
+            {{ profile.courses }}
+            </p>
+            {% else %}
+                No Courses
+            {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="mb-2">
+            <i class="bi bi-folder" style="font-size: 2rem; color: var(--warning-color);"></i>
+          </div>
+          <h6>Total Available Tasks</h6>
+          <p><span class="status-badge">{{ total_task }}</span></p>
+          <h6 class="">Total Approved Tasks</h6>
+          {% if approved_task_count %}
+          <p><span class="status-badge">{{ approved_task_count }}</span></p>
+          {% else %}  
+          <p><span class="status-badge">0</span></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-md-9">
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-3" id="supervisiTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="tab" type="button"> 
+            <div class="progress-container">
+            <span class="badge bg-danger rounded-pill p-2" id="tasksSubmitted">
+              {% if task_collection %}
+              {{ task_collection.count }}
+              {% else %}
+              0
+              {% endif %}
+            </span>
+            <span class="ms-2">tasks submitted</span>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link disabled" type="button">
+            <div class="progress-container">
+              <span class="badge bg-success rounded-pill p-2" id="tasksRemaining">
+                {% if task_collection %}
+                {{ 7|sub:task_collection.count }}
+                {% else %}
+                7
+                {% endif %}
+              </span>
+              <span class="ms-2">tasks remaining</span>
+            </div>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Activity Log -->
+      <h5 class="text-dark m-3">All Available Tasks</h5>
+       <div class="" style="max-height: 250px; overflow-y: auto;">
+         {% for task in allcohorts %}
+         <div class="card mb-3">
+           <div class="card-body">
+             <div class="d-flex flex-row align-items-center justify-content-between">
+               <div class="d-flex align-items-center gap-3">
+                 <div>
+                   <img src="{{ task.task_img.url }}" class="rounded-circle me-3" style="width: 80px; height: 80px;" alt="{{ task.task }}">
+                 </div>
+                 <div>
+                   <span class="badge bg-warning text-dark mb-1">{{ task.task }}</span>
+                   <p class="mb-0 text-wrap pe-4"> {{ task.task_description|truncatechars:100 }} </p>
+                   <small class="text-muted">Senin, 16 Januari 2020, 10:45</small>
+                 </div>
+               </div>
+               <div>
+               <a href="{{ task.links }}" target="_blank" class="btn btn-outline-orange btn-sm " style="width: 100px;">Take Task</a>
+               </div>
+   
+             </div>
+           </div>
+         </div>
+         {% endfor %}
+       </div>
+
+      <!-- Supervisor Card -->
+       <div style="overflow-y: auto; max-height: 400px;">
+         <div class="card mb-3">
+           <!-- div class="card-body d-flex justify-content-between align-items-center"> -->
+            {% if task_collection.count <= 0 %}
+            <div class="card-body">
+              <h5 class="card-title">No Task Submitted</h5>
+              <p class="card-text">You have not submitted any tasks yet.</p>
+            </div>
+            {% else %}
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Student Name</th>
+                      <th>Task</th>
+                      <th>Status</th>
+                      <th>Links</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for admitted_student in task_collection %}
+                    <tr class="animate__animated animate__fadeIn" style="animation-delay: {{ forloop.counter|mul:0.1 }}s">
+                      <td>
+                        <a href="{% url 'profileview' admitted_student.pk %}" class="d-flex align-items-center text-decoration-none text-dark">
+                          {% with admitted_student.student.profiles_set.all|first as profile %}
+                          {% if profile.uplaod_picture %}
+                          <img src="{{ profile.uplaod_picture.url }}" alt="Profile" class="rounded-circle me-2" width="40" height="40">
+                          {% else %}
+                          <img src="{% static 'assets/img/profile/img-1.jpg' %}" alt="Profile" class="rounded-circle me-2" width="40" height="40">
+                          {% endif %}
+                          {% endwith %}
+                          <strong>
+                            {{ admitted_student.student.first_name }}
+                            <span class="ms-2">
+                              {{ admitted_student.student.last_name }}</a>
+                            </span> 
+                          </strong>
+                      </td>
+                      <td>{{ admitted_student.task }}</td>
+                      <td><span class="badge bg-success rounded-pill p-2">{{ admitted_student.status }}</span></td>
+                      <td><a href="{{ admitted_student.links }}" target="_blank" class="btn btn-sm btn-outline-primary">View Task</a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <div class="mx-auto text-center mt-4">
+                {% if completed_task_count == 7 %}
+                <a href="{% url 'dash' %}" class="btn btn-primary">Back to Dashboard</a>
+                {% else %}
+                <a href="{% url 'task_collwction' %}" class="btn btn-primary mb-2">Refresh</a>
+                {% endif %}
+                </div>
+              </div>
+            {% endif %}
+            <!-- </div> -->
+         </div>
+       </div>
+
+       
+      {% if task_collection.count < 7 %}
+      <!-- Laporan Minggu 1 -->
+      <form id="taskForm" method="POST" enctype="multipart/form-data">
+      <div class="card mb-3 w-100">
+        <div class="card-body d-flex justify-content-between align-items-center">
+           <label class="form-label fw-bold" style="width: 200px;">Select Task</label>
+           <select name="project" class="form-select p-3" required>
+              <option value="" disabled selected>Choose your task</option>
+              {% for myassigment in task %}
+                <option value="{{myassigment.task}}">{{myassigment.task}}</option>
+              {% endfor %}
+            </select>
+        </div>
+      </div>
+
+       <div class="card mb-3 w-100">
+        <div class="card-body d-flex justify-content-between align-items-center">
+           <label class="form-label fw-bold" style="width: 200px;">Social Media Link</label>
+          <input type="url" name="url" class="form-control p-3" placeholder="Paste your social media profile link here" required>
+        </div>
+      </div>
+     
+      <!-- Upload Area -->
+      <div class="upload-area mb-3">
+        <label class="form-label fw-bold">Upload Screenshot</label>
+          <div class="drag-drop-area" id="dropArea">
+               <div class="drag-drop-icon bounce">📁</div>
+              <h5>Drag & Drop your file here</h5>
+              <p class="text-muted">or click to browse files</p>
+              <input type="file" name="myfiles" class="file-input" id="fileInput" required>
+              <img id="previewImage" class="preview-image" alt="Preview">
+          </div>
+      </div>
+
+       <div class="progresscontainer" id="uploadProgress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary px-4 py-3">
+            <span class="submit-text">Submit Assignment</span>
+            <span class="spinner-border spinner-border-sm d-none" id="spinner"></span>
+          </button>
+        </div>
+      </form>
+      {% else %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewImage = document.getElementById('previewImage');
+        const progressContainer = document.getElementById('uploadProgress');
+        const progressBar = document.getElementById('progressBar');
+        const form = document.getElementById('taskForm');
+
+        // Drag and drop functionality
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop area
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        dropArea.addEventListener('drop', handleDrop, false);
+        dropArea.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlight() {
+            dropArea.classList.add('active');
+        }
+
+        function unhighlight() {
+            dropArea.classList.remove('active');
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+
+                    progressContainer.style.display = 'block';
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 10;
+                        progressBar.style.width = progress + '%';
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            setTimeout(() => {
+                                progressContainer.style.display = 'none';
+                            }, 500);
+                        }
+                    }, 100);
+                } else {
+                  iziToast.error({
+                    title: 'Error',
+                    message: 'Please upload a valid image file.',
+                    position: 'topRight'
+                  });
+                }
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#00bfa5', '#00796b', '#4db6ac', '#26a69a', '#b2dfdb', '#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.width = `${Math.random() * 8 + 4}px`;
+                confetti.style.height = confetti.style.width;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.opacity = Math.random() * 0.5 + 0.5;
+                confetti.style.position = 'absolute';
+                confetti.style.top = `${Math.random() * 100}vh`;
+                confetti.style.zIndex = 9999;
+                confetti.style.pointerEvents = 'none';
+                confetti.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+                confetti.style.transform += ` translateY(${Math.random() * 100 + 50}vh)`;
+
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000); // Confetti lifetime
+            }
+        }
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const spinner = document.getElementById('spinner');
+                const submitText = document.querySelector('.submit-text');
+                spinner.classList.remove('d-none');
+                submitText.textContent = 'Submitting...';
+
+                e.preventDefault(); // Prevent default form submission
+
+                $.ajax({
+                    url: "{% url 'task_collwction' %}",
+                    method: form.method,
+                    data: new FormData(form),
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRFToken': "{{ csrf_token }}"
+                    },
+                    success: function(response) {
+                    spinner.classList.add('d-none');
+                    submitText.textContent = 'Submit';
+                    
+                    iziToast.success({
+                      title: 'Success',
+                      message: 'Task submitted successfully!',
+                      position: 'topRight'
+                    });
+
+                    // Update the task count UI
+                    const submittedElem = document.getElementById('tasksSubmitted');
+                    const remainingElem = document.getElementById('tasksRemaining');
+
+                    let submitted = parseInt(submittedElem.textContent);
+                    let remaining = parseInt(remainingElem.textContent);
+
+                    if (submitted < 7) {
+                        submitted += 1;
+                        remaining = Math.max(0, 7 - submitted);
+
+                        submittedElem.textContent = submitted;
+                        remainingElem.textContent = remaining;
+                    }
+
+                    // Trigger confetti if all tasks are completed
+                    if (submitted === 7) {
+                        createConfetti()
+                        // Optional: Refresh or replace content after all tasks done
+                        setTimeout(() => {
+                        document.body.classList.add('animate__fadeOut');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                    }, 3000);
+                    }
+
+                    // Optionally reset form
+                    form.reset();
+                    previewImage.style.display = 'none';
+                },
+
+                    error: function(xhr, status, error) {
+                      let errorMsg = "There was an error submitting the form. Please try again.";
+                      try {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                          errorMsg = response.error;
+                        }
+                      } catch (e) {
+                        // keep default message
+                      }
+                      iziToast.error({
+                        title: 'Error',
+                        message: errorMsg,
+                        position: 'topRight'
+                      });
+                      spinner.classList.add('d-none');
+                      submitText.textContent = 'Submit';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+1 

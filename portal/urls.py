@@ -20,6 +20,7 @@ urlpatterns = [
     path('send_email', include('emailssending.urls')),
     path('admindash/', include('admindash.urls')),
     path('newdash/', include('newdash.urls')),
+    path('studenttask/', include('studenttask.urls')),
    
 
 ]

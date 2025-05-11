@@ -1,0 +1,79 @@
+{% extends "dashboard/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="page-wrapper">
+        <div class="content container-fluid text-info">
+           
+              <h1 class="text-danger">complete Those tasks before proceeding 
+               
+                </h1>
+
+          <p class="text-dark">Congratulations! <b>{{user.username}}</b>  you are a few steps ahead of your selection to join the next software engineering team.
+           <br>  NB: a candidate must complete these four tasks before being selected for the training 
+           </p>
+           <p><a href="{% url 'task_collwction' %}" class="btn btn-danger btn-bg  text-center"> Submit your task here </a></p>
+
+
+        
+          
+   
+          
+
+
+
+                <div class="row staff-grid-row">
+                {% for task in allcohorts  %}
+  
+                <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+                <div class="profile-widget">
+                <div class="profile-img" >
+                
+              <img class="avatar" src="{{task.task_img.url}}" alt="">
+                
+                </div>
+                <h4 class="user-name m-t-10 m-b-0 text-ellipsis"><a href="">{{task.task}}</a></h4>        
+                <p>{{task.task_description | safe }}</p> 
+               
+                <a href="{{ task.links }}"class="btn btn-primary">take task</a> 
+                
+
+            
+
+               
+                </div>
+                </div>
+                {% endfor %}
+
+
+              
+                </div>
+              
+               
+                
+                
+                
+               
+          
+
+           
+
+
+
+
+        </div>
+        </div>
+        
+    
+    {% endblock content %}
+</body>
+</html>

@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Get CSRF token
     const csrfToken = formData.get("csrfmiddlewaretoken");
+    console.log(csrfToken);
 
     axios
       .post("/courses/", formData, {

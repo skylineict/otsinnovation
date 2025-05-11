@@ -23,42 +23,6 @@ from datetime import timedelta
 
 User = get_user_model()
 
-# Flutterwave Settings
-FLW_SECRET_KEY = getattr(settings, 'FLUTTERWAVE_SECRET_KEY', None)
-FLW_SECRET_HASH = getattr(settings, 'FLUTTERWAVE_HASH', None)
-
-# -------------------------
-# Utility - (Optional) Flutterwave Payment Initiator
-# -------------------------
-def initiate_flutterwave_payment(user, amount, tx_ref, redirect_url):
-    payload = {
-        "tx_ref": tx_ref,
-        "amount": str(amount),
-        "currency": "NGN",
-        "redirect_url": redirect_url,
-        "customer": {
-            "email": user.email,
-            "name": f"{user.first_name} {user.last_name}"
-        },
-        "customizations": {
-            "title": "Course Registration",
-            "description": "Training Payment",
-            "logo": "https://yourdomain.com/static/logo.png"
-        }
-    }
-
-    headers = {
-        "Authorization": f"Bearer {FLW_SECRET_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    response = requests.post(
-        'https://api.flutterwave.com/v3/payments',
-        json=payload,
-        headers=headers
-    )
-
-    return response.json()
 
 # -------------------------
 # Course Registration View
@@ -290,25 +254,3 @@ def payment_success(request):
  # -------------------------
 # Flutterwave Webhook Handler
 # -------------------------
-def flutterwave_webhook(request):
-    try:
-        # Flutterwave sends the data in JSON format, so we parse it
-        payload = json.loads(request.body)
-
-        # You can add logic to process the webhook payload
-        # Check if the payment was successful
-        if payload['status'] == 'successful':
-            # Handle the successful payment (e.g., update the database, send confirmation)
-            transaction_id = payload['tx_ref']
-            # Process the payment (example: update user's registration status)
-            # For instance:
-            # registration = CourseRegistration.objects.get(transaction_id=transaction_id)
-            # registration.payment_status = 'success'
-            # registration.save()
-
-            return JsonResponse({'status': 'success', 'message': 'Payment was successful'})
-        else:
-            return JsonResponse({'status': 'failed', 'message': 'Payment failed'})
-
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)})

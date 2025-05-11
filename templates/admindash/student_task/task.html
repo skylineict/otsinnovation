@@ -1,0 +1,143 @@
+{% extends "admindash/header.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+  .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-header h2 {
+            color: #1b2b5e;
+            font-weight: 600;
+        }
+        .course-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1b2b5e;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .training-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #00a86a;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .btn-register {
+            background-color: #00a86a;
+            border: none;
+            padding: 10px 25px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(0, 168, 106, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-register:hover {
+            background-color: #009960;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 168, 106, 0.25);
+        }
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1b2b5e;
+        }
+        .form-check-input:checked {
+            background-color: #00a86a;
+            border-color: #00a86a;
+        }
+        .form-select:focus, .form-control:focus, .form-check-input:focus {
+            border-color: #00a86a;
+            box-shadow: 0 0 0 0.2rem rgba(0, 168, 106, 0.25);
+        }
+        .custom-radio-btn {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .custom-radio-btn:hover {
+            background-color: #f8f9fa;
+        }
+        .custom-radio-btn.selected {
+            border-color: #00a86a;
+            background-color: rgba(0, 168, 106, 0.05);
+        }
+        .custom-radio-btn .form-check-input {
+            margin-right: 10px;}
+</style>
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Task Creation</h2>
+                <p class="text-muted">Please fill out the form to create a new task</p>
+            </div>
+            
+            <form id="registrationForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %} 
+                <div class="form-group mb-4">
+                    <label for="taskName">Task Name</label>
+                    <input type="text" class="form-control form-control-lg"  name="task" placeholder="Enter task name">
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="taskUrl">Link</label>
+                    <input type="url" class="form-control form-control-lg" name="links" placeholder="https://example.com/">
+                </div>
+                
+                <hr class="section-divider">
+                
+                <!-- Image Fields Section -->
+                <h4 class="image-field-header">Task Image</h4>
+                
+                <div class="image-field-container">
+                    <div class="form-group">
+                        <label for="profileImage">Upload Image</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="task_img" id="profileImage" accept="image/*">
+                            <label class="custom-file-label" for="profileImage">Choose file</label>
+                        </div>
+                        <div class="image-preview mt-3" id="imagePreview">
+                            <span class="image-preview-text">Image preview will appear here</span>
+                        </div>
+                    </div>
+               
+                    <!-- Task Description -->
+                    <div class="form-group mb-0">
+                        <label for="imageDescription">Description</label>
+                        <textarea class="form-control" name="task_description" rows="3" placeholder="Briefly describe your task"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block btn-register">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Your JS here...
+</script>
+{% endblock content %}
