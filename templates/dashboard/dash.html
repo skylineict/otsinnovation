@@ -42,11 +42,14 @@
                         </div>
                         <div class="ml-auto text-right">
                             <p class="card-label text-muted mb-1">Student Passcode</p>
-                            {% if assigment.passcode %}
-                            <h3 class="card-value text-primary mb-0">{{assigment.passcode}}</h3>
-                            {% else %}
+                            {% comment %} {% if assigment.passcode %} {% endcomment %}
+                            <h3 class="card-value text-primary mb-0">
+                                {% comment %} {{assigment.passcode}} {% endcomment %}
+                                MR CHARLES
+                            </h3>
+                            {% comment %} {% else %} {% endcomment %}
                             <h3 class="card-value text-secondary mb-0">0</h3>
-                            {% endif %}
+                            {% comment %} {% endif %} {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -76,13 +79,13 @@
                         </div>
                         <div class="ml-auto text-right">
                             <p class="card-label text-muted mb-1">My Cohort</p>
-                            {% if cohorts %}
+                            {% comment %} {% if cohorts %} {% endcomment %}
                             <h3 class="card-value mb-0">
-                                <a href="{% url 'cohorts' myid.pk %}" class="text-primary">{{cohorts}}</a>
+                                {% comment %} <a href="{% url 'cohorts' myid.pk %}" class="text-primary">{{cohorts}}</a> {% endcomment %}
                             </h3>
-                            {% else %}
+                            {% comment %} {% else %} {% endcomment %}
                             <span class="badge badge-pill badge-light">4</span>
-                            {% endif %}
+                            {% comment %} {% endif %} {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -95,11 +98,11 @@
                         <div class="mr-auto">
                             <p class="card-label text-muted mb-1">Acceptance Status</p>
                             <h3 class="card-value mb-0">
-                                {% if profile.status == "Accepted" %}
-                                <span class="badge badge-pill badge-success py-2 px-3">{{profile.status}}</span>
-                                {% else %}
+                                {% comment %} {% if profile.status == "Accepted" %} {% endcomment %}
+                                {% comment %} <span class="badge badge-pill badge-success py-2 px-3">{{profile.status}}</span> {% endcomment %}
+                                {% comment %} {% else %} {% endcomment %}
                                 <span class="badge badge-pill badge-secondary py-2 px-3">Accepted</span>
-                                {% endif %}
+                                {% comment %} {% endif %} {% endcomment %}
                             </h3>
                         </div>
                         <div class="icon-wrapper bg-danger-light ml-auto">
@@ -124,7 +127,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="alert alert-warning h-100" role="alert">
                                     If you're interested in joining a team of skilled professionals,
-                                    <a href="{% url 'request_facilitator' %}" class="alert-link">apply now!</a>
+                                    <a href="RequestFacilitatorView" class="alert-link">apply now!</a>
                                 </div>
                             </div>
                     
@@ -155,66 +158,24 @@
           </div>
 
         <!-- Section: Facilitator Requests -->
-  {% if facilitator_requests %}
+  {% comment %} {% if facilitator_requests %} {% endcomment %}
   <div class="mb-6">
     <h2 class="text-xl font-semibold mb-2">Your Facilitator Requests</h2>
     <ul class="bg-white border rounded shadow divide-y">
-      {% for request in facilitator_requests %}
+      {% comment %} {% for request in facilitator_requests %} {% endcomment %}
         <li class="p-3">
           <div class="flex justify-between items-center">
-            <span>{{ request.course.title }}</span>
+            {% comment %} <span>{{ request.course.title }}</span> {% endcomment %}
             <span class="text-sm px-2 py-1 rounded {{ request.is_approved|yesno:'bg-green-200,text-green-800,bg-gray-200,text-gray-800' }}">
-              {{ request.get_status_display }}
+              {% comment %} {{ request.get_status_display }} {% endcomment %}
             </span>
           </div>
         </li>
-      {% endfor %}
+      {% comment %} {% endfor %} {% endcomment %}
     </ul>
   </div>
-{% endif %}
+{% comment %} {% endif %} {% endcomment %}
 
-<!-- Section: Students (if facilitator) -->
-{% if is_facilitator and students %}
-<div class="mb-6">
-  <h2 class="text-xl font-semibold mb-2">Approved Students ({{ students|length }})</h2>
-  <div class="overflow-auto rounded border bg-white shadow">
-    <table class="min-w-full text-sm table-auto">
-      <thead class="bg-gray-100 text-left">
-        <tr>
-          <th class="px-4 py-2">Name</th>
-          <th class="px-4 py-2">Email</th>
-          <th class="px-4 py-2">Training Mode</th>
-          <th class="px-4 py-2">Internship</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for student in students %}
-          <tr class="border-t">
-            <td class="px-4 py-2">{{ student.user.get_full_name }}</td>
-            <td class="px-4 py-2">{{ student.user.email }}</td>
-            <td class="px-4 py-2">{{ student.get_training_mode_display }}</td>
-            <td class="px-4 py-2">
-              {% if student.internship %}
-                <span class="text-green-600 font-semibold">Yes</span>
-              {% else %}
-                <span class="text-red-600 font-semibold">No</span>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-{% endif %}
-
-<!-- Section: Links -->
-{% if is_facilitator %}
-<div class="mt-8 space-y-4">
-  <a href="{% url 'facilitator_students' %}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Manage Students</a>
-  <a href="{% url 'update_facilitator_profile' %}" class="inline-block px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">Update Profile</a>
-</div>
-{% endif %}
 
 </div>
 
