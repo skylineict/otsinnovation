@@ -67,11 +67,11 @@
                 <p class="text-muted">Please fill out the form to register for your selected course and be admitted into the program.</p>
             </div>
 
-            <form id="registrationForm" method="POST">
+            <form  method="POST">
                 {% csrf_token %}
                 <div class="form-group mb-4">
                     <label for="course">Select Course</label>
-                    <select class="custom-select custom-select-lg" id="course" name="course" required>
+                    <select class="custom-select custom-select-lg" id="course" name="course">
                         <option value="" selected disabled>-- Choose a Course --</option>
                         {% for course in courses %}
                             <option value="{{ course.id }}">{{ course.name }}</option>
@@ -114,50 +114,7 @@
     </div>
 </div>
 
-<!-- ✅ AJAX Script (UPDATED) -->
-<script>
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
 
-    const form = this;
-    const formData = new FormData(form);
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.innerText = 'Submitting...';
-
-    fetch("{% url 'request_facilitator' %}", {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            'X-Requested-With': 'XMLHttpRequest'  // ✅ Added this line!
-        },
-        body: formData
-    })
-    .then(response => response.json().then(data => ({status: response.status, body: data})))
-    .then(({status, body}) => {
-        const oldAlert = document.getElementById('formAlert');
-        if (oldAlert) oldAlert.remove();
-
-        let alertBox = document.createElement('div');
-        alertBox.id = 'formAlert';
-        alertBox.className = `alert ${status === 200 ? 'alert-success' : 'alert-danger'} mt-3`;
-        alertBox.innerText = body.message;
-        form.parentNode.insertBefore(alertBox, form);
-
-        if (status === 200) {
-            form.reset();
-        }
-
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Complete Registration';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Complete Registration';
-    });
-});
-</script>
 
 </body>
 </html>

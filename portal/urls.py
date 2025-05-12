@@ -21,6 +21,7 @@ urlpatterns = [
     path('admindash/', include('admindash.urls')),
     path('newdash/', include('newdash.urls')),
     path('studenttask/', include('studenttask.urls')),
+    path('facilitator/', include('facilitator.urls')),
    
 
 ]
