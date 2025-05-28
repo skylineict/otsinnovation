@@ -1,30 +1,29 @@
 from django.contrib import admin
-from .models import Project, Assigment, Task,Task_collections
-# Register your models here.
+from .models import Project, ProjectSubmission, ProjectAttendance
+
+
 @admin.register(Project)
-class Student_Project(admin.ModelAdmin):
-    list_display = ('project_name','cohorts','ending_date','start_date','descriptions', 'status')
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'course', 'project_type', 'status', 'deadline', 'created_at')
+    list_filter = ('project_type', 'status', 'course', 'deadline')
+    search_fields = ('title', 'course__name')
+    filter_horizontal = ('cohorts',)
+    date_hierarchy = 'deadline'
+    ordering = ('-created_at',)
 
-@admin.register(Assigment)
-class Myassigment(admin.ModelAdmin):
-    list_display = ('git_hub','user', 'project', 'cohorts','date','score_project','status')
-    
 
-@admin.register(Task)
-class Task_admin(admin.ModelAdmin):
-    list_display = ('task', 'task_img','links','task_description')
-    
-    
-@admin.register(Task_collections)
-class Task_collect(admin.ModelAdmin):
-    list_display = ('student','task', 'status', 'screen_short','links')
- 
-   
-    
-# @admin.register(Score)
-# class Score_Admin(admin.ModelAdmin):
-#     list_display = ('student','my_assigment', 'score')
-    
-    
+@admin.register(ProjectSubmission)
+class ProjectSubmissionAdmin(admin.ModelAdmin):
+    list_display = ('project', 'submitted_by', 'cohort', 'submitted_at', 'score', 'is_approved')
+    list_filter = ('is_approved', 'submitted_at', 'project__course')
+    search_fields = ('project__title', 'submitted_by__username', 'cohort__name')
+    autocomplete_fields = ('project', 'submitted_by', 'cohort')
+    readonly_fields = ('submitted_at',)
 
-     
+
+@admin.register(ProjectAttendance)
+class ProjectAttendanceAdmin(admin.ModelAdmin):
+    list_display = ('submission', 'student', 'timestamp')
+    search_fields = ('submission__project__title', 'student__username')
+    autocomplete_fields = ('submission', 'student')
+    readonly_fields = ('timestamp',)

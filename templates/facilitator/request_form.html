@@ -7,7 +7,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facilitator Application</title>
+      <link rel="stylesheet" href="{% static 'style/spinner.css' %}">
+    <title>{% block tittle %}
+        Facilitator Application
+      
+    {% endblock tittle %}</title>
 </head>
 <body>
 
@@ -55,19 +59,54 @@
     }
 </style>
 
+
+<div id="fullpage-loader" class="fullpage-loader  ">
+        <div class="loader-content">
+            <div class="loader-animation">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="loader-text" id="loadertext"> Calm down, e dey process! </div>
+        </div>
+    </div>
 <div class="page-wrapper">
     <div class="container">
-        <div class="alert alert-info mt-4">
-            <strong>How it works:</strong> Choose a course, fill the form, we will contact you!
-        </div>
 
-        <div class="form-container">
+        
+ 
+  <div id="successPage" class="fade-in" style="display: {% if has_registration %}block{% else %}none{% endif %};">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card success-card mb-5">
+          <div class="card-body text-center py-5">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="mb-3" style="color: #15244d;">Facilitator Request Acknowledgment Message</h3>
+            <div class="alert alert-success" role="alert">
+             
+              <p>Thank you! Your request to become a facilitator has been received.
+Our team will review your application and get back to you via email shortly.
+              
+            </div>
+
+           
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+       
+        <div id="registration-page" class="form-container"style="display: {% if has_registration %}none{% else %}block{% endif %};">
             <div class="form-header">
                 <h2>Facilitator Application</h2>
                 <p class="text-muted">Please fill out the form to register for your selected course and be admitted into the program.</p>
             </div>
 
-            <form  method="POST">
+            <form method="POST" id="facilitatorform">
                 {% csrf_token %}
                 <div class="form-group mb-4">
                     <label for="course">Select Course</label>
@@ -99,21 +138,15 @@
                     <input type="url" class="form-control form-control-lg" id="facebook" name="facebook" placeholder="https://www.facebook.com/yourusername">
                 </div>
 
-                <div class="form-group mb-4">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="internshipAvailable" name="internshipAvailable">
-                        <label class="custom-control-label" for="internshipAvailable">I am available for internship opportunities</label>
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <button type="submit" id="submitBtn" class="btn btn-primary btn-lg btn-block btn-register">Complete Registration</button>
                 </div>
             </form>
         </div>
+
+      
     </div>
 </div>
-
 
 
 </body>

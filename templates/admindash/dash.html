@@ -1,0 +1,1135 @@
+﻿{% extends "admindash/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Obidient Tech Space - {{user.username}}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+	
+        <!-- Stats Cards -->
+        <div class="row">
+            <!-- Paid students -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="icon-wrapper bg-primary-light">
+                            <img src="{% static 'assets/img/dash/dash-1.png' %}" alt="Passcode Icon" class="img-fluid">
+                        </div>
+                        <div class="ml-auto text-right">
+                            <p class="card-label text-muted mb-1">Paid students</p>
+                            <h4 class="card-value text-secondary mb-0">350</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Total students -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="mr-auto">
+                            <p class="card-label text-muted mb-1">Total students</p>
+                            <h3 class="card-value text-secondary mb-0">500</h3>
+                        </div>
+                        <div class="icon-wrapper bg-secondary-light ml-auto">
+                            <img src="{% static 'assets/img/dash/dash-2.png' %}" alt="Score Icon" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Registered courses -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="icon-wrapper bg-info-light">
+                            <img src="{% static 'assets/img/dash/dash-3.png' %}" alt="Cohort Icon" class="img-fluid">
+                        </div>
+                        <div class="ml-auto text-right">
+                            <p class="card-label text-muted mb-1">Registered courses</p>
+                            <span class="badge badge-pill badge-light">5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Acceptance Status -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="mr-auto">
+                            <p class="card-label text-muted mb-1">Acceptance Status</p>
+                            <h3 class="card-value mb-0">
+                                <span class="badge badge-pill badge-success py-2 px-3">Accepted</span>
+                            </h3>
+                        </div>
+                        <div class="icon-wrapper bg-danger-light ml-auto">
+                            <img src="{% static 'assets/img/dash/dash-4.png' %}" alt="Status Icon" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="row mt-4 mb-4">
+            <div class="col-12">
+                <div class="quick-actions-section">
+                    <div class="section-header">
+                        <i class="fas fa-bolt section-icon"></i>
+                        <span class="section-title-text">Quick Actions</span>
+                        <div class="section-divider"></div>
+                    </div>
+                    
+                    <div class="action-buttons-grid">
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-primary">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Project</h6>
+                                <p class="action-subtitle">Manage Projects</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-info">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Cohort</h6>
+                                <p class="action-subtitle">View Cohorts</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-success">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Live Class</h6>
+                                <p class="action-subtitle">Join Classes</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-warning">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">My Students</h6>
+                                <p class="action-subtitle">Student Overview</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-purple">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Facilitator</h6>
+                                <p class="action-subtitle">Facilitator Portal</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-secondary">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Course Material</h6>
+                                <p class="action-subtitle">Learning Resources</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-info">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Recap Class</h6>
+                                <p class="action-subtitle">Review Sessions</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-warning">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Registered Courses</h6>
+                                <p class="action-subtitle">Course Overview</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="leaderboard-section">
+                    <div class="section-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16" style="margin-right: 8px;">
+                            <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+                        </svg>
+                        <span style="font-size: 16px; font-weight: 500; color: #444;">Student Leadership Board</span>
+                        <span class="date-label">April 2025</span>
+                        <div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
+                    </div>
+                    
+                    <div class="student-cards-container">
+                        <!-- Top Student #1 -->
+                        <div class="student-card top-1">
+                            <div class="student-rank">1</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Sarah Johnson</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>28/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Computer Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">98%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#FFD700"/>
+                            </svg>
+                        </div>
+
+                        <!-- Top Student #2 -->
+                        <div class="student-card top-2">
+                            <div class="student-rank">2</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Michael Chen</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>29/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Data Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">95%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#C0C0C0"/>
+                            </svg>
+                        </div>
+
+                        <!-- Top Student #3 -->
+                        <div class="student-card top-3">
+                            <div class="student-rank">3</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Olivia Rodriguez</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>27/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Web Development
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">93%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#CD7F32"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="task-section">
+                    <div class="section-header">
+                        <i class="fas fa-tasks section-icon"></i>
+                        <span class="section-title-text">Tasks</span>
+                        <span class="date-label">April 2025</span>
+                        <div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
+                    </div>
+                    <div class="task-cards-container">
+                        <div class="task-container">
+                            <div class="task-card bookmarked">
+                                <div class="bookmark-flag"></div>
+                                <div class="task-info">
+                                    <div class="task-title">Complete Project Proposal</div>
+                                    <div class="task-assignee">Assigned to: John Doe</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-view">View</button>
+                                    <button class="btn btn-start">Start</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-container">
+                            <div class="task-card">
+                                <div class="task-info">
+                                    <div class="task-title">Review Cohort Progress</div>
+                                    <div class="task-assignee">Assigned to: Jane Smith</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-view">View</button>
+                                    <button class="btn btn-ongoing">Ongoing</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-container">
+                            <div class="task-card">
+                                <div class="task-info">
+                                    <div class="task-title">Update Course Materials</div>
+                                    <div class="task-assignee">Assigned to: Emily Brown</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-view">View</button>
+                                    <button class="btn btn-error">Error</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cohort of the Week Section -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="leaderboard-section">
+                    <div class="section-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16" style="margin-right: 8px;">
+                            <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+                        </svg>
+                        <span style="font-size: 16px; font-weight: 500; color: #444;">Cohort of the Week</span>
+                        <span class="date-label">April 2025</span>
+                        <div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
+                    </div>
+                    
+                    <div class="student-cards-container">
+                        <!-- Cohort Top Student #1 -->
+                        <div class="student-card top-1 cohort-top">
+                            <div class="student-rank">1</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">James Wilson</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>30/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Artificial Intelligence
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">99%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#FFD700"/>
+                            </svg>
+                        </div>
+
+                        <!-- Cohort Top Student #2 -->
+                        <div class="student-card top-2">
+                            <div class="student-rank">2</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Emma Davis</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>29/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Data Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">96%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#C0C0C0"/>
+                            </svg>
+                        </div>
+
+                        <!-- Cohort Top Student #3 -->
+                        <div class="student-card top-3">
+                            <div class="student-rank">3</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Liam Brown</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>28/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Web Development
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">94%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#CD7F32"/>
+                            </svg>
+                        </div>
+
+                        <!-- Cohort Top Student #4 -->
+                        <div class="student-card top-4">
+                            <div class="student-rank">4</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Sophia Martinez</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>27/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Computer Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">92%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#0d9ed9"/>
+                            </svg>
+                        </div>
+
+                        <!-- Cohort Top Student #5 -->
+                        <div class="student-card top-5">
+                            <div class="student-rank">5</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Noah Lee</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>26/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Data Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">90%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#0d9ed9"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if assigment %}
+        <!-- Assignment Section -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Assignment Status</h5>
+                        <div class="alert alert-warning alert-dismissible fade show mb-0 py-2 bg-warning-light border-warning text-warning" role="alert">
+                            <i class="fas fa-exclamation-circle mr-2"></i> 
+                            <strong>Submitted Assignment under review</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Cohort</th>
+                                        <th>Project Name</th>
+                                        <th>Status</th>
+                                        <th>Submission Date</th>
+                                        <th>GitHub</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{assigment.cohorts}}</td>
+                                        <td>{{assigment.project}}</td>
+                                        {% if assigment.status == 'reviewing' %}
+                                        <td>
+                                            <span class="badge badge-warning py-2 px-3 bg-warning-light text-warning border-warning">
+                                                <i class="fas fa-spinner mr-1"></i> {{assigment.status}}
+                                            </span>
+                                        </td>
+                                        {% else %}
+                                        <td>
+                                            <span class="badge badge-success py-2 px-3 bg-secondary-light text-secondary border-secondary">
+                                                <i class="fas fa-check-circle mr-1"></i> {{assigment.status}}
+                                            </span>
+                                        </td>
+                                        {% endif %}
+                                        <td>{{assigment.date|date:'D, M d Y' }}</td>
+                                        <td>
+                                            <a href="{{assigment.git_hub}}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-external-link-alt mr-1"></i> View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #1a2b5d;
+        --secondary: #00a769;
+        --primary-light: rgba(26, 43, 93, 0.1);
+        --secondary-light: rgba(0, 167, 105, 0.1);
+        --info: #49beff;
+        --warning: #ffc107;
+        --danger: #ff5c5f;
+        --light: #f8f9fa;
+        --dark: #2e384d;
+        --gray: #6c757d;
+        --purple: #8e44ad;
+        --success: #28a745;
+        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+        background-color: #f5f7fb;
+        color: #333;
+        font-family: var(--font-family);
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    /* Utility Classes */
+    .text-primary { color: var(--primary) !important; }
+    .text-secondary { color: var(--secondary) !important; }
+    .bg-primary { background-color: var(--primary) !important; }
+    .bg-secondary { background-color: var(--secondary) !important; }
+    .bg-info { background-color: var(--info) !important; }
+    .bg-success { background-color: var(--success) !important; }
+    .bg-warning { background-color: var(--warning) !important; }
+    .bg-purple { background-color: var(--purple) !important; }
+    .bg-primary-light { background-color: var(--primary-light) !important; border-color: var(--primary-light) !important; }
+    .bg-secondary-light { background-color: var(--secondary-light) !important; border-color: var(--secondary-light) !important; }
+    .bg-danger-light { background-color: rgba(255, 92, 95, 0.1) !important; border-color: rgba(255, 92, 95, 0.1) !important; }
+    .bg-info-light { background-color: rgba(73, 190, 255, 0.1) !important; border-color: rgba(73, 190, 255, 0.1) !important; }
+    .border-primary { border-color: var(--primary) !important; }
+    .border-secondary { border-color: var(--secondary) !important; }
+    .border-warning { border-color: var(--warning) !important; }
+    
+    /* Buttons */
+    .btn {
+        border-radius: 6px;
+        font-weight: 500;
+        padding: 8px 16px;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+    
+    .btn-primary {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+    }
+    
+    .btn-primary:hover {
+        background-color: #142348;
+        border-color: #142348;
+    }
+    
+    .btn-outline-primary {
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+    }
+    
+    .btn-view {
+        background-color: #0d9ed9;
+        color: white;
+        border: none;
+    }
+    
+    .btn-start {
+        background-color: #65cb57;
+        color: white;
+        border: none;
+    }
+    
+    .btn-ongoing {
+        background-color: #f0ad4e;
+        color: white;
+        border: none;
+    }
+    
+    .btn-error {
+        background-color: #e64c3c;
+        color: white;
+        border: none;
+    }
+    
+    /* Cards */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        margin-bottom: 24px;
+        background-color: #fff;
+    }
+    
+    .card-header {
+        border-radius: 12px 12px 0 0;
+        padding: 16px 24px;
+        background-color: #fff;
+        border-bottom: none;
+    }
+    
+    .card-title {
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 0;
+    }
+    
+    .stat-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-label {
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--gray);
+    }
+    
+    .card-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--dark);
+    }
+    
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Badges and Alerts */
+    .badge {
+        font-weight: 500;
+        font-size: 13px;
+        border: 1px solid transparent;
+        transition: background-color 0.2s ease;
+    }
+    
+    .badge-pill {
+        padding: 6px 12px;
+    }
+    
+    .alert {
+        border-radius: 8px;
+        border: 1px solid;
+        font-size: 14px;
+    }
+    
+    .alert .close {
+        font-size: 16px;
+        line-height: 1;
+    }
+    
+    /* Tables */
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .table thead th {
+        border-top: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        color: var(--gray);
+        background-color: #f8f9fa;
+    }
+    
+    .table td, .table th {
+        vertical-align: middle;
+        padding: 16px 24px;
+        border-top: 1px solid #eee;
+    }
+    
+    /* Quick Actions Section */
+    .quick-actions-section {
+        margin-bottom: 30px;
+    }
+    
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .section-header svg, .section-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--primary);
+    }
+    
+    .section-title-text {
+        font-size: 16px;
+        font-weight: 500;
+        color: #444;
+        margin-left: 8px;
+    }
+    
+    .section-divider {
+        flex-grow: 1;
+        height: 1px;
+        background-color: #ddd;
+        margin-left: 10px;
+    }
+    
+    .action-buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .action-button {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: #333;
+    }
+    
+    .action-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .action-icon-wrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+    
+    .action-icon-wrapper i {
+        font-size: 20px;
+        color: #fff;
+    }
+    
+    .action-content {
+        flex-grow: 1;
+    }
+    
+    .action-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 3px;
+        color: #333;
+    }
+    
+    .action-subtitle {
+        font-size: 12px;
+        color: #777;
+        margin-bottom: 0;
+    }
+    
+    .action-arrow {
+        font-size: 12px;
+        color: #777;
+    }
+    
+    /* Student Leaderboard and Cohort Section */
+    .leaderboard-section {
+        margin-bottom: 30px;
+    }
+    
+    .student-cards-container {
+        padding: 0 8px;
+    }
+    
+    .student-card {
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 15px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid transparent;
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+    
+    .student-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .student-card.top-1 { border-left-color: #ffd700; }
+    .student-card.top-2 { border-left-color: #c0c0c0; }
+    .student-card.top-3 { border-left-color: #cd7f32; }
+    .student-card.top-4, .student-card.top-5 { border-left-color: #0d9ed9; }
+    
+    .student-card.cohort-top {
+        background: linear-gradient(45deg, #ffd70022, #ffffff);
+        border: 2px solid #ffd700;
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        padding: 20px;
+    }
+    
+    .student-rank {
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        width: 24px;
+        height: 24px;
+        background-color: #0d9ed9;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .top-1 .student-rank { background-color: #ffd700; color: #333; }
+    .top-2 .student-rank { background-color: #c0c0c0; color: #333; }
+    .top-3 .student-rank { background-color: #cd7f32; }
+    .cohort-top .student-rank {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        background-color: #ffd700;
+        border: 2px solid #333;
+    }
+    
+    .student-photo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 15px;
+        border: 2px solid #f0f0f0;
+    }
+    
+    .cohort-top .student-photo {
+        width: 60px;
+        height: 60px;
+        border: 3px solid #ffd700;
+    }
+    
+    .student-info {
+        flex-grow: 1;
+    }
+    
+    .student-name {
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: #333;
+        font-size: 14px;
+    }
+    
+    .cohort-top .student-name {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .student-badge {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .cohort-top .student-badge {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .student-details {
+        font-size: 12px;
+        color: #777;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .student-detail {
+        margin-right: 12px;
+    }
+    
+    .detail-label {
+        color: #999;
+    }
+    
+    .student-score {
+        background-color: #65cb57;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    .cohort-top .student-score {
+        background-color: #ffd700;
+        color: #333;
+        padding: 4px 12px;
+        font-size: 13px;
+    }
+    
+    .date-label {
+        font-size: 12px;
+        font-style: italic;
+        color: #888;
+        margin-left: 5px;
+    }
+    
+    /* Task Section */
+    .task-section {
+        margin-bottom: 30px;
+    }
+    
+    .task-cards-container {
+        padding: 0 8px;
+    }
+    
+    .task-container {
+        position: relative;
+        margin-bottom: 15px;
+    }
+    
+    .task-card {
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 4px solid transparent;
+        transition: transform 0.2s ease;
+    }
+    
+    .task-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .task-card.bookmarked {
+        border-left-color: #ffc107;
+    }
+    
+    .bookmark-flag {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #ffc107;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    
+    .task-info {
+        flex-grow: 1;
+    }
+    
+    .task-title {
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: #333;
+        font-size: 14px;
+    }
+    
+    .task-assignee {
+        font-size: 12px;
+        color: #777;
+    }
+    
+    .task-actions {
+        display: flex;
+        gap: 6px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 991px) {
+        .action-buttons-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        .student-details {
+            flex-direction: column;
+        }
+        
+        .student-detail {
+            margin-bottom: 4px;
+        }
+        
+        .task-actions {
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .task-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .task-actions {
+            margin-top: 10px;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        .stat-card .card-body {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .stat-card .icon-wrapper {
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .ml-auto {
+            margin-left: 0;
+        }
+        
+        .card-value {
+            font-size: 20px;
+        }
+        
+        .action-button {
+            padding: 12px;
+        }
+        
+        .action-icon-wrapper {
+            width: 36px;
+            height: 36px;
+        }
+        
+        .action-icon-wrapper i {
+            font-size: 18px;
+        }
+        
+        .student-photo, .cohort-top .student-photo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .cohort-top .student-photo {
+            width: 48px;
+            height: 48px;
+        }
+    }
+    
+    @media (max-width: 575px) {
+        .action-buttons-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .table-responsive {
+            font-size: 14px;
+        }
+        
+        .table td, .table th {
+            padding: 12px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+{% endblock content %}
+</body>
+</html>

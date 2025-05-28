@@ -3,6 +3,8 @@ import requests
 from django.conf import settings
 logger = logging.getLogger(__name__)
 
+
+
 def create_virtual_account(user, registration, amount, tx_ref, bank_code=None, payment_method='auto'):
     """
     Create a virtual account via Flutterwave API based on payment method.
@@ -10,6 +12,7 @@ def create_virtual_account(user, registration, amount, tx_ref, bank_code=None, p
     - For 'auto', use /v3/virtual-account-numbers without bank_code.
     """
     logger.info(f"Creating virtual account for {payment_method} with bank_code: {bank_code}")
+    print(f"Creating virtual account for {payment_method} with bank_code: {bank_code}")
     try:
         if not user.email:
             return {'success': False, 'error': 'Email is missing from user profile.'}
@@ -24,6 +27,8 @@ def create_virtual_account(user, registration, amount, tx_ref, bank_code=None, p
             "phone_number": user.phone,
             "narration": registration.full_name,
         }
+
+        print(payload)
 
         # NEW: Select endpoint based on payment_method
         endpoint = 'https://api.flutterwave.com/v3/virtual-account-numbers'
@@ -47,8 +52,10 @@ def create_virtual_account(user, registration, amount, tx_ref, bank_code=None, p
         logger.debug(f"Response: {response.status_code}, {response.text}")
 
         # NEW: Handle response, accounting for differences in endpoint response structures
+        response_data = response.json()
+        logger.debug(f"Response Data: {response_data}")
         if response.status_code == 200 and response.json().get('status') == 'success':
-            response_data = response.json()
+            
             account_number = None
             bank_name = None
             account_name = f"OTS  {registration.full_name}"

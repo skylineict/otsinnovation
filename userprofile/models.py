@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from dash.models import Cohorts
 from shortuuid.django_fields import ShortUUIDField
 
 

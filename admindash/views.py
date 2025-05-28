@@ -5,12 +5,10 @@ from userprofile.models import Profiles
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from dash.models import Payment
-from projects .models import Assigment, Project
-from projects .models import  Task_collections
+from studenttask.models import Task_collections,Task
 from django.core.mail import send_mail
 import pdb
 from portal.settings import EMAIL_HOST_USER
-from projects.models import Project
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.shortcuts import get_current_site

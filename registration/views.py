@@ -10,7 +10,8 @@ import pdb
 import re
 from django_ratelimit.decorators import ratelimit
 from django.contrib.auth import authenticate, login, logout
-from projects.models import Task_collections
+from studenttask.models import Task_collections
+from django.contrib.auth.decorators import login_required
 
 
 User = get_user_model()

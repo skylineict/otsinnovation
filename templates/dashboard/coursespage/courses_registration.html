@@ -238,6 +238,7 @@
                 <div class="col-12 col-md-6">
                   <p><strong>Courses facilitator:</strong> <span id="displayFacilitator">{{ registration.course.facilitators.get_full_name|default:"" }}</span></p>
                   <p><strong>Courses Materials:</strong> <span id="displayCourseAmount">₦{{ registration.course.amount|default:0 }}</span></p>
+                  {{registration.id}}
                   <p>
                     <strong>Status:</strong>
                     <span class="badge" style="background-color: #ffc107;" id="displayStatus">{{ registration.is_approved|yesno:"Approved,Pending" }}</span>
@@ -247,7 +248,13 @@
             </div>
 
             <button id="proceedToPayment" class="btn btn-primary btn-lg">
-              <i class="fas fa-credit-card mr-2"></i>Proceed to Payment
+              {% if   registration.id %}
+               <i class="fas fa-credit-card mr-2"></i> <a href="{% url  'courseinfo'   registration.id %}" style="color:white;"> Proceed to Payment</a>
+              {% else %}
+                <i class="fas fa-credit-card mr-2"></i> <a href=""> Refresh </a>
+                
+              {% endif %}
+             
             </button>
           </div>
         </div>
@@ -332,6 +339,14 @@
     </div>
  
         </div>
+
+ 
+  var protocol = document.location.protocol, host = "getbutton.io", url = protocol + "//static." + host;
+  var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+  s.onload = function () { WhWidgetSendButton.init(host, protocol, wa_btnSetting); };
+  document.head.appendChild(s);
+</script>
+
         
    
     

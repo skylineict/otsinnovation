@@ -1,4 +1,4 @@
-from dash.models import Cohorts
+from cohorts.models import Cohort
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.contrib.auth import get_user_model
@@ -8,7 +8,7 @@ user = get_user_model()
 
 def get_cohorts(request):
     try:
-       persoancohorts = Cohorts.objects.get(users=request.user)
+       persoancohorts = Cohort.objects.get(users=request.user)
        return {'persoancohorts': persoancohorts}
     except:
         return {}

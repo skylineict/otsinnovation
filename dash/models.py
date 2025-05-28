@@ -5,15 +5,6 @@ import string
 User = get_user_model()
 # Create your models here.
 
-class Cohorts(models.Model):
-    name = models.CharField(max_length=200, unique=True)
-    users  = models.ManyToManyField(User)
-    whatsapp = models.CharField(max_length=400, blank=True, null=True, default='hello')
-    
-    
-    def __str__(self):
-        return self.name
-
 
 
 class Payment(models.Model):

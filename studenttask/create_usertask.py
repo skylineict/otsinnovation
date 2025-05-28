@@ -3,7 +3,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-from projects.models import Task
+from .models import Task_collections, Task
 
 User = get_user_model()
 
@@ -13,6 +13,7 @@ class CreateTaskView(LoginRequiredMixin, View):
         if not request.user.is_staff:
             return redirect('login')
         return render(request, 'admindash/student_task/task.html')
+
 
 
     def post(self, request):

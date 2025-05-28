@@ -22,7 +22,11 @@ urlpatterns = [
     path('newdash/', include('newdash.urls')),
     path('studenttask/', include('studenttask.urls')),
     path('facilitator/', include('facilitator.urls')),
+     path('liveclass/', include('liveclass.urls')),
+     
+
    
+
 
 ]
 

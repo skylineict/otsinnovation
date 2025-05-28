@@ -1,0 +1,159 @@
+{% extends 'admindash/header.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Registrations</title>
+    
+    <link rel="stylesheet" href="{% static 'style/loader.css' %}">
+    <link rel="stylesheet" href="{% static 'style/admin.css' %}">
+</head>
+<body>
+    <div id="fullpage-loader" class="fullpage-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="card">
+                <div class="header-section">
+                    <h1><i class="fas fa-tasks"></i> Approve Registrations</h1>
+                </div>
+
+                <div class="filters-section">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icons"></i>
+                        <input type="text" class="search-input" placeholder="Search with username or courses" id="searchInput">
+                    </div>
+                    <div class="filter-dropdown">
+    <button class="filter-btn" aria-expanded="false" aria-controls="filterMenu">
+        <i class="fas fa-filter filter-icon"></i>
+        Filter
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="filter-menu" id="filterMenu" style="display: none;">
+       
+        </div>
+</div>
+                </div>
+
+                <div class="bulk-actions">
+                    <div class="select-all-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="select-all">
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="select-all-label">Select All</span>
+                        <span class="select-count" id="selected-count">0</span>
+                    </div>
+                    <div class="bulk-buttons">
+                        <button class="btn-bulk" id="bulkApproveButton" disabled>
+                            <i class="fas fa-check"></i> Bulk Approve
+                        </button>
+                        <button class="btn-bulk btn-bulk-delete" id="bulkDeleteButtton" disabled>
+                            <i class="fas fa-trash"></i> Bulk Delete
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-col"></th>
+                                <th>Full Name</th>
+                                <th>Username</th>
+                                <th>Course</th>
+                                <th>Training Mode</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrationTableBody">
+                            {% for registration in pending_registrations %}
+                            <tr>
+                                <td class="checkbox-col">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" name="registration_ids" value="{{ registration.id }}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>{{ registration.full_name }}</td>
+                                <td>{{ registration.user.username }}</td>
+                                <td>{{ registration.course.name }}</td>
+                                <td>{{ registration.training_mode }}</td>
+                                <td>
+                                    <span class="status status-{% if registration.is_approved %}approved{% else %}pending{% endif %}">
+                                        {% if registration.is_approved %}Approved{% else %}Pending{% endif %}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action btn-approve single-approval" data-id="{{ registration.id }}"
+                                            {% if registration.is_approved %}disabled{% endif %}>
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <button class="btn-action btn-delete single-rejection" data-id="{{ registration.id }}"
+                                            {% if registration.is_approved %}disabled{% endif %}>
+                                            <i class="fas fa-trash"></i> Reject
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7">
+                                    <div class="empty-state-container">
+                                        <div class="illustration-container">
+                                            <div class="empty-box"></div>
+                                            <i class="search-icon fas fa-search"></i>
+                                            <i class="document-icon fas fa-file-alt"></i>
+                                            <div class="dots">
+                                                <div class="dot"></div>
+                                                <div class="dot"></div>
+                                                <div class="dot"></div>
+                                            </div>
+                                        </div>
+                                        <h3 class="empty-title">No Registrations to Approve</h3>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-container">
+                    <button class="pagination-btn pagination-prev" {% if not pending_registrations.has_previous %}disabled{% endif %} data-page="{% if pending_registrations.has_previous %}{{ pending_registrations.previous_page_number }}{% endif %}">
+                        <i class="fas fa-chevron-left"></i> 
+                    </button>
+                    <div class="pagination-numbers">
+                        {% for num in pending_registrations.paginator.page_range %}
+                        {% if pending_registrations.number == num %}
+                        <button class="pagination-btn pagination-number active" data-page="{{ num }}">{{ num }}</button>
+                        {% elif num > pending_registrations.number|add:'-3' and num < pending_registrations.number|add:'3' %}
+                        <button class="pagination-btn pagination-number" data-page="{{ num }}">{{ num }}</button>
+                        {% elif num == 1 or num == pending_registrations.paginator.num_pages %}
+                        <button class="pagination-btn pagination-number" data-page="{{ num }}">{{ num }}</button>
+                        {% elif num == pending_registrations.number|add:'-3' or num == pending_registrations.number|add:'3' %}
+                        <span class="pagination-ellipsis">...</span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <button class="pagination-btn pagination-next" {% if not pending_registrations.has_next %}disabled{% endif %} data-page="{% if pending_registrations.has_next %}{{ pending_registrations.next_page_number }}{% endif %}">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+{% endblock %}

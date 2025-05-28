@@ -1,178 +1,98 @@
+from datetime import timezone
+from decimal import Decimal
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
-from registration import models, myusermanager
-import uuid
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.forms import ValidationError
+from django.contrib.auth import get_user_model
+from shortuuid.django_fields import ShortUUIDField
+from courses.models import Course
+from courses.models import CourseRegistration
+from registration.models import MyUser
+from monthlyscore.models import StudentPoint
 
-# Model for courses
-class Course(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    facilitators = models.ManyToManyField(User, related_name='courses_teaching')
-    students = models.ManyToManyField(User, related_name='courses_enrolled', through='CourseEnrollment')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.title
-        
-class CourseEnrollment(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    enrollment_date = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        unique_together = ['student', 'course']
-
-# Model for live class enrollment
-
+# LiveClass Model
+# LiveClass Model (UNCHANGED)
 class LiveClass(models.Model):
-    STATUS_CHOICES = (
-        ('scheduled', 'Scheduled'),
-        ('active', 'Active'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled'),
-    )
-    
+    STATUS_CHOICES = [
+        ('upcoming', 'Upcoming'),
+        ('live', 'Live'),
+        ('finished', 'Finished'),
+    ]
+    id = ShortUUIDField(primary_key=True, unique=True, editable=False, alphabet='abcdefghijklmnqszxcvopl1234567890')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='live_classes')
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
-    facilitator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='facilitated_classes')
-    scheduled_start = models.DateTimeField()
-    scheduled_end = models.DateTimeField()
-    actual_start = models.DateTimeField(null=True, blank=True)
-    actual_end = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
-    meeting_link = models.URLField(blank=True, null=True)
-    meeting_id = models.CharField(max_length=100, blank=True, null=True)
-    meeting_password = models.CharField(max_length=50, blank=True, null=True)
-    join_code = models.CharField(max_length=8, unique=True, default=uuid.uuid4().hex[:8])
+    facilitator = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='live_classes')
+    topic = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='live_class_images/', blank=True, null=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    join_link = models.URLField()
+    attendance_points = models.PositiveIntegerField(default=0)
+    enable_attendance = models.BooleanField(default=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='upcoming')
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    # New field to control attendance marking
-    attendance_active = models.BooleanField(default=False)
-    attendance_activated_at = models.DateTimeField(null=True, blank=True)
-    attendance_window = models.IntegerField(default=15, help_text="Attendance window in minutes")
-    
-    
-    def __str__(self):
-        return f"{self.course.title} - {self.title}"
-    
-    
-    
-    def activate(self):
-        if self.status == 'scheduled':
-            self.status = 'active'
-            self.actual_start = timezone.now()
-            self.save()
-            return True
-        return False
-    
-    def end_class(self):
-        if self.status == 'active':
-            self.status = 'completed'
-            self.actual_end = timezone.now()
-            self.save()
-            return True
-        return False
-    
-    def cancel_class(self):
-        if self.status in ['scheduled', 'active']:
-            self.status = 'cancelled'
-            self.save()
-            return True
-        return False
-    
-    def is_active(self):
-        return self.status == 'active'
-    
-    # New methods for attendance control
-    def activate_attendance(self):
-        """Facilitator activates the attendance marking button"""
-        if self.is_active():
-            self.attendance_active = True
-            self.attendance_activated_at = timezone.now()
-            self.save()
-            return True
-        return False
-        
-    def deactivate_attendance(self):
-        """Facilitator deactivates the attendance marking button"""
-        if self.attendance_active:
-            self.attendance_active = False
-            self.save()
-            return True
-        return False
-    
-    def is_attendance_window_open(self):
-        """Check if the attendance window is still open"""
-        if not self.attendance_active or not self.attendance_activated_at:
-            return False
-            
-        window_end = self.attendance_activated_at + timezone.timedelta(minutes=self.attendance_window)
-        return timezone.now() <= window_end
 
+    def clean(self):
+        if self.end_time <= self.start_time:
+            raise ValidationError("End time must be after start time")
 
-
-
-
-
-# Model for attendance tracking
-class Attendance(models.Model):
-    STATUS_CHOICES = (
-        ('present', 'Present'),
-        ('late', 'Late'),
-        ('absent', 'Absent'),
-    )
-    
-    live_class = models.ForeignKey(LiveClass, on_delete=models.CASCADE, related_name='attendances')
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attendances')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='absent')
-    join_time = models.DateTimeField(null=True, blank=True)
-    leave_time = models.DateTimeField(null=True, blank=True)
-    duration = models.DurationField(null=True, blank=True)
-    notes = models.TextField(blank=True)
-    self_marked = models.BooleanField(default=False)
-    marked_at = models.DateTimeField(null=True, blank=True)
-    
-    class Meta:
-        unique_together = ['live_class', 'student']
-    
-    def __str__(self):
-        return f"{self.student.username} - {self.live_class.title} - {self.status}"
-    
-    def mark_present(self):
-        if not self.join_time:
-            self.join_time = timezone.now()
-            
-        if self.live_class.actual_start and self.join_time > self.live_class.actual_start + timezone.timedelta(minutes=15):
-            self.status = 'late'
+    def update_status(self):
+        now = timezone.now()
+        if now < self.start_time:
+            self.status = 'upcoming'
+        elif self.start_time <= now <= self.end_time:
+            self.status = 'live'
         else:
-            self.status = 'present'
+            self.status = 'finished'
+            self.enable_attendance = False
         self.save()
-    
-    def mark_leave(self):
-        if self.join_time and not self.leave_time:
-            self.leave_time = timezone.now()
-            self.duration = self.leave_time - self.join_time
-            self.save()
-            
-    # Method for student self-marking with button
-    def self_mark_attendance(self):
-        """Students mark their own attendance by clicking a button"""
-        if self.live_class.is_active() and self.live_class.attendance_active:
-            self.status = 'present'
-            self.self_marked = True
-            self.marked_at = timezone.now()
-            
-            # Still track join time for duration calculations
-            if not self.join_time:
-                self.join_time = timezone.now()
-                
-            # Check if late based on when class started
-            if self.live_class.actual_start and self.join_time > self.live_class.actual_start + timezone.timedelta(minutes=15):
-                self.status = 'late'
-                
-            self.save()
-            return True
-        return False
+
+    def save(self, *args, **kwargs):
+        # MODIFIED: Only notify non-suspended students
+        super().save(*args, **kwargs)
+        if self.status == 'upcoming':
+            students = CourseRegistration.objects.filter(course=self.course, is_approved=True, account_suspended=False)
+            recipient_list = [reg.user.email for reg in students if reg.user]
+            # send_mail(
+            #     subject=f"New Live Class Scheduled: {self.topic}",
+            #     message=f"A new live class '{self.topic}' is scheduled for {self.start_time}. Join link: {self.join_link}",
+            #     from_email=settings.DEFAULT_FROM_EMAIL,
+            #     recipient_list=recipient_list,
+            #     fail_silently=True,
+            # )
+
+    def __str__(self):
+        return f"{self.topic} ({self.course.name})"
+
+
+# LiveClassAttendance Model
+class LiveClassAttendance(models.Model):
+    id = ShortUUIDField(primary_key=True, unique=True, editable=False, alphabet='abcdefghijklmnqszxcvopl1234567890')
+    live_class = models.ForeignKey(LiveClass, on_delete=models.CASCADE, related_name='attendances')
+    student = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='class_attendances')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    points_awarded = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('live_class', 'student')
+
+    # MODIFIED: Added check for suspended students
+    def save(self, *args, **kwargs):
+        registration = CourseRegistration.objects.filter(user=self.student, course=self.live_class.course).first()
+        if registration and registration.account_suspended:
+            raise ValidationError("Suspended students cannot mark attendance")
+        if self.live_class.status != 'live' or not self.live_class.enable_attendance:
+            raise ValidationError("Attendance cannot be marked for this class")
+        if not self.points_awarded:
+            self.points_awarded = self.live_class.attendance_points
+        super().save(*args, **kwargs)
+        if registration:
+            registration.reward_points += self.points_awarded
+            registration.save()
+        student_point, created = StudentPoint.objects.get_or_create(
+            user=self.student,
+            course=self.live_class.course,
+            defaults={'total_points': self.points_awarded}
+        )
+        if not created:
+            student_point.total_points += self.points_awarded
+            student_point.save()

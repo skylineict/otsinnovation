@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from dash.models import Cohorts,Payment
+from cohorts.models import Cohort
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Livesesion, Recapsesion, Ourteam
-from projects .models import Task, Task_collections
+from studenttask.models import Task_collections, Task   
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from userprofile .models import Profiles
 import pdb
 from django.http import JsonResponse
-from projects .models import Assigment, Project
+
+
 
 
 
@@ -19,13 +19,13 @@ from projects .models import Assigment, Project
 class Groupscohort(LoginRequiredMixin,View):
     login_url = 'login'
     def get(self, request, pk):
-        mycohorts = Cohorts.objects.filter(pk=pk)
+        mycohorts = Cohort.objects.filter(pk=pk)
         
         for cohorts in mycohorts:
             mycohort  = cohorts.users.all
         # 'mycohort':mycohort
         try:
-            groupcohort = Cohorts.objects.get(users=request.user)
+            groupcohort = Cohort.objects.get(users=request.user)
         except:groupcohort = None
         return render(request, 'dashboard/mycohorts.html',{'mycohorts': groupcohort, 'mycohort':mycohort,})
     
@@ -92,9 +92,9 @@ class AllCohorts(LoginRequiredMixin,View):
     login_url = 'login'
     def get(self,request):
         try:
-           mycohorts = Cohorts.objects.get(users=request.user)
+           mycohorts = Cohort.objects.get(users=request.user)
         except:  mycohorts = None
-        allcohorts = Cohorts.objects.all()
+        allcohorts = Cohort.objects.all()
         return render(request, 'dashboard/groups_cohorts.html',{"mycohorts":mycohorts, 'allcohorts': allcohorts})
         
     def post(self,request):
@@ -156,14 +156,14 @@ class Recapclassroom(LoginRequiredMixin,View):
     
     
 
-class Tasks(LoginRequiredMixin,View):
-    login_url = 'login'
-    def get(self,request):
-        task =  Task.objects.all()
-        return render(request, 'dashboard/task.html',{'allcohorts':task })
+# class Tasks(LoginRequiredMixin,View):
+#     login_url = 'login'
+#     def get(self,request):
+#         task =  Task.objects.all()
+#         return render(request, 'dashboard/task.html',{'allcohorts':task })
         
-    def post(self,request):
-        return render(request, 'dashboard/task_collection.html')
+#     def post(self,request):
+#         return render(request, 'dashboard/task_collection.html')
 
 
 

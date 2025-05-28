@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Payment Transaction Table</title>
+    <style>
+        :root {
+            --primary: #00a769;
+            --primary-light: #4361ee20;
+            --danger: #ef476f;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --text-dark: #2b2d42;
+            --text-light: #8d99ae;
+            --bg-light: #f8f9fa;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: var(--transition-normal);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f7ff;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: none;
+            background-color: white;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .header-section {
+            padding: 30px;
+            background: linear-gradient(135deg, #1a2b5d 0%, #3a0ca3 100%);
+            color: white;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 2;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .header-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .filters-section {
+            padding: 20px;
+            background-color: white;
+            border-bottom: 1px solid #f0f5ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 1px solid #e1e5f1;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: var(--transition-normal);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .search-icons {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .filter-dropdown {
+            position: relative;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            background-color: white;
+            border: 1px solid #e1e5f1;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .filter-icon {
+            color: var(--primary);
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #e1e5f1;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            min-width: 150px;
+            z-index: 100;
+            display: none;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .filter-menu.active {
+            display: block;
+        }
+
+        .filter-option {
+            padding: 12px 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .filter-option:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Removed .bulk-actions, .select-all-container, .select-count, .bulk-buttons, .btn-bulk, .btn-bulk-delete, and related styles */
+        /* Removed .custom-checkbox, .checkmark, and .checkbox-col styles as they are no longer needed without actions */
+        /* Removed .action-buttons, .btn-action, .btn-approve, and .btn-delete styles as actions column is removed */
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 0;
+        }
+
+        .table th {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 20px;
+            background-color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.02);
+        }
+
+        .table td {
+            padding: 18px 20px;
+            font-size: 14px;
+            border-top: 1px solid #f0f5ff;
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            transition: var(--transition-normal);
+        }
+
+        .table tbody tr:hover {
+            transform: translateY(-3px);
+            background-color: var(--primary-light);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .student-image {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: var(--transition-normal);
+            border: 2px solid transparent;
+        }
+
+        tr:hover .student-image {
+            transform: scale(1.1);
+            border-color: var(--primary);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 13px;
+            gap: 5px;
+        }
+
+        .status-pending {
+            background-color: rgba(255, 209, 102, 0.1);
+            color: var(--warning);
+        }
+
+        .status-approved {
+            background-color: rgba(6, 214, 160, 0.1);
+            color: var(--success);
+        }
+
+        .pagination-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            gap: 10px;
+            background-color: white;
+            border-top: 1px solid #f0f5ff;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e1e5f1;
+            border-radius: 8px;
+            background-color: white;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .pagination-btn:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .pagination-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            background-color: #d1d1e0;
+            border-color: #d1d1e0;
+            color: var(--text-light);
+            cursor: not-allowed;
+        }
+
+        .pagination-numbers {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .filters-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-dropdown {
+                width: 100%;
+            }
+            .filter-btn {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .filter-menu {
+                width: 100%;
+                right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 22px;
+            }
+            .table th, .table td {
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+        }
+
+        /* Removed media query styles related to .bulk-actions and .action-buttons as they are no longer relevant */
+        @media (max-width: 576px) {
+            .pagination-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 13px;
+            }
+            .pagination-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header-section">
+                <h1><i class="fas fa-money-bill-wave"></i> Manage Student Info</h1>
+            </div>
+
+            <div class="filters-section">
+                <div class="search-box">
+                    <i class="fas fa-search search-icons"></i>
+                    <input type="text" class="search-input" placeholder="Search with username or amount" id="searchPaymentInput">
+                </div>
+                <div class="filter-dropdown">
+                    <button class="filter-btn" aria-expanded="false" aria-controls="filterPaymentMenu">
+                        <i class="fas fa-filter filter-icon"></i>
+                        Filter
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="filter-menu" id="filterPaymentMenu" style="display: none;">
+                        <div class="filter-option" data-filter="all">All Payments</div>
+                        <div class="filter-option" data-filter="pending">Pending</div>
+                        <div class="filter-option" data-filter="approved">Approved</div>
+                        <div class="filter-option" data-filter="rejected">Rejected</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Profile Picture</th>
+                            <th>Username</th>
+                            <th>Courses</th>
+                            <th>Amount</th>
+                            <th>Admission</th>
+                            <th>Cohort</th>
+                            <th>Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTableBody">
+                        <tr>
+                            <td>John Doe</td>
+                            <td>
+                                <div class="student-info">
+                                    <img src="https://via.placeholder.com/42" class="student-image" alt="John Doe Profile">
+                                </div>
+                            </td>
+                            <td>jdoe123</td>
+                            <td>Mathematics, Physics</td>
+                            <td>$500.00</td>
+                            <td>2025-01-15</td>
+                            <td>Cohort A</td>
+                            <td>
+                                <span class="status status-pending">Pending</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>
+                                <div class="student-info">
+                                    <img src="https://via.placeholder.com/42" class="student-image" alt="Jane Smith Profile">
+                                </div>
+                            </td>
+                            <td>jsmith456</td>
+                            <td>Chemistry, Biology</td>
+                            <td>$750.00</td>
+                            <td>2025-01-10</td>
+                            <td>Cohort B</td>
+                            <td>
+                                <span class="status status-approved">Approved</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Michael Brown</td>
+                            <td>
+                                <div class="student-info">
+                                    <img src="https://via.placeholder.com/42" class="student-image" alt="Michael Brown Profile">
+                                </div>
+                            </td>
+                            <td>mbrown789</td>
+                            <td>English, History</td>
+                            <td>$300.00</td>
+                            <td>2025-02-01</td>
+                            <td>Cohort A</td>
+                            <td>
+                                <span class="status status-pending">Pending</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-container">
+                <button class="pagination-btn pagination-prev" disabled data-page="1">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="pagination-numbers">
+                    <button class="pagination-btn pagination-number active" data-page="1">1</button>
+                    <button class="pagination-btn pagination-number" data-page="2">2</button>
+                    <button class="pagination-btn pagination-number" data-page="3">3</button>
+                </div>
+                <button class="pagination-btn pagination-next" data-page="2">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

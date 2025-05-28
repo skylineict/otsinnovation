@@ -1,0 +1,110 @@
+{% extends "admindash/header.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+      Task Approval System
+    {% endblock title %}</title>
+    <!-- Google Fonts - Inter -->
+    >
+    <link rel="stylesheet" href="{% static 'style/loader.css' %}">
+    <link rel="stylesheet" href="{% static 'style/admin.css' %}">
+
+    
+</head>
+<body>
+    <!-- Spinner Overlay -->
+    <div id="fullpage-loader" class="fullpage-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+  
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="card">
+                <!-- Header Section -->
+                <div class="header-section">
+                    <h1><i class="fas fa-tasks"></i> Pending Facilitator Applications</h1>
+                </div>
+
+                <!-- Error Message -->
+                {% if error %}
+                <div class="alert alert-danger mt-4">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <!-- Table Section -->
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Course</th>
+                                <th>LinkedIn</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="taskTableBody">
+                            {% for registration in registrations %}
+                                <tr id="registration-{{ registration.id }}">
+                                    <td>{{ registration.user.username }}</td>
+                                    <td>{{ registration.course.name }}</td>
+                                    <td>
+                                        {% if registration.linkedin %}
+                                            <a href="{{ registration.linkedin }}" target="_blank" class="permission-details">Profile</a>
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-action btn-approve approve-btn" id="approve-btn"" data-id="{{ registration.id }}">
+                                                <i class="fas fa-check"></i> Approve
+                                            </button>
+                                            <button class="btn-action btn-reject reject-btn" id="btn-reject" data-id="{{ registration.id }}">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="empty-state-container">
+                                            <div class="illustration-container">
+                                                <!-- Empty box with animated pulse -->
+                                                <div class="empty-box"></div>
+                                                <!-- Floating icons -->
+                                                <i class="search-icon fas fa-search"></i>
+                                                <i class="document-icon fas fa-file-alt"></i>
+                                                <!-- Animated dots -->
+                                                <div class="dots">
+                                                    <div class="dot"></div>
+                                                    <div class="dot"></div>
+                                                    <div class="dot"></div>
+                                                </div>
+                                            </div>
+                                            <h3 class="empty-title">No Pending Facilitator Applications</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from projects.models import Task_collections
+from studenttask.models import Task_collections, Task
 
 class TaskApprovalView(LoginRequiredMixin, View):
     login_url = 'login'
@@ -26,9 +26,9 @@ class TaskApprovalView(LoginRequiredMixin, View):
             return JsonResponse({'error': 'Unauthorized access.'}, status=403)
 
         try:
-            # Check for bulk approval (list of IDs)
+            # Check for bulk action (list of IDs)
             task_collection_ids = request.POST.getlist('task_collection_ids[]')
-            # Check for single approval (single ID)
+            # Check for single action (single ID)
             task_collection_id = request.POST.get('task_collection_id')
 
             if task_collection_ids:
@@ -71,7 +71,69 @@ class TaskApprovalView(LoginRequiredMixin, View):
             else:
                 return JsonResponse({
                     'success': False,
-                    'error': 'No task IDs provided.'
+                    'error': 'No tasks specified.'
+                }, status=400)
+
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+
+class TaskDeleteView(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def post(self, request):
+        # Restrict access to staff or facilitator users
+        if not (request.user.is_staff or request.user.is_facilitator):
+            return JsonResponse({'error': 'Unauthorized access.'}, status=403)
+
+        try:
+            # Check for bulk action (list of IDs)
+            task_collection_ids = request.POST.getlist('task_collection_ids[]')
+            # Check for single action (single ID)
+            task_collection_id = request.POST.get('task_collection_id')
+
+            if task_collection_ids:
+                # Bulk deletion
+                deleted_count, _ = Task_collections.objects.filter(
+                    id__in=task_collection_ids,
+                    status='pending'
+                ).delete()
+
+                if deleted_count > 0:
+                    return JsonResponse({
+                        'success': True,
+                        'message': f'{deleted_count} task(s) deleted successfully.'
+                    })
+                else:
+                    return JsonResponse({
+                        'success': False,
+                        'error': 'No valid pending tasks selected.'
+                    }, status=400)
+
+            elif task_collection_id:
+                # Single deletion
+                try:
+                    task_collection = Task_collections.objects.get(
+                        id=task_collection_id,
+                        status='pending'
+                    )
+                    task_collection.delete()
+                    return JsonResponse({
+                        'success': True,
+                        'message': 'Task deleted successfully.'
+                    })
+                except Task_collections.DoesNotExist:
+                    return JsonResponse({
+                        'success': False,
+                        'error': 'Task not found or already processed.'
+                    }, status=400)
+
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'No tasks specified.'
                 }, status=400)
 
         except Exception as e:

@@ -1,0 +1,566 @@
+{% extends "admindash/header.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+
+    
+    <title>{% block tittle %}
+       live class room
+      
+    {% endblock tittle %}</title>
+    
+</head>
+<body>
+    {% block content %}
+
+    <style>
+        .toggle-btn-custom {
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn-custom.active {
+            transform: scale(1.05);
+        }
+        
+        /* Custom slider-style toggle */
+        .toggle-slider {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .toggle-slider:before {
+            content: "";
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-slider.active {
+            background-color: #28a745;
+        }
+        
+        .toggle-slider.active:before {
+            transform: translateX(26px);
+        }
+    </style>
+       <link rel="stylesheet" href="{% static 'style/liveclass.css' %}">
+    
+
+
+    <div class="page-wrapper pt-4">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                        <h5 class="text-uppercase m-0 p-0 page-title text-white">My Class Room</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="container">
+                    <div class="col-lg-12 pt-3">
+                        <div id="student-dashboard-content">
+                            <!-- Welcome Section -->
+                            <div class="d-flex justify-content-between align-items-center mb-2 mt-0">
+                                <div>
+                                    <h4 class="mb-1 fs-5">Welcome back, John Doe!</h4>
+                                  
+                                </div>
+                                <div class="d-flex">
+                                  
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-plus mr-1"></i> Schedule Class
+                                    </a>
+                                </div>
+                            </div>
+
+                           
+
+                            <!-- Stats Cards -->
+                            <div class="row mb-4 justify-content-center text-center">
+                                <div class="col-12 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                                    <div class="stats-card w-100">
+                                        <div class="stats-icon courses mx-auto d-flex justify-content-center align-items-center">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <h6>My course </h6>
+                                        <h3>1</h3>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                                    <div class="stats-card w-100">
+                                        <div class="stats-icon attendance mx-auto d-flex justify-content-center align-items-center">
+                                            <i class="fas fa-calendar-check"></i>
+                                        </div>
+                                        <h6>Student Attend</h6>
+                                        <h3>20</h3>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                                    <div class="stats-card w-100">
+                                        <div class="stats-icon live mx-auto d-flex justify-content-center align-items-center">
+                                            <i class="fas fa-video"></i>
+                                        </div>
+                                        <h6>Live Classes</h6>
+                                        <h3>2</h3>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                                    <div class="stats-card w-100">
+                                        <div class="stats-icon rewards mx-auto d-flex justify-content-center align-items-center">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h6>Project</h6>
+                                        <h3>13</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Today's Schedule -->
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">class Schedule</h5>
+                                    <a href="#" class="small text-primary">View Full Schedule</a>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th class="pl-4">Time</th>
+                                                    <th>topic</th>
+                                                    <th>Instructor</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right pr-4">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="pl-4">09:00 - 10:30</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="course-avatar programming">
+                                                                <i class="fas fa-code"></i>
+                                                            </div>
+                                                            <span>Introduction to Programming</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Dr. Sarah Miller</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="live-pulse"></span>
+                                                            <span class="badge badge-live">Live </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right pr-4">
+                                                        <div class="d-flex justify-content-end flex-wrap gap-2">
+                                                           <button class="btn btn-sm btn-primary join-btn mx-2" data-toggle="modal" data-target="#joinLiveModal">
+                                                                <i class="fas fa-video mr-1"></i> add link
+                                                            </button>
+                                                            <div class="d-flex align-items-center">
+                <span class="mr-3">Attendance <span id="sliderStatus" class="font-weight-bold text-danger">OFF</span></span>
+                <button class="toggle-slider" id="sliderToggle"></button>
+            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pl-4">11:00 - 12:30</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="course-avatar data">
+                                                                <i class="fas fa-sitemap"></i>
+                                                            </div>
+                                                            <span>Data Structures</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Prof. Andrew Chen</td>
+                                                    <td><span class="badge badge-upcoming">Upcoming</span></td>
+                                                    <td class="text-right pr-4">
+                                                        <div class="d-flex justify-content-end flex-wrap gap-2">
+                                                            <button class="btn btn-sm btn-outline-primary remind-btn mx-2">
+                                                                <i class="fas fa-bell mr-1"></i> Remind
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-secondary attend-btn" disabled>
+                                                                <i class="fas fa-clipboard-check mr-1"></i> Attend
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pl-4">14:00 - 15:30</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="course-avatar web">
+                                                                <i class="fas fa-globe"></i>
+                                                            </div>
+                                                            <span>Web Development</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Jessica Taylor</td>
+                                                    <td><span class="badge badge-upcoming">Upcoming</span></td>
+                                                    <td class="text-right pr-4">
+                                                        <div class="d-flex justify-content-end flex-wrap gap-2">
+                                                            <button class="btn btn-sm btn-outline-primary remind-btn mx-2">
+                                                                <i class="fas fa-bell mr-1"></i> Remind
+                                                            </button>
+                                                            <button class="btn btn-sm btn-outline-secondary attend-btn" disabled>
+                                                                <i class="fas fa-clipboard-check mr-1"></i> Attend
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Weekly Schedule -->
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Weekly Schedule</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col">
+                                            <div class="schedule-day">
+                                                <div class="day">Mon</div>
+                                                <div class="date">17</div>
+                                                <div class="small text-muted">3 Classes</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="schedule-day">
+                                                <div class="day">Tue</div>
+                                                <div class="date">18</div>
+                                                <div class="small text-muted">1 Class</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="schedule-day today active">
+                                                <div class="day">Wed</div>
+                                                <div class="date">19</div>
+                                                <div class="small">3 Classes</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="schedule-day">
+                                                <div class="day">Thu</div>
+                                                <div class="date">20</div>
+                                                <div class="small text-muted">2 Classes</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="schedule-day">
+                                                <div class="day">Fri</div>
+                                                <div class="date">21</div>
+                                                <div class="small text-muted">2 Classes</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="schedule-day">
+                                                <div class="day">Sat</div>
+                                                <div class="date">22</div>
+                                                <div class="small text-muted">No Classes</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="schedule-day">
+                                                <div class="day">Sun</div>
+                                                <div class="date">23</div>
+                                                <div class="small text-muted">No Classes</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Courses and Progress -->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="card mb-4">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h5 class="mb-0">classes</h5>
+                                            <a href="#" class="small text-primary">View All </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="course-avatar programming">
+                                                            <i class="fas fa-code"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">Introduction to Programming</h6>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge badge-success">attend</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar " role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-1">
+                                                    <small class="text-muted">student</small>
+                                                    <small class="text-muted">20 </small>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="course-avatar data">
+                                                            <i class="fas fa-sitemap"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">Data Structures</h6>
+                                                            <small class="text-muted">Prof. Andrew Chen • TTh 11:00 AM</small>
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge badge-success">Active</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-1">
+                                                    <small class="text-muted">Progress</small>
+                                                    <small class="text-muted">45%</small>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="course-avatar web">
+                                                            <i class="fas fa-globe"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">Web Development</h6>
+                                                            <small class="text-muted">Jessica Taylor • MWF 2:00 PM</small>
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge badge-success">Active</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-1">
+                                                    <small class="text-muted">Progress</small>
+                                                    <small class="text-muted">60%</small>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="course-avatar database">
+                                                            <i class="fas fa-database"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">Database Systems</h6>
+                                                            <small class="text-muted">Dr. Michael Wong • TTh 2:30 PM</small>
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge badge-secondary">Upcoming</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-1">
+                                                    <small class="text-muted">Starts in 2 weeks</small>
+                                                    <small class="text-muted">0%</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Attendance Summary</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="text-center mb-4">
+                                                <div style="width: 120px; height: 120px; margin: 0 auto; position: relative;">
+                                                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                                        <h2 class="font-weight-bold mb-0">92%</h2>
+                                                        <p class="text-muted mb-0">Overall</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                                    <span>Introduction to Programming</span>
+                                                    <span>95%</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                                    <span>Data Structures</span>
+                                                    <span>90%</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                                    <span>Web Development</span>
+                                                    <span>88%</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 88%" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Join Live Modal -->
+        <div class="modal fade" id="joinLiveModal" tabindex="-1" role="dialog" aria-labelledby="joinLiveModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="joinLiveModalLabel">Join Live Class</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="classSelect">Select Class</label>
+                            <select class="form-select" id="classSelect">
+                                <option>Introduction to Programming (Live Now)</option>
+                                <option>Data Structures (11:00 AM)</option>
+                                <option>Web Development (2:00 PM)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="joinCode">Join Code (Optional)</label>
+                            <input type="text" class="form-control" id="joinCode" placeholder="Enter join code if provided">
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="cameraOn" checked>
+                                <label class="custom-control-label" for="cameraOn">Turn on camera</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="micOn">
+                                <label class="custom-control-label" for="micOn">Turn on microphone</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="startLiveSession">Join Class</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Set Reminder Modal -->
+        <div class="modal fade" id="setReminderModal" tabindex="-1" role="dialog" aria-labelledby="setReminderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="setReminderModalLabel">Set Reminder</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="reminderClass">Class</label>
+                            <input type="text" class="form-control" id="reminderClass" value="Data Structures" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="reminderTime">Remind me</label>
+                            <select class="form-select" id="reminderTime">
+                                <option>5 minutes before</option>
+                                <option>10 minutes before</option>
+                                <option>15 minutes before</option>
+                                <option>30 minutes before</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="emailReminder" checked>
+                                <label class="custom-control-label" for="emailReminder">Send email reminder</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="notificationReminder" checked>
+                                <label class="custom-control-label" for="notificationReminder">Send notification</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveReminder">Set Reminder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meeting Controls -->
+        <div class="meeting-controls">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="meeting-control-btn">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="meeting-control-btn">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="meeting-control-btn">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    <button class="meeting-control-btn">
+                        <i class="fas fa-hand-paper"></i>
+                    </button>
+                    <button class="meeting-control-btn">
+                        <i class="fas fa-comment-alt"></i>
+                    </button>
+                    <button class="meeting-control-btn">
+                        <i class="fas fa-users"></i>
+                    </button>
+                    <button class="meeting-control-btn danger">
+                        <i class="fas fa-phone-slash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

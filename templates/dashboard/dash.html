@@ -4,36 +4,20 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Obidient Tech Space - {{user.username}}{% endblock %}</title>
+    <title>{% block title %}  {{user.username}} Leaning Dshboard  {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
 </head>
-
 
 {% block content %}
 
-
 <div class="page-wrapper">
     <div class="content container-fluid">
-		
-        <div class="page-header mb-4 row align-items-center">
-            <div class="col-4 d-flex justify-content-center mb-3 mb-md-0">
-                <img src="data:image/jpeg;base64,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" alt="Student Photo"
-                     style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
-                     <h1 class="page-header-title m-auto text-light" style="color: #00a86a;">John Johnson</h1>
-            </div>
-            </div>
-            {% comment %} <h1 class="text-3xl font-bold mb-6 text-light">Dashboard</h1> {% endcomment %}
-            <!-- Student Info (8 columns on all screen sizes) -->
-            <div class="col-8">
-                <h1 class="page-header-title mb-1 fs-5" style="color: #00a86a;">welcome Johnson</h1>
-                <p class="text-white" style="margin: 0; font-weight: 900;">{{ profile.role }} -cohort: {{ profile.cohort }}</p>
-            </div>
-        </div>
-        
+	
         <!-- Stats Cards -->
         <div class="row">
-            <!-- Card 1: Student Passcode -->
+            <!-- Paid students -->
             <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex align-items-center">
@@ -41,27 +25,20 @@
                             <img src="{% static 'assets/img/dash/dash-1.png' %}" alt="Passcode Icon" class="img-fluid">
                         </div>
                         <div class="ml-auto text-right">
-                            <p class="card-label text-muted mb-1">Student Passcode</p>
-                            {% comment %} {% if assigment.passcode %} {% endcomment %}
-                            <h3 class="card-value text-primary mb-0">
-                                {% comment %} {{assigment.passcode}} {% endcomment %}
-                                MR CHARLES
-                            </h3>
-                            {% comment %} {% else %} {% endcomment %}
-                            <h3 class="card-value text-secondary mb-0">0</h3>
-                            {% comment %} {% endif %} {% endcomment %}
+                            <p class="card-label text-muted mb-1">Paid students</p>
+                            <h4 class="card-value text-secondary mb-0">350</h4>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Card 2: Projects Score -->
+        
+            <!-- Total students -->
             <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="mr-auto">
-                            <p class="card-label text-muted mb-1">Projects Score</p>
-                            <h3 class="card-value text-secondary mb-0">50%</h3>
+                            <p class="card-label text-muted mb-1">Total students</p>
+                            <h3 class="card-value text-secondary mb-0">500</h3>
                         </div>
                         <div class="icon-wrapper bg-secondary-light ml-auto">
                             <img src="{% static 'assets/img/dash/dash-2.png' %}" alt="Score Icon" class="img-fluid">
@@ -69,8 +46,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Card 3: My Cohort -->
+        
+            <!-- Registered courses -->
             <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex align-items-center">
@@ -78,31 +55,21 @@
                             <img src="{% static 'assets/img/dash/dash-3.png' %}" alt="Cohort Icon" class="img-fluid">
                         </div>
                         <div class="ml-auto text-right">
-                            <p class="card-label text-muted mb-1">My Cohort</p>
-                            {% comment %} {% if cohorts %} {% endcomment %}
-                            <h3 class="card-value mb-0">
-                                {% comment %} <a href="{% url 'cohorts' myid.pk %}" class="text-primary">{{cohorts}}</a> {% endcomment %}
-                            </h3>
-                            {% comment %} {% else %} {% endcomment %}
-                            <span class="badge badge-pill badge-light">4</span>
-                            {% comment %} {% endif %} {% endcomment %}
+                            <p class="card-label text-muted mb-1">Registered courses</p>
+                            <span class="badge badge-pill badge-light">5</span>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Card 4: Acceptance Status -->
+        
+            <!-- Acceptance Status -->
             <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="mr-auto">
                             <p class="card-label text-muted mb-1">Acceptance Status</p>
                             <h3 class="card-value mb-0">
-                                {% comment %} {% if profile.status == "Accepted" %} {% endcomment %}
-                                {% comment %} <span class="badge badge-pill badge-success py-2 px-3">{{profile.status}}</span> {% endcomment %}
-                                {% comment %} {% else %} {% endcomment %}
-                                <span class="badge badge-pill badge-secondary py-2 px-3">Accepted</span>
-                                {% comment %} {% endif %} {% endcomment %}
+                                <span class="badge badge-pill badge-success py-2 px-3">Accepted</span>
                             </h3>
                         </div>
                         <div class="icon-wrapper bg-danger-light ml-auto">
@@ -113,249 +80,401 @@
             </div>
         </div>
 
-       
-        <!-- Admitted Section -->
+        <!-- Quick Action Buttons -->
+        <div class="row mt-4 mb-4">
+            <div class="col-12">
+                <div class="quick-actions-section">
+                    <div class="section-header">
+                        <i class="fas fa-bolt section-icon"></i>
+                        <span class="section-title-text">Quick Actions</span>
+                        <div class="section-divider"></div>
+                    </div>
+                    
+                    <div class="action-buttons-grid">
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-primary">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Project</h6>
+                                <p class="action-subtitle">Manage Projects</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-info">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Cohort</h6>
+                                <p class="action-subtitle">View Cohorts</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'classroom' %}" class="action-button">
+                            <div class="action-icon-wrapper bg-success">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Live Class</h6>
+                                <p class="action-subtitle">Join Classes</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-warning">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">My Students</h6>
+                                <p class="action-subtitle">Student Overview</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-purple">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Facilitator</h6>
+                                <p class="action-subtitle">Facilitator Portal</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-secondary">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Course Material</h6>
+                                <p class="action-subtitle">Learning Resources</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-info">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Recap Class</h6>
+                                <p class="action-subtitle">Review Sessions</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#" class="action-button">
+                            <div class="action-icon-wrapper bg-warning">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="action-content">
+                                <h6 class="action-title">Registered Courses</h6>
+                                <p class="action-subtitle">Course Overview</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row mt-4">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Become A Facilitator</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <!-- Column 1 -->
-                            <div class="col-md-6 mb-3">
-                                <div class="alert alert-warning h-100" role="alert">
-                                    If you're interested in joining a team of skilled professionals,
-                                    <a href="RequestFacilitatorView" class="alert-link">apply now!</a>
-                                </div>
-                            </div>
-                    
-                            <!-- Column 2 -->
-                            <div class="col-md-6 mb-3">
-                                <div class="alert alert-warning h-100" role="alert">
-                                    You are not registered for any courses yet.
-                                    <a href="" class="alert-link">Register for a course now!</a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-lg-6">
+                <div class="leaderboard-section">
+                    <div class="section-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16" style="margin-right: 8px;">
+                            <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+                        </svg>
+                        <span style="font-size: 16px; font-weight: 500; color: #444;">Student Leadership Board</span>
+                        <span class="date-label">April 2025</span>
+                        <div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
                     </div>
                     
-                </div>
-            </div>
-        </div>
-
-        <div class="mb-6">
-            {% if is_facilitator %}
-              <div class="bg-green-100 p-4 rounded shadow">
-                <p class="text-green-800 font-semibold">You are currently a facilitator for <strong>{{ facilitator_course.title }}</strong>.</p>
-              </div>
-            {% else %}
-              <div class="bg-yellow-100 p-4 rounded shadow">
-                <p class="text-yellow-800">You are not yet a facilitator. You can check the status of your request below.</p>
-              </div>
-            {% endif %}
-          </div>
-
-        <!-- Section: Facilitator Requests -->
-  {% comment %} {% if facilitator_requests %} {% endcomment %}
-  <div class="mb-6">
-    <h2 class="text-xl font-semibold mb-2">Your Facilitator Requests</h2>
-    <ul class="bg-white border rounded shadow divide-y">
-      {% comment %} {% for request in facilitator_requests %} {% endcomment %}
-        <li class="p-3">
-          <div class="flex justify-between items-center">
-            {% comment %} <span>{{ request.course.title }}</span> {% endcomment %}
-            <span class="text-sm px-2 py-1 rounded {{ request.is_approved|yesno:'bg-green-200,text-green-800,bg-gray-200,text-gray-800' }}">
-              {% comment %} {{ request.get_status_display }} {% endcomment %}
-            </span>
-          </div>
-        </li>
-      {% comment %} {% endfor %} {% endcomment %}
-    </ul>
-  </div>
-{% comment %} {% endif %} {% endcomment %}
-
-
-</div>
-
-
-        <!--know your facilitator Section added by Valentine -->
-        <!-- Add this card to your existing student dashboard template -->
-{% if student_courses %}
-{% for registration in student_courses %}
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">{{ registration.course.name }}</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <p>{{ registration.course.description }}</p>
-                    <p><strong>Training Mode:</strong> {{ registration.training_mode }}</p>
-                    <p><strong>Internship:</strong> {% if registration.internship %}Yes{% else %}No{% endif %}</p>
-                    <p><strong>Registration Date:</strong> {{ registration.created_at|date:"M d, Y" }}</p>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-light">
-                            <h6 class="mb-0">Course Facilitator</h6>
-                        </div>
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            {% if registration.course.facilitators %}
-                                <div>
-                                    <p><strong>{{ registration.course.facilitators.get_full_name|default:registration.course.facilitators.username }}</strong></p>
-                                    <p class="text-muted">Your course facilitator</p>
+                    <div class="student-cards-container">
+                        <!-- Top Student #1 -->
+                        <div class="student-card top-1">
+                            <div class="student-rank">1</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Sarah Johnson</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>28/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Computer Science
+                                    </div>
                                 </div>
-                                <a href="{% url 'view_course_facilitator' registration.course.id %}" class="btn btn-sm btn-outline-primary">Contact Details</a>
-                            {% else %}
-                                <p class="text-muted">No facilitator assigned yet</p>
-                            {% endif %}
+                            </div>
+                            <div class="student-score">98%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#FFD700"/>
+                            </svg>
+                        </div>
+
+                        <!-- Top Student #2 -->
+                        <div class="student-card top-2">
+                            <div class="student-rank">2</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Michael Chen</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>29/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Data Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">95%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#C0C0C0"/>
+                            </svg>
+                        </div>
+
+                        <!-- Top Student #3 -->
+                        <div class="student-card top-3">
+                            <div class="student-rank">3</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Olivia Rodriguez</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>27/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Web Development
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">93%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#CD7F32"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-{% endfor %}
-{% else %}
-
-
-{% endif %}
-
-		<div class="row mt-4">
             <div class="col-lg-6">
                 <div class="task-section">
-					<div class="section-header">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-day" viewBox="0 0 16 16" style="margin-right: 8px;">
-							<path d="M4.684 11.523v-2.3h2.261v-.61H4.684V6.801h2.464v-.61H4v5.332h.684zm3.296 0h.676V8.98c0-.554.227-1.007.953-1.007.125 0 .258.004.329.015v-.613a1.806 1.806 0 0 0-.254-.02c-.582 0-.891.32-1.012.567h-.02v-.504H7.98v4.105zm2.805-5.093c0 .238.192.425.43.425a.428.428 0 1 0 0-.855.426.426 0 0 0-.43.43zm.094 5.093h.672V7.418h-.672v4.105z"/>
-							<path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-						</svg>
-						<span style="font-size: 16px; font-weight: 500; color: #444;">Today</span>
-						<span class="date-label">21 August 2017</span>
-						<div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
-					</div>
-					
-					<div class="task-cards-container">
-						<div class="task-container">
-							<div class="task-card" style="position: relative; overflow: hidden;">
-								<div class="bookmark-flag"></div>
-								<div class="task-info">
-									<div class="task-title">UI Elements Design</div>
-									<div class="task-assignee">-John D.</div>
-								</div>
-								<div class="task-actions">
-									<button class="btn btn-view">View</button>
-									<button class="btn btn-ongoing">On going</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="task-container">
-						<div class="task-card" style="position: relative; overflow: hidden;">
-							<div class="task-info">
-								<div class="task-title">BarCode Integration</div>
-								<div class="task-assignee">-Shane Wals & Rudy B.</div>
-							</div>
-							<div class="task-actions">
-								<button class="btn btn-view">View</button>
-								<button class="btn btn-start">Start</button>
-							</div>
-						</div>
-					</div>
-				</div>
-            </div>
-
-			<div class="col-lg-6">
-				<div class="leaderboard-section">
-					<div class="section-header">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16" style="margin-right: 8px;">
-							<path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
-						</svg>
-						<span style="font-size: 16px; font-weight: 500; color: #444;">Student Leadership Board</span>
-						<span class="date-label">April 2025</span>
-						<div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
-					</div>
-					
-					<div class="student-cards-container">
-						<!-- Top Student #1 -->
-						{% for student in leaderboard %}
-                        <div class="student-card top-{{ forloop.counter }}">
-                            <div class="student-rank">{{ forloop.counter }}</div>
-                            <img src="{{ student.photo.url }}" alt="Student Photo" class="student-photo">
-                            <div class="student-info">
-                                <div class="student-name">{{ student.name }}</div>
-                                <div class="student-details">
-                                    <div class="student-detail"><span class="detail-label">Classes: </span>{{ student.classes_completed }}/{{ student.total_classes }}</div>
-                                    <div class="student-detail"><span class="detail-label">Cohort: </span>{{ student.cohort }}</div>
-                                    <div class="student-detail"><span class="detail-label">Course: </span>{{ student.course }}</div>
+                    <div class="section-header">
+                        <i class="fas fa-tasks section-icon"></i>
+                        <span class="section-title-text">Tasks</span>
+                        <span class="date-label">April 2025</span>
+                        <div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
+                    </div>
+                    <div class="task-cards-container">
+                        <div class="task-container">
+                            <div class="task-card bookmarked">
+                                <div class="bookmark-flag"></div>
+                                <div class="task-info">
+                                    <div class="task-title">Complete Project Proposal</div>
+                                    <div class="task-assignee">Assigned to: John Doe</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-view">View</button>
+                                    <button class="btn btn-start">Start</button>
                                 </div>
                             </div>
-                            <div class="student-score">{{ student.score }}%</div>
-                            <!-- Optional Badge SVG here -->
-                         <!-- Top Student #2 -->
-							<div class="student-card top-2">
-								<div class="student-rank">2</div>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
-								<div class="student-info">
-									<div class="student-name">Michael Chen</div>
-									<div class="student-details">
-										<div class="student-detail">
-											<span class="detail-label">Classes: </span>29/30
-										</div>
-										<div class="student-detail">
-											<span class="detail-label">Cohort: </span>Spring 2025
-										</div>
-										<div class="student-detail">
-											<span class="detail-label">Course: </span>Data Science
-										</div>
-									</div>
-								</div>
-								<div class="student-score">95%</div>
-								<svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#C0C0C0"/>
-								</svg>
-							</div>
+                        </div>
+                        <div class="task-container">
+                            <div class="task-card">
+                                <div class="task-info">
+                                    <div class="task-title">Review Cohort Progress</div>
+                                    <div class="task-assignee">Assigned to: Jane Smith</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-view">View</button>
+                                    <button class="btn btn-ongoing">Ongoing</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-container">
+                            <div class="task-card">
+                                <div class="task-info">
+                                    <div class="task-title">Update Course Materials</div>
+                                    <div class="task-assignee">Assigned to: Emily Brown</div>
+                                </div>
+                                <div class="task-actions">
+                                    <button class="btn btn-view">View</button>
+                                    <button class="btn btn-error">Error</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-							<!-- Top Student #3 -->
-							<div class="student-card top-3">
-								<div class="student-rank">3</div>
-								<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
-								<div class="student-info">
-									<div class="student-name">Olivia Rodriguez</div>
-									<div class="student-details">
-										<div class="student-detail">
-											<span class="detail-label">Classes: </span>27/30
-										</div>
-										<div class="student-detail">
-											<span class="detail-label">Cohort: </span>Spring 2025
-										</div>
-										<div class="student-detail">
-											<span class="detail-label">Course: </span>Web Development
-										</div>
-									</div>
-								</div>
-								<div class="student-score">93%</div>
-								<svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#CD7F32"/>
-								</svg>
-							</div>    
+        <!-- Cohort of the Week Section -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="leaderboard-section">
+                    <div class="section-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16" style="margin-right: 8px;">
+                            <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+                        </svg>
+                        <span style="font-size: 16px; font-weight: 500; color: #444;">Cohort of the Week</span>
+                        <span class="date-label">April 2025</span>
+                        <div style="flex-grow: 1; height: 1px; background-color: #ddd; margin-left: 10px;"></div>
+                    </div>
+                    
+                    <div class="student-cards-container">
+                        <!-- Cohort Top Student #1 -->
+                        <div class="student-card top-1 cohort-top">
+                            <div class="student-rank">1</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">James Wilson</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>30/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Artificial Intelligence
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">99%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#FFD700"/>
+                            </svg>
                         </div>
 
-                        {% endfor %}
+                        <!-- Cohort Top Student #2 -->
+                        <div class="student-card top-2">
+                            <div class="student-rank">2</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Emma Davis</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>29/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Data Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">96%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#C0C0C0"/>
+                            </svg>
+                        </div>
 
+                        <!-- Cohort Top Student #3 -->
+                        <div class="student-card top-3">
+                            <div class="student-rank">3</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Liam Brown</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>28/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Web Development
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">94%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#CD7F32"/>
+                            </svg>
+                        </div>
 
-						    
-						
+                        <!-- Cohort Top Student #4 -->
+                        <div class="student-card top-4">
+                            <div class="student-rank">4</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Sophia Martinez</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>27/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Computer Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">92%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#0d9ed9"/>
+                            </svg>
+                        </div>
+
+                        <!-- Cohort Top Student #5 -->
+                        <div class="student-card top-5">
+                            <div class="student-rank">5</div>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:GcRCZPWjCbYxbPzblGR8vOiL6bk3kmSVaoAzoQ&s" alt="Student Photo" class="student-photo">
+                            <div class="student-info">
+                                <div class="student-name">Noah Lee</div>
+                                <div class="student-details">
+                                    <div class="student-detail">
+                                        <span class="detail-label">Classes: </span>26/30
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Cohort: </span>Spring 2025
+                                    </div>
+                                    <div class="student-detail">
+                                        <span class="detail-label">Course: </span>Data Science
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="student-score">90%</div>
+                            <svg class="student-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 15L8.5 18L9.5 14L6.5 11.5L10.5 11L12 7.5L13.5 11L17.5 11.5L14.5 14L15.5 18L12 15Z" fill="#0d9ed9"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
         </div>
-    
+
         {% if assigment %}
         <!-- Assignment Section -->
         <div class="row mt-4">
@@ -367,7 +486,7 @@
                             <i class="fas fa-exclamation-circle mr-2"></i> 
                             <strong>Submitted Assignment under review</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">×</span>
                             </button>
                         </div>
                     </div>
@@ -420,60 +539,62 @@
 
 <style>
     :root {
-        --primary: #1b2b5e;
-        --secondary: #00a86a;
-        --primary-light: rgba(27, 43, 94, 0.1);
-        --secondary-light: rgba(0, 168, 106, 0.1);
+        --primary: #1a2b5d;
+        --secondary: #00a769;
+        --primary-light: rgba(26, 43, 93, 0.1);
+        --secondary-light: rgba(0, 167, 105, 0.1);
         --info: #49beff;
         --warning: #ffc107;
         --danger: #ff5c5f;
         --light: #f8f9fa;
         --dark: #2e384d;
         --gray: #6c757d;
+        --purple: #8e44ad;
+        --success: #28a745;
+        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
     
     body {
         background-color: #f5f7fb;
         color: #333;
+        font-family: var(--font-family);
+        font-size: 16px;
+        line-height: 1.5;
     }
     
-    .text-primary {
-        color: var(--primary) !important;
+    /* Utility Classes */
+    .text-primary { color: var(--primary) !important; }
+    .text-secondary { color: var(--secondary) !important; }
+    .bg-primary { background-color: var(--primary) !important; }
+    .bg-secondary { background-color: var(--secondary) !important; }
+    .bg-info { background-color: var(--info) !important; }
+    .bg-success { background-color: var(--success) !important; }
+    .bg-warning { background-color: var(--warning) !important; }
+    .bg-purple { background-color: var(--purple) !important; }
+    .bg-primary-light { background-color: var(--primary-light) !important; border-color: var(--primary-light) !important; }
+    .bg-secondary-light { background-color: var(--secondary-light) !important; border-color: var(--secondary-light) !important; }
+    .bg-danger-light { background-color: rgba(255, 92, 95, 0.1) !important; border-color: rgba(255, 92, 95, 0.1) !important; }
+    .bg-info-light { background-color: rgba(73, 190, 255, 0.1) !important; border-color: rgba(73, 190, 255, 0.1) !important; }
+    .border-primary { border-color: var(--primary) !important; }
+    .border-secondary { border-color: var(--secondary) !important; }
+    .border-warning { border-color: var(--warning) !important; }
+    
+    /* Buttons */
+    .btn {
+        border-radius: 6px;
+        font-weight: 500;
+        padding: 8px 16px;
+        transition: background-color 0.2s ease, transform 0.2s ease;
     }
     
-    .text-secondary {
-        color: var(--secondary) !important;
-    }
-    
-    .bg-primary {
-        background-color: var(--primary) !important;
-    }
-    
-    .bg-secondary {
-        background-color: var(--secondary) !important;
-    }
-    
-    .bg-primary-light {
-        background-color: var(--primary-light) !important;
-        border-color: var(--primary-light) !important;
-    }
-    
-    .bg-secondary-light {
-        background-color: var(--secondary-light) !important;
-        border-color: var(--secondary-light) !important;
-    }
-    
-    .border-primary {
-        border-color: var(--primary) !important;
-    }
-    
-    .border-secondary {
-        border-color: var(--secondary) !important;
+    .btn:hover {
+        transform: translateY(-1px);
     }
     
     .btn-primary {
         background-color: var(--primary);
         border-color: var(--primary);
+        color: #fff;
     }
     
     .btn-primary:hover {
@@ -489,38 +610,57 @@
     .btn-outline-primary:hover {
         background-color: var(--primary);
         border-color: var(--primary);
+        color: #fff;
     }
     
-    .badge-primary {
-        background-color: var(--primary);
+    .btn-view {
+        background-color: #0d9ed9;
+        color: white;
+        border: none;
     }
     
-    .badge-secondary {
-        background-color: var(--secondary);
+    .btn-start {
+        background-color: #65cb57;
+        color: white;
+        border: none;
     }
     
-    .page-header {
-        padding: 20px 0;
+    .btn-ongoing {
+        background-color: #f0ad4e;
+        color: white;
+        border: none;
     }
     
-    .page-header-title {
-        font-size: 1.75rem;
+    .btn-error {
+        background-color: #e64c3c;
+        color: white;
+        border: none;
+    }
+    
+    /* Cards */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        margin-bottom: 24px;
+        background-color: #fff;
+    }
+    
+    .card-header {
+        border-radius: 12px 12px 0 0;
+        padding: 16px 24px;
+        background-color: #fff;
+        border-bottom: none;
+    }
+    
+    .card-title {
         font-weight: 600;
-        color: var(--primary);
-        margin-bottom: 0.25rem;
-    }
-    
-    .page-header-text {
-        color: var(--gray);
+        color: var(--dark);
         margin-bottom: 0;
     }
     
     .stat-card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        background-color: #fff;
     }
     
     .stat-card:hover {
@@ -551,25 +691,30 @@
         justify-content: center;
     }
     
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        margin-bottom: 24px;
+    /* Badges and Alerts */
+    .badge {
+        font-weight: 500;
+        font-size: 13px;
+        border: 1px solid transparent;
+        transition: background-color 0.2s ease;
     }
     
-    .card-header {
-        border-radius: 12px 12px 0 0 !important;
-        padding: 16px 24px;
-        background-color: #fff;
+    .badge-pill {
+        padding: 6px 12px;
     }
     
-    .card-title {
-        font-weight: 600;
-        color: var(--dark);
-        margin-bottom: 0;
+    .alert {
+        border-radius: 8px;
+        border: 1px solid;
+        font-size: 14px;
     }
     
+    .alert .close {
+        font-size: 16px;
+        line-height: 1;
+    }
+    
+    /* Tables */
     .table {
         margin-bottom: 0;
     }
@@ -590,297 +735,400 @@
         border-top: 1px solid #eee;
     }
     
-    .badge {
-        font-weight: 500;
-        font-size: 13px;
-        border: 1px solid transparent;
+    /* Quick Actions Section */
+    .quick-actions-section {
+        margin-bottom: 30px;
     }
     
-    .alert {
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .section-header svg, .section-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--primary);
+    }
+    
+    .section-title-text {
+        font-size: 16px;
+        font-weight: 500;
+        color: #444;
+        margin-left: 8px;
+    }
+    
+    .section-divider {
+        flex-grow: 1;
+        height: 1px;
+        background-color: #ddd;
+        margin-left: 10px;
+    }
+    
+    .action-buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    
+    .action-button {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
         border-radius: 8px;
-        border: 1px solid;
+        padding: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: #333;
     }
     
-    .btn {
-        border-radius: 6px;
-        font-weight: 500;
-        padding: 8px 16px;
+    .action-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-
-
-
-	.section-title {
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        
-        .section-title::after {
-            content: "";
-            flex-grow: 1;
-            height: 1px;
-            background-color: #ddd;
-            margin-left: 10px;
-        }
-        
-        .section-icon {
-            color: #0d6efd;
-            margin-right: 8px;
-        }
-        
-        .task-card {
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid transparent;
-        }
-        
-        .task-card.bookmarked {
-            border-left-color: #ffc107;
-        }
-        
-        .task-info {
-            flex-grow: 1;
-        }
-        
-        .task-title {
-            font-weight: 500;
-            margin-bottom: 3px;
-            color: #333;
-            font-size: 14px;
-        }
-        
-        .task-assignee {
-            font-size: 12px;
-            color: #777;
-        }
-        
-        .task-actions {
-            display: flex;
-            gap: 6px;
-        }
-        
-        .btn {
-            font-size: 13px;
-            padding: 4px 15px;
-            border-radius: 4px;
-            border: none;
-        }
-        
-        .btn-view {
-            background-color: #0d9ed9;
-            color: white;
-        }
-        
-        .btn-start {
-            background-color: #65cb57;
-            color: white;
-        }
-        
-        .btn-ongoing {
-            background-color: #f0ad4e;
-            color: white;
-        }
-        
-        .btn-error {
-            background-color: #e64c3c;
-            color: white;
-        }
-        
-        .bookmark {
-            position: absolute;
-            top: -8px;
-            left: 12px;
-            color: #ffc107;
-            font-size: 22px;
-        }
-        
-        .task-container {
-            position: relative;
-            margin-bottom: 15px;
-        }
-        
-        .date-label {
-            font-size: 12px;
-            font-style: italic;
-            color: #888;
-            margin-left: 5px;
-        }
-        
-        .task-section {
-            margin-bottom: 30px;
-        }
-        
-        .corner-graphic {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            opacity: 0.3;
-            width: 50px;
-            height: 50px;
-        }
-        
-        /* Specific card header styles to match exactly */
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .section-header svg {
-            width: 16px;
-            height: 16px;
-            color: #0d6efd;
-        }
-        
-        /* Inner cards padding adjustment */
-        .task-cards-container {
-            padding: 0 8px;
-        }
-        
-        /* Making the bookmarks match exactly */
-        .bookmark-flag {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background-color: #ffc107;
-            border-top-left-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
-
-		/* here student board design */
-
-		 
-        .student-card {
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            border-left: 4px solid transparent;
-            position: relative;
-        }
-        
-        .student-card.top-1 {
-            border-left-color: #ffd700; /* Gold for #1 */
-        }
-        
-        .student-card.top-2 {
-            border-left-color: #c0c0c0; /* Silver for #2 */
-        }
-        
-        .student-card.top-3 {
-            border-left-color: #cd7f32; /* Bronze for #3 */
-        }
-        
-        .student-card.top-4, .student-card.top-5 {
-            border-left-color: #0d9ed9; /* Blue for #4 and #5 */
-        }
-        
-        .student-rank {
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            width: 24px;
-            height: 24px;
-            background-color: #0d9ed9;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-        
-        .top-1 .student-rank {
-            background-color: #ffd700;
-            color: #333;
-        }
-        
-        .top-2 .student-rank {
-            background-color: #c0c0c0;
-            color: #333;
-        }
-        
-        .top-3 .student-rank {
-            background-color: #cd7f32;
-        }
-        
-        .student-photo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 2px solid #f0f0f0;
-        }
-        
-        .student-info {
-            flex-grow: 1;
-        }
-        
-        .student-name {
-            font-weight: 500;
-            margin-bottom: 3px;
-            color: #333;
-            font-size: 14px;
-        }
-
-		.student-badge {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            width: 20px;
-            height: 20px;
+    
+    .action-icon-wrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+    
+    .action-icon-wrapper i {
+        font-size: 20px;
+        color: #fff;
+    }
+    
+    .action-content {
+        flex-grow: 1;
+    }
+    
+    .action-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 3px;
+        color: #333;
+    }
+    
+    .action-subtitle {
+        font-size: 12px;
+        color: #777;
+        margin-bottom: 0;
+    }
+    
+    .action-arrow {
+        font-size: 12px;
+        color: #777;
+    }
+    
+    /* Student Leaderboard and Cohort Section */
+    .leaderboard-section {
+        margin-bottom: 30px;
+    }
+    
+    .student-cards-container {
+        padding: 0 8px;
+    }
+    
+    .student-card {
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 15px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid transparent;
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+    
+    .student-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .student-card.top-1 { border-left-color: #ffd700; }
+    .student-card.top-2 { border-left-color: #c0c0c0; }
+    .student-card.top-3 { border-left-color: #cd7f32; }
+    .student-card.top-4, .student-card.top-5 { border-left-color: #0d9ed9; }
+    
+    .student-card.cohort-top {
+        background: linear-gradient(45deg, #ffd70022, #ffffff);
+        border: 2px solid #ffd700;
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        padding: 20px;
+    }
+    
+    .student-rank {
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        width: 24px;
+        height: 24px;
+        background-color: #0d9ed9;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .top-1 .student-rank { background-color: #ffd700; color: #333; }
+    .top-2 .student-rank { background-color: #c0c0c0; color: #333; }
+    .top-3 .student-rank { background-color: #cd7f32; }
+    .cohort-top .student-rank {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        background-color: #ffd700;
+        border: 2px solid #333;
+    }
+    
+    .student-photo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 15px;
+        border: 2px solid #f0f0f0;
+    }
+    
+    .cohort-top .student-photo {
+        width: 60px;
+        height: 60px;
+        border: 3px solid #ffd700;
+    }
+    
+    .student-info {
+        flex-grow: 1;
+    }
+    
+    .student-name {
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: #333;
+        font-size: 14px;
+    }
+    
+    .cohort-top .student-name {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    .student-badge {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .cohort-top .student-badge {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .student-details {
+        font-size: 12px;
+        color: #777;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .student-detail {
+        margin-right: 12px;
+    }
+    
+    .detail-label {
+        color: #999;
+    }
+    
+    .student-score {
+        background-color: #65cb57;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    .cohort-top .student-score {
+        background-color: #ffd700;
+        color: #333;
+        padding: 4px 12px;
+        font-size: 13px;
+    }
+    
+    .date-label {
+        font-size: 12px;
+        font-style: italic;
+        color: #888;
+        margin-left: 5px;
+    }
+    
+    /* Task Section */
+    .task-section {
+        margin-bottom: 30px;
+    }
+    
+    .task-cards-container {
+        padding: 0 8px;
+    }
+    
+    .task-container {
+        position: relative;
+        margin-bottom: 15px;
+    }
+    
+    .task-card {
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 4px solid transparent;
+        transition: transform 0.2s ease;
+    }
+    
+    .task-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .task-card.bookmarked {
+        border-left-color: #ffc107;
+    }
+    
+    .bookmark-flag {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #ffc107;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    
+    .task-info {
+        flex-grow: 1;
+    }
+    
+    .task-title {
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: #333;
+        font-size: 14px;
+    }
+    
+    .task-assignee {
+        font-size: 12px;
+        color: #777;
+    }
+    
+    .task-actions {
+        display: flex;
+        gap: 6px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 991px) {
+        .action-buttons-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
         
         .student-details {
-            font-size: 12px;
-            color: #777;
-            display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
         }
         
         .student-detail {
-            margin-right: 12px;
+            margin-bottom: 4px;
         }
         
-        .detail-label {
-            color: #999;
+        .task-actions {
+            flex-direction: column;
+            gap: 4px;
         }
         
-        .student-score {
-            background-color: #65cb57;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
+        .task-card {
+            flex-direction: column;
+            align-items: flex-start;
         }
-
-		.student-cards-container {
-            padding: 0 8px;
+        
+        .task-actions {
+            margin-top: 10px;
         }
-
-
-		 
-        .leaderboard-section {
-            margin-bottom: 30px;
+    }
+    
+    @media (max-width: 767px) {
+        .stat-card .card-body {
+            flex-direction: column;
+            text-align: center;
         }
+        
+        .stat-card .icon-wrapper {
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .ml-auto {
+            margin-left: 0;
+        }
+        
+        .card-value {
+            font-size: 20px;
+        }
+        
+        .action-button {
+            padding: 12px;
+        }
+        
+        .action-icon-wrapper {
+            width: 36px;
+            height: 36px;
+        }
+        
+        .action-icon-wrapper i {
+            font-size: 18px;
+        }
+        
+        .student-photo, .cohort-top .student-photo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .cohort-top .student-photo {
+            width: 48px;
+            height: 48px;
+        }
+    }
+    
+    @media (max-width: 575px) {
+        .action-buttons-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .table-responsive {
+            font-size: 14px;
+        }
+        
+        .table td, .table th {
+            padding: 12px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+    }
 </style>
 
 {% endblock content %}

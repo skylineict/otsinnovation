@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from projects .models import Task, Task_collections
+from .models import Task_collections, Task
 import pdb
 from django.http import JsonResponse
+
 
 
 #New Task Collection by Da'Guy

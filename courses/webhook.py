@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 def flutterwave_webhook(request):
  
     # Verify webhook signature
-    webhook_secret = ''
+    webhook_secret = 'f93kf0293kd!@#LFSJLsdkfj'
     signature = request.headers.get('verif-hash')
 
     if not signature:

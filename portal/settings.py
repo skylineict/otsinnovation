@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'newdash',
     'studenttask',
     'facilitator',
+    'monthlyscore',
+    'liveclass'
     
 ]
 
@@ -86,7 +88,7 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'mydatas.qlite3',
+        'NAME': BASE_DIR / 'cafe.qlite3',
     }
 }
 
@@ -194,8 +196,8 @@ CSRF_COOKIE_SECURE = False  # Set to True only if you're using HTTPS
 
 
 
-CSRF_TRUSTED_ORIGINS = ['https://0907-105-113-10-208.ngrok-free.app']
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0907-105-113-10-208.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://b4ff-105-113-10-16.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'b4ff-105-113-10-16.ngrok-free.app']
 
 
 
@@ -206,3 +208,35 @@ FLUTTERWAVE_HASH = config('FLUTTERWAVE_HASH')
 FLUTTERWAVE_SECRET_KEY = config('FLUTTERWAVE_SECRET_KEY')
 FLUTTERWAVE_PUBLIC_KEY = config('FLUTTERWAVE_PUBLIC_KEY')
 FLUTTERWAVE_BASE_URL = config('FLUTTERWAVE_BASE_URL')
+
+# Logging configuration for debugging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

@@ -335,7 +335,7 @@
                             <div class="upload-btn-wrapper">
                                 <div class="upload-btn">
                                     <i class="fas fa-camera"></i>
-                                    <input type="file" id="profile-picture-upload" name="file" onchange="readURL(this)">
+                                    <input type="file" id="profile-picture-upload" name="file" onchange="readURL(this)" required>
                                 </div>
                             </div>
                         </div>
@@ -521,8 +521,8 @@
                                                 <span class="input-group-text"><i class="fas fa-certificate"></i></span>
                                                 <select class="form-select" id="certificate" name="certificate" required>
                                                     <option value="" selected disabled>Select program type</option>
-                                                    <option value="Diploma(Front-End)">Diploma (Front-End Development)</option>
-                                                    <option value="Advanced(Full Stack)">Advanced (Full Stack + Internship)</option>
+                                                    <option value="Diploma">Diploma </option>
+                                                    <option value="Advanced">Advanced</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -699,21 +699,28 @@
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function() {
+                    success: function(response) {
                         // Hide loader
                         document.getElementById('fullpage-loader').classList.remove('active');
                         
-                        iziToast.success({
-                            title: 'Success',
-                            message: 'Your profile has been updated successfully!',
-                            position: 'topRight'
-                        });
-                        
-                        // Redirect after success
-                        setTimeout(function() {
-                            window.location.href = "/cohorts/task_collection";
-                        }, 2000);
-                    },
+                         if (response.redirect_url) {
+            // If redirect_url exists, redirect immediately
+            window.location.href = response.redirect_url;
+        } else {
+            // Show success toast
+            iziToast.success({
+                title: 'Success',
+                message: 'Your profile has been updated successfully!',
+                position: 'topRight'
+            });
+            
+            // Redirect after 2 seconds
+            setTimeout(function() {
+                window.location.href = "/studenttask/task_collection";
+            }, 2000);
+        }
+    },
+                  
                     error: function(xhr, status, error) {
                         // Hide loader
                         document.getElementById('fullpage-loader').classList.remove('active');

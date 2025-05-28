@@ -204,43 +204,12 @@
 				</li>
 		
 		  <li>
-			<a href="{% url 'projects' %}"><i class="fas fa-project-diagram"></i><span> Projects</span></a>
+			<a href=""><i class="fas fa-project-diagram"></i><span> Projects</span></a>
 		  </li>
   
-		  {% if user.is_admin %}
-		  <li class="submenu">
-			<a href="#"><i class="fas fa-user-shield"></i> <span> Admin</span> <span class="menu-arrow"></span></a>
-			<ul class="list-unstyled">
-			  <li><a href="{% url 'payment_approval' %}">Material Payment</a></li>
-			  <li><a href="{% url 'assigment_approval' %}">Assignment</a></li>
-			  <li><a href="{% url 'pending' %}">Pending Admission</a></li>
-			  <li><a href="{% url 'add_project' %}">Create Project</a></li>
-			  <li><a href="{% url 'approval_project' %}">Approve Project</a></li>
-			  <li><a href="{% url 'task_me' %}">Task Approval</a></li>
-			</ul>
-		  </li>
-		  {% endif %}
+		
   
-		  <li class="submenu">
-			<a href="#"><i class="fas fa-users"></i> <span> Cohort</span> <span class="menu-arrow"></span></a>
-			<ul class="list-unstyled">
-			  <li><a href="{% url 'groupscohort' %}">All Cohorts</a></li>
-			  {% if persoancohorts %}
-			  <li><a href="{% url 'cohorts' persoancohorts.pk %}">My Cohorts</a></li>
-			  {% else %}
-			  <li><a href="#">No Cohorts</a></li>
-			  {% endif %}
-			</ul>
-		  </li>
-  
-		  <li class="submenu">
-			<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Class Room</span> <span class="menu-arrow"></span></a>
-			<ul class="list-unstyled">
-			  <li><a href="{% url 'live' %}">Live Session</a></li>
-			  <li><a href="{% url 'recap' %}">Recap Session</a></li>
-			</ul>
-		  </li>
-  
+		
 		  <li class="submenu">
 			<a href="#"><i class="fas fa-book-open"></i> <span> Courses</span> <span class="menu-arrow"></span></a>
 			<ul class="list-unstyled">
@@ -252,7 +221,7 @@
 		  <li class="submenu">
 			<a href="#"><i class="fas fa-tasks"></i> <span> Tasks</span> <span class="menu-arrow"></span></a>
 			<ul class="list-unstyled">
-			  <li><a href="{% url 'task' %}">Take Task</a></li>
+			 
 			  <li><a href="{% url 'task_collwction' %}">Task Collection</a></li>
 			</ul>
 		  </li>
@@ -314,6 +283,8 @@
 <script src="{% static 'assets/ajax/courses_registration.js' %}"></script>
 <script src="{% static 'assets/ajax/courses_payment.js' %}"></script>
 <script src="{% static 'assets/ajax/verify_payment.js' %}"></script>
+<script src="{% static 'assets/ajax/facilitator.js' %}"></script>
+
 
 
 

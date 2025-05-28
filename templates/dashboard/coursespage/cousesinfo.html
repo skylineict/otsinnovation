@@ -375,14 +375,16 @@
                         <select class="form-control" id="bankCode" name="bankCode">
                             <option value="">Choose a bank</option>
                             {% for bank in banks %}
-                                <option value="{{ bank.code }}">{{ bank.name }}</option>
+                                <option value="{{ bank.code }}">{{bank.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="text-center mt-5">
+                    
+
                         <button type="submit" id="proceedToPaymentBtn" class="btn btn-primary btn-block btn-lg">
-                            <i class="fas fa-arrow-right mr-2"></i>Proceed to Payment
+                            <i class="fas fa-arrow-right mr-2"></i> Proceed to Payment
                         </button>
                     </div>
                 </form>
@@ -449,6 +451,7 @@
 
  
         </div>
+        
         
 
 
