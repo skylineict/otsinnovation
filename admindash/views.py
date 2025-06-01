@@ -13,20 +13,34 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.paginator import Paginator
-
+from monthlyscore.models import CourseMonthlyRequirement
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class DashAdmin(LoginRequiredMixin, View):
-    login_url = 'login'  
-    # def test_func(self):
-    #     return self.request.user.is_staff
-
-    # def handle_no_permission(self):
-    #     return redirect('login')
+    login_url = 'login' 
+    
+    
 
     def get(self, request):
-        return render(request, 'admindash/dash.html')
+        if not (request.user.is_staff or request.user.is_facilitator):
+            return redirect('login') 
+        try:
+            # Get the most recent approved score for the facilitator
+            approved_score = CourseMonthlyRequirement.objects.get(
+                is_approved=True,
+                course__facilitators=request.user
+            )
+            context = {
+            
+                    'score_requirement': approved_score.score_requirement,
+              
+            }
+        except ObjectDoesNotExist:
+            context = {
+                'approved_score': None
+            }
+        return render(request, 'admindash/dash.html', context=context)
 
     def post(self, request):
         return render(request, 'admindash/dash.html')

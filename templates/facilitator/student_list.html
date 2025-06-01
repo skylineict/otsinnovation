@@ -1,0 +1,89 @@
+{% extends "admindash/header.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+     Student  List
+    {% endblock title %}</title>
+    <!-- Google Fonts - Inter -->
+    >
+    <link rel="stylesheet" href="{% static 'style/loader.css' %}">
+    <link rel="stylesheet" href="{% static 'style/admin.css' %}">
+
+    
+</head>
+
+<body>
+      <div class="page-wrapper">
+
+    <div class="container">
+        <div class="card">
+            <div class="header-section">
+                <h1><i class="fas fa-money-bill-wave"></i> Manage Student Info</h1>
+            </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Profile Picture</th>
+                                <th>Username</th>
+                                <th>Courses</th>
+                                <th>Amount</th>
+                                <th>Admission Passcode</th>
+                                <th>Cohort</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentTableBody">
+                            {% if students %}
+                                {% for registration in students %}
+                                    <tr>
+                                        <td>{{ registration.full_name }}</td>
+                                        <td>
+                                            <div class="student-info">
+                                                <img src="{% if registration.user.profiles.uplaod_picture %}{{ registration.user.profiles.uplaod_picture.url }}{% else %}https://via.placeholder.com/42{% endif %}" class="student-image" alt="{{ registration.full_name }} Profile">
+                                            </div>
+                                        </td>
+                                        <td>{{ registration.user.username|default:"N/A" }}</td>
+                                        <td>{{ registration.course.name }}</td>
+                                        <td>N{{ registration.course.amount }}</td>
+                                        <td>{{ registration.admission_passcode|default:"N/A" }}</td>
+                                        <td>{{ registration.cohort_name|default:"N/A" }}</td>
+                                        <td>
+                                            <span class="status {% if registration.payment_detail.payment_status == 'Completed' or registration.payment_detail.payment_status == 'Manually Approved' %}status-approved{% else %}status-pending{% endif %}">
+                                                {{ registration.payment_detail.payment_status|default:"Pending" }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="alert alert-info" role="alert">
+                                            No students are currently enrolled in your courses.
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            
+
+        </div>
+    </div>
+
+     </div>
+
+</body>
+</html>
+
+{% endblock %}

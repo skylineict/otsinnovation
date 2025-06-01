@@ -32,13 +32,15 @@ class Project(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='projects')
     title = models.CharField(max_length=255)
     instructions = models.TextField()
-    deadline = models.DateTimeField()
+    deadline = models.DateTimeField(null=True, blank=True)
+    second_deadline = models.DateTimeField()
     max_score = models.PositiveIntegerField()
     project_type = models.CharField(max_length=20, choices=PROJECT_TYPE_CHOICES)
     cohorts = models.ManyToManyField(Cohort, related_name='projects', blank=True)
     file = models.FileField(upload_to='project_files/', null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='live')
     created_at = models.DateTimeField(auto_now_add=True)
+
 
     def clean(self):
         if self.project_type == 'cohort' and not self.cohorts.exists():

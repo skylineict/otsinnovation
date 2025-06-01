@@ -33,7 +33,7 @@ if (res.profile) {
 
       setTimeout(function() {
         window.location.href = res.redirect_url;
-    }, 2000);
+    }, 100);
 }
 
 

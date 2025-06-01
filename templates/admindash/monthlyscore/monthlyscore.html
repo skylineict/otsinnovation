@@ -1,0 +1,95 @@
+{% extends "admindash/header.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+      Monthly Score Approval
+    {% endblock title %}</title>
+    <!-- Google Fonts - Inter -->
+    >
+    <link rel="stylesheet" href="{% static 'style/loader.css' %}">
+    <link rel="stylesheet" href="{% static 'style/admin.css' %}">
+
+    
+</head>
+
+    <!-- Spinner Overlay -->
+    <div id="fullpage-loader" class="fullpage-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+  
+
+   
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="card">
+                <div class="header-section">
+                    <h1><i class="fas fa-tasks"></i> Monthly Score Approval</h1>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr> 
+                                  <th>full name</th>
+                                <th>Course</th>
+                                <th>Month</th>
+                                <th>Score Requirement</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="taskTableBody">
+                            {% for requirement in monthly_requirements %}
+                                <tr id="requirement-{{ requirement.id }}">
+                                    <td>{{ requirement.course.facilitators  }}</td>
+                                    <td>{{ requirement.course.name }}</td>
+                                    <td>{{ requirement.month|date:"F Y" }}</td>
+                                    <td>{{ requirement.score_requirement }} Point</td>
+                                    
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-action btn-approve approve-score" data-id="{{ requirement.id }}">
+                                                <i class="fas fa-check"></i> Approve
+                                            </button>
+                                            <button class="btn-action btn-reject reject-score" data-id="{{ requirement.id }}">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="empty-state-container">
+                                            <div class="illustration-container">
+                                                <div class="empty-box"></div>
+                                                <i class="search-icon fas fa-search"></i>
+                                                <i class="document-icon fas fa-file-alt"></i>
+                                                <div class="dots">
+                                                    <div class="dot"></div>
+                                                    <div class="dot"></div>
+                                                    <div class="dot"></div>
+                                                </div>
+                                            </div>
+                                            <h3 class="empty-title">No Pending Score Requirements</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div
+
+    
+
+{% endblock %}

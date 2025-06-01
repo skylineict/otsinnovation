@@ -4,7 +4,7 @@ from .models import CourseMonthlyRequirement, ComplianceRecord, StudentPoint
 
 @admin.register(CourseMonthlyRequirement)
 class CourseMonthlyRequirementAdmin(admin.ModelAdmin):
-    list_display = ('course', 'month', 'score_requirement', 'created_at')
+    list_display = ('course', 'month', 'score_requirement', 'created_at', 'is_approved', 'approved_at')
     list_filter = ('course', 'month')
     search_fields = ('course__name',)
     ordering = ('-month',)

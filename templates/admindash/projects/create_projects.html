@@ -1,0 +1,151 @@
+{% extends "admindash/header.html" %}
+{% load static %}
+
+{% block content %}
+    <title>Project Update Form</title>
+   <link rel="stylesheet" href="{% static 'style/userform.css' %}">
+ 
+
+<body>
+     <div class="page-wrapper">
+
+   
+    <div class="container form-container">
+        <!-- Form Header -->
+        <div class="form-header">
+            <div class="bubble bubble-1"></div>
+            <div class="bubble bubble-2"></div>
+            <div class="bubble bubble-3"></div>
+            <div class="status-badge live">Live</div>
+            <h1 class="display-4">Update Project</h1>
+            <p class="lead mb-0">Modify the details of an existing project</p>
+        </div>
+        
+        <!-- Form Body -->
+        <div class="form-body">
+            <form id="projectUpdateForm" method="post" enctype="multipart/form-data">
+              
+                
+                <div class="form-group mb-4">
+                    <label for="course">Select Course</label>
+                    <select class="custom-select custom-select-lg" name="course" id="course" required>
+                        <option value="" selected disabled>-- Choose a Course --</option>
+                        <!-- Course options will be populated dynamically -->
+                    </select>
+                    <div id="courseInfo" class="course-info mt-3"></div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="title">Project Title</label>
+                    <input type="text" class="form-control form-control-lg" id="title" name="title" placeholder="Enter project title" required>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="instructions">Instructions</label>
+                    <textarea class="form-control form-control-lg" id="instructions" name="instructions" rows="5" placeholder="Enter detailed project instructions" required></textarea>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="deadline">Deadline</label>
+                            <input type="datetime-local" class="form-control form-control-lg" id="deadline" name="deadline" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="second_deadline">Second Deadline</label>
+                            <input type="datetime-local" class="form-control form-control-lg" id="second_deadline" name="second_deadline" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="max_score">Maximum Score</label>
+                    <input type="number" class="form-control form-control-lg" id="max_score" name="max_score" min="0" placeholder="Enter maximum score" required>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label class="d-block">Project Type</label>
+                    <div class="custom-radio-btn">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="individual" name="project_type" class="custom-control-input" value="individual" required>
+                            <label class="custom-control-label" for="individual">
+                                <strong>Individual</strong>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="custom-radio-btn">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="cohort" name="project_type" class="custom-control-input" value="cohort">
+                            <label class="custom-control-label" for="cohort">
+                                <strong>Cohort</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mb-4 cohort-selection">
+                    <label>Cohorts</label>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input" id="cohort1" name="cohorts">
+                                <label class="custom-control-label" for="cohort1">Cohort 1</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input" id="cohort2" name="cohorts">
+                                <label class="custom-control-label" for="cohort2">Cohort 2</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input" id="cohort3" name="cohorts">
+                                <label class="custom-control-label" for="cohort3">Cohort 3</label>
+                            </div>
+                            <!-- Additional cohorts can be added dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="file">Project File</label>
+                    <input type="file" class="form-control-file" id="file" name="file">
+                    <small class="form-text text-muted">Upload any supporting files for the project (optional)</small>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label class="d-block">Status</label>
+                    <div class="custom-radio-btn">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="live" name="status" class="custom-control-input" value="live" required>
+                            <label class="custom-control-label" for="live">
+                                <strong>Live</strong>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="custom-radio-btn">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="finished" name="status" class="custom-control-input" value="finished">
+                            <label class="custom-control-label" for="finished">
+                                <strong>Finished</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label for="created_at">Created At</label>
+                    <input type="datetime-local" class="form-control form-control-lg" id="created_at" name="created_at" readonly>
+                    <small class="form-text text-muted">This field is automatically set and cannot be modified</small>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-submit btn-lg btn-block">Update Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+      </div>
+    
+   
+</body>
+{% endblock %}

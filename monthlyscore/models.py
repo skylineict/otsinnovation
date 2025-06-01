@@ -1,12 +1,15 @@
-from datetime import timezone
+
+from datetime import timedelta
 from decimal import Decimal
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth import get_user_model
+from django.forms import ValidationError
 from shortuuid.django_fields import ShortUUIDField
 from courses.models import Course,SuspensionFine
 from courses.models import CourseRegistration
 from projects.models import Project,ProjectSubmission,ProjectAttendance
+from django.utils import timezone
 
 
 User = get_user_model()
@@ -19,14 +22,46 @@ class CourseMonthlyRequirement(models.Model):
     month = models.DateField()
     score_requirement = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=False)
+    approved_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         unique_together = ('course', 'month')
 
     def __str__(self):
-        return f"{self.course.name} - {self.month.strftime('%B %Y')} Requirement: {self.score_requirement}"
+        status = "Approved" if self.is_approved else "Pending"
+        return f"{self.course.name} - {self.month.strftime('%B %Y')} Requirement: {self.score_requirement} ({status})"
 
-# ComplianceRecord Model
+    def approve(self, staff_user):
+        if self.is_approved:
+            raise ValidationError("This monthly requirement is already approved.")
+        self.is_approved = True
+        self.approved_at = timezone.now()
+        self.save()
+
+
+    def reset_if_expired(self, current_date=None):
+        if current_date is None:
+            current_date = timezone.now()
+            
+        if (current_date - self.created_at) > timedelta(minutes=5) and self.score_requirement != 0:
+            self.score_requirement = 0
+            self.save()
+            return True
+        return False
+
+    # def reset_if_expired(self, current_date=None):
+    #     if current_date is None:
+    #         current_date = timezone.now().date()
+    #     created_month = self.created_at.replace(day=1, hour=0, minute=0, second=0, microsecond=0).date()
+    #     current_month =  current_date.replace(day=1)
+    #     if current_month > created_month and self.score_requirement != 0:
+    #         self.score_requirement = 0
+    #         self.save()
+    #         return True
+    #     return False
+
+
 class ComplianceRecord(models.Model):
     id = ShortUUIDField(primary_key=True, unique=True, editable=False, alphabet='abcdefghijklmnqszxcvopl1234567890')
     registration = models.ForeignKey(CourseRegistration, on_delete=models.CASCADE, related_name='compliance_records')

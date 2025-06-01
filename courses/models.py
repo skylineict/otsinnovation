@@ -88,17 +88,14 @@ class CourseRegistration(models.Model):
 
       
         if self.account_suspended:
-            logger.warning(f"Cannot approve suspended registration {self.id}.")
             raise ValidationError("Cannot approve a suspended account.")
 
-        try:
-            # NEW: Set approval status and generate passcode
-            self.is_approved = True
-            self.generate_admission_passcode()
-            self.save(update_fields=["is_approved", "admission_passcode"])
+        self.is_approved = True
+        self.generate_admission_passcode()
+        self.save(update_fields=["is_approved", "admission_passcode"])
 
            
-            payment_detail, created = PaymentDetail.objects.get_or_create(
+        payment_detail, created = PaymentDetail.objects.get_or_create(
                 registration=self,
                 defaults={
                     'amount_paid': Decimal('0.00'),
@@ -108,7 +105,7 @@ class CourseRegistration(models.Model):
                     'payment_completed': True,  # NEW: Mark as completed since no payment is needed
                 }
             )
-            if not created:
+        if not created:
                 # NEW: Update existing PaymentDetail for manual approval
                 payment_detail.manually_verified = True
                 payment_detail.manual_reference = f"MANUAL-APPROVAL-{timezone.now().strftime('%Y%m%d%H%M%S')}"
@@ -116,7 +113,7 @@ class CourseRegistration(models.Model):
                 payment_detail.save()
 
             # NEW: Create a transaction record for auditing manual approval
-            Transaction.objects.create(
+        Transaction.objects.create(
                 payment=payment_detail,
                 transaction_reference=f"MANUAL-APPROVAL-{self.id}-{timezone.now().strftime('%Y%m%d%H%M%S')}",
                 amount=Decimal('0.00'),
@@ -127,9 +124,8 @@ class CourseRegistration(models.Model):
 
             # NEW (EMAIL): Send email notification to the user upon manual approval
             # NEW (EMAIL): Checks if user exists and has a valid email address to avoid errors
-            if self.user and self.user.email:
-                try:
-                    send_mail(
+        if self.user and self.user.email:
+                send_mail(
                         subject=f"Admission Confirmation for {self.course.name}",
                         message=(
                             f"Dear {self.full_name},\n\n"
@@ -137,25 +133,17 @@ class CourseRegistration(models.Model):
                             f"Your admission passcode is: {self.admission_passcode}\n\n"
                             f"Please use this passcode to access your course materials. "
                             f"If you have any questions, contact our support team.\n\n"
-                            f"Best regards,\nCourse Administration Team"
-                        ),
+                            f"Best regards,\nCourse Administration Team"),
                         from_email=settings.DEFAULT_FROM_EMAIL,
                         recipient_list=[self.user.email],
-                        fail_silently=True,
-                    )
+                        fail_silently=True,)
                    
-                    logger.info(f"Admission email sent to {self.user.email} for registration {self.id}.")
-                except Exception as e:
-                  
-                    logger.error(f"Failed to send admission email to {self.user.email} for registration {self.id}: {str(e)}")
-            else:
                 
-                logger.warning(f"No valid email found for user in registration {self.id}.")
+          
 
            
-            if self.course.facilitators and self.course.facilitators.email:
-                try:
-                    send_mail(
+        if self.course.facilitators and self.course.facilitators.email:
+                send_mail(
                         subject=f"New Student Approved for {self.course.name}",
                         message=(
                             f"Dear {self.course.facilitators.full_name},\n\n"
@@ -163,24 +151,12 @@ class CourseRegistration(models.Model):
                             f"by {admin_user.email}.\n"
                             f"Admission passcode: {self.admission_passcode}\n\n"
                             f"Please ensure the student is onboarded appropriately.\n\n"
-                            f"Best regards,\nCourse Administration Team"
-                        ),
+                            f"Best regards,\nCourse Administration Team"),
                         from_email=settings.DEFAULT_FROM_EMAIL,
                         recipient_list=[self.course.facilitators.email],
-                        fail_silently=True,
-                    )
+                        fail_silently=True,)
                     # NEW (EMAIL): Log successful facilitator email sending
-                    logger.info(f"Facilitator email sent to {self.course.facilitators.email} for registration {self.id}.")
-                except Exception as e:
-                    # NEW (EMAIL): Log any errors during facilitator email sending
-                    logger.error(f"Failed to send facilitator email to {self.course.facilitators.email} for registration {self.id}: {str(e)}")
-
-            # NEW: Log successful manual approval
-            logger.info(f"Registration {self.id} manually approved by {admin_user.email}.")
-        except IntegrityError as e:
-            # NEW: Log errors during manual approval for debugging
-            logger.error(f"IntegrityError during manual approval for registration {self.id}: {e}")
-            raise
+                   
 
 class PaymentDetail(models.Model):
     PAYMENT_OPTION_CHOICES = [

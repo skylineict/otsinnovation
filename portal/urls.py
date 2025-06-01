@@ -23,6 +23,7 @@ urlpatterns = [
     path('studenttask/', include('studenttask.urls')),
     path('facilitator/', include('facilitator.urls')),
      path('liveclass/', include('liveclass.urls')),
+      path('monthlyscore/', include('monthlyscore.urls')),
      
 
    

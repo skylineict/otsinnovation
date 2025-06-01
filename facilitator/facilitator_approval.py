@@ -2,7 +2,7 @@
 import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import View
 from django.db import transaction
 from django.core.mail import send_mail
@@ -11,16 +11,19 @@ from django.utils import timezone
 from courses.models import Course, CourseRegistration
 from registration.models import MyUser
 from .models import FacilitatorRegistration
+from django.contrib.auth import logout
 
 logger = logging.getLogger(__name__)
-
 class FacilitatorApprovalView(LoginRequiredMixin, View):
     login_url = "login"
 
     def get(self, request):
         # Restrict to staff or admin users
         if not (request.user.is_staff or request.user.is_admin):
-            return render(request, 'admindash/facilitator/facilitator_approval.html', {'error': 'You do not have permission to access this page'})
+            logout(request) 
+            return redirect('login') # Log out the user if they don't have permission
+         
+            
         
         # Check if user is suspended
         registration = CourseRegistration.objects.filter(user=request.user).first()
@@ -60,21 +63,40 @@ class FacilitatorApprovalView(LoginRequiredMixin, View):
             return JsonResponse({'error': 'Invalid registration ID'}, status=400)
 
         try:
-          
+            with transaction.atomic():  # Ensure all database operations are atomic
                 if action == 'approve':
+                    # Check if another approved facilitator exists for the course
                     if FacilitatorRegistration.objects.filter(course=facilitator_registration.course, approved=True).exists():
                         return JsonResponse({
                             'error': f'Course {facilitator_registration.course.name} already has an approved facilitator'
                         }, status=400)
+                    
+                    # Get the course and its current facilitator
+                    course = facilitator_registration.course
+                    current_facilitator = course.facilitators
+                    
+                    # Check if the course has a facilitator and if they are verified
+                    if current_facilitator and current_facilitator.is_verified_facilitator:
+                        # Block update if the current facilitator is verified
+                        return JsonResponse({
+                            'error': f'Course {course.name} already has a verified facilitator assigned'
+                        }, status=400)
+                    
+                    # Update the course's facilitator to the new user if no verified facilitator exists
+                    course.facilitators = facilitator_registration.user
+                    course.save()
+
+                    # Mark the facilitator registration as approved
                     facilitator_registration.approved = True
                     facilitator_registration.rejection_reason = None
                     facilitator_registration.rejection_timestamp = None
-                    # Update user's facilitator status
+                    # Update the user's facilitator status
                     facilitator_registration.user.is_facilitator = True
                     facilitator_registration.user.is_verified_facilitator = True
                     facilitator_registration.user.save()
-                    facilitator_registration.save()  # Triggers save method for facilitator 
-                    # Send approval email
+                    facilitator_registration.save()  # Save the facilitator registration
+                    
+                    # Send approval email to the facilitator
                     send_mail(
                         subject="Facilitator Application Approved",
                         message=f"Congratulations! Your application to facilitate {facilitator_registration.course.name} has been approved.",
@@ -87,8 +109,7 @@ class FacilitatorApprovalView(LoginRequiredMixin, View):
                         'registration_id': facilitator_registration.id
                     })
                 else:  # action == 'reject'
-                   
-                    # Send rejection email
+                    # Send rejection email to the facilitator
                     send_mail(
                         subject="Facilitator Application Rejected",
                         message=f"Your application to facilitate {facilitator_registration.course.name} has been rejected.",

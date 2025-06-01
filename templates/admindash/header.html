@@ -167,11 +167,13 @@
 </a>
 
 
+
+
 </li>
  <li class="nav-item dropdown has-arrow">
 <a href="#" class=" nav-link user-link" data-toggle="dropdown">
 <span class="user-img"><img class="rounded-circle" src="{{allprofile.uplaod_picture.url}}" width="30" alt="skyline">
-<span class="status online"></span></span>
+
 <span>{{user.username}}</span>
 </a>
 
@@ -205,27 +207,13 @@
 				<a href="{% url 'dash' %}"><span>Dashboard</span></a>
 				</li>
 		
+		  <li>
+			<a href=""><i class="fas fa-project-diagram"></i><span> Projects</span></a>
+		  </li>
+  
 		
   
-		  {% if user.is_admin %}
-		  <li class="submenu">
-			<a href="#"><i class="fas fa-user-shield"></i> <span> Admin</span> <span class="menu-arrow"></span></a>
-			<ul class="list-unstyled">
-			 
-			  <li><a href="">Task Approval</a></li>
-			</ul>
-		  </li>
-		  {% endif %}
-  
-  
-		  <li class="submenu">
-			<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Class Room</span> <span class="menu-arrow"></span></a>
-			<ul class="list-unstyled">
-			  <li><a href="">Live Session</a></li>
-			  <li><a href="">Recap Session</a></li>
-			</ul>
-		  </li>
-  
+		
 		  <li class="submenu">
 			<a href="#"><i class="fas fa-book-open"></i> <span> Courses</span> <span class="menu-arrow"></span></a>
 			<ul class="list-unstyled">
@@ -237,13 +225,13 @@
 		  <li class="submenu">
 			<a href="#"><i class="fas fa-tasks"></i> <span> Tasks</span> <span class="menu-arrow"></span></a>
 			<ul class="list-unstyled">
-			  <li><a href="">Take Task</a></li>
+			 
 			  <li><a href="{% url 'task_collwction' %}">Task Collection</a></li>
 			</ul>
 		  </li>
   
 		  <li>
-			<a href=""><i class="fas fa-users-cog"></i><span> Join Community</span></a>
+			<a href="{% url 'team' %}"><i class="fas fa-users-cog"></i><span> Join Community</span></a>
 		  </li>
 		</ul>
 	  </div>
@@ -304,6 +292,7 @@
 <script src="{% static 'assets/ajax/task_approval.js' %}"></script>
 <script src="{% static 'assets/ajax/facilitator_approved.js' %}"></script>
  <script src="{% static 'assets/ajax/registration_approval.js' %}"></script>
+  <script src="{% static 'assets/ajax/monthlyscore.js' %}"></script>
 
 
 

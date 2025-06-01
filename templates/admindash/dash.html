@@ -10,6 +10,207 @@
 </head>
 
 {% block content %}
+<style>
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border-bottom: none;
+            padding: 25px 30px;
+            position: relative;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .close {
+            color: white;
+            opacity: 0.8;
+            font-size: 1.8rem;
+            text-shadow: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: white;
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 35px 30px;
+            background: #fafafa;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-control, .form-control:focus {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.15);
+        }
+
+        .input-group {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .input-group-prepend .input-group-text {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+        }
+
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .input-group .form-control:focus {
+            border-left: 2px solid #6c5ce7;
+        }
+
+        .modal-footer {
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 20px 30px;
+        }
+
+        .btn {
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 10px 25px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-secondary {
+            background: #74b9ff;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #0984e3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5f3dc4, #9775fa);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .form-text {
+            color: #636e72;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+
+        .custom-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+           
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.15);
+        }
+
+        .score-info {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fff;
+        }
+
+        .score-info i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Custom animations for modal */
+        .modal.fade .modal-dialog {
+            transform: translateY(-50px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal.show .modal-dialog {
+            transform: translateY(0);
+        }
+
+        /* Demo button to trigger modal */
+        .demo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(108, 92, 231, 0.4);
+            color: white;
+        }
+</style>
+
+    <!-- Spinner Overlay -->
+    <div id="fullpage-loader" class="fullpage-loader ">
+        <div class="loader-spinner"></div>
+    </div>
 
 <div class="page-wrapper">
     <div class="content container-fluid">
@@ -66,10 +267,14 @@
                 <div class="card stat-card h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="mr-auto">
-                            <p class="card-label text-muted mb-1">Acceptance Status</p>
+                            <p class="card-label text-muted mb-1">threshold Point</p>
                             <h3 class="card-value mb-0">
-                                <span class="badge badge-pill badge-success py-2 px-3">Accepted</span>
+                                <span class= "badge badge-pill badge-success py-2 px-3">{% if score_requirement  %}
+                                  
+                                 {{score_requirement}}  Pt {% else %} 0 Pt {% endif %}</span>
+                                
                             </h3>
+                           <a href="#"> <span class=" pt-4" data-toggle="modal" data-target="#createRequirementModal">add point</span></a>
                         </div>
                         <div class="icon-wrapper bg-danger-light ml-auto">
                             <img src="{% static 'assets/img/dash/dash-4.png' %}" alt="Status Icon" class="img-fluid">
@@ -129,7 +334,7 @@
                             </div>
                         </a>
 
-                        <a href="#" class="action-button">
+                        <a href="{% url 'student_list' %}" class="action-button">
                             <div class="action-icon-wrapper bg-warning">
                                 <i class="fas fa-graduation-cap"></i>
                             </div>
@@ -534,7 +739,83 @@
         </div>
         {% endif %}
     </div>
-</div>
+    <div class="modal fade" id="createRequirementModal" tabindex="-1" role="dialog" aria-labelledby="createRequirementModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createRequirementModalLabel">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        Create Monthly Score Requirement
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="score-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Set monthly performance standards</strong><br>
+                        <small>Define minimum score requirements for all projects this month</small>
+                    </div>
+
+                    <form action="{% url 'monthly_requirement' %}" method="post" id="requirementForm">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="course_id">
+                                <i class="fas fa-book mr-1"></i>
+                                Select Course
+                            </label>
+                            <select class="custom-select" id="course_id" name="course_id" required>
+                                <option value="">Choose a course...</option>
+                              
+                            </select>
+                            <small class="form-text">Select the course for which you want to set the score requirement.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="score_requirement">
+                                <i class="fas fa-target mr-1"></i>
+                                Minimum Score Requirement
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-percentage"></i>
+                                    </span>
+                                </div>
+                                <input 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="score_requirement" 
+                                    name="score_requirement" 
+                                    placeholder="Enter minimum score (0-100)" 
+                                    min="0" 
+                                    max="100" 
+                                    required
+                                >
+                            </div>
+                            <small class="form-text">Students must achieve this score or higher to meet monthly requirements.</small>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times mr-1"></i>
+                        Cancel
+                    </button>
+                    <button type="submit" form="requirementForm" class="btn btn-primary">
+                        <i class="fas fa-check mr-1"></i>
+                        Create Requirement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 <style>
     :root {
